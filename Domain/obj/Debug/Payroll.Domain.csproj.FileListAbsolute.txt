@@ -1,0 +1,11 @@
+E:\vs_Projects\Payroll_Mvc\Domain\bin\Debug\Payroll.Domain.dll
+E:\vs_Projects\Payroll_Mvc\Domain\bin\Debug\Payroll.Domain.pdb
+E:\vs_Projects\Payroll_Mvc\Domain\bin\Debug\FluentNHibernate.dll
+E:\vs_Projects\Payroll_Mvc\Domain\bin\Debug\Iesi.Collections.dll
+E:\vs_Projects\Payroll_Mvc\Domain\bin\Debug\MySql.Data.dll
+E:\vs_Projects\Payroll_Mvc\Domain\bin\Debug\NHibernate.dll
+E:\vs_Projects\Payroll_Mvc\Domain\bin\Debug\FluentNHibernate.xml
+E:\vs_Projects\Payroll_Mvc\Domain\bin\Debug\Iesi.Collections.xml
+E:\vs_Projects\Payroll_Mvc\Domain\bin\Debug\NHibernate.xml
+E:\vs_Projects\Payroll_Mvc\Domain\obj\Debug\Payroll.Domain.dll
+E:\vs_Projects\Payroll_Mvc\Domain\obj\Debug\Payroll.Domain.pdb

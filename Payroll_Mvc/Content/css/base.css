@@ -1,0 +1,384 @@
+﻿body {
+  margin: 0;
+  padding: 0;
+  line-height: 1.5em;
+  font: 8pt Trebuchet MS, Tahoma, Verdana, Arial, sans-serif;
+  margin: 5px;
+  border: none !important;
+}
+
+#maincontainer {
+  /*width: 840px; /*Width of main container*/
+}
+
+#topsection {
+  height: 40px; /*Height of top section*/
+  /*width: 995px;*/
+}
+
+#contentwrapper {
+  float: left;
+  width: 100%;
+}
+
+#contentcolumn {
+  margin-left: 200px; /*Set left margin to LeftColumnWidth*/
+}
+
+#leftcolumn {
+  float: left;
+  width: 200px; /*Width of left column*/
+  /*margin-left: -840px; /*Set left margin to -(MainContainerWidth)*/
+  margin-left: -100%;
+}
+
+.innertube {
+  margin: 2px;
+  /*Margins for inner DIV inside each column (to provide padding)*/
+  margin-top: 0;
+}
+
+.top_right {
+  float: right;
+  clear: all;
+  margin-right: 10px;
+  margin-top: 10px;
+  display: inline-block;
+  width: 70px;
+  padding-left: 10px;
+}
+
+#progress_status {
+  width: 200px;
+  position: absolute;
+  top: -14px;
+  left: 20px;
+  display: none;
+}
+
+#menu a:LINK {
+  text-decoration: none;
+}
+
+.menu_active {
+  font-weight: bold;
+}
+
+#table_container {
+  /*width: 790px;*/
+  /*border: 1px solid #cccccc;*/
+}
+
+.page_title {
+  height: 24px;
+  font-size: 1.1em;
+  font-weight: bold;
+  padding-left: 10px;
+  padding-top: 6px;
+}
+
+.display_option {
+  width: 50px;
+  font-size: 1em;
+}
+
+.search_option {
+  width: 100px;
+  font-size: 1em;
+}
+
+.search {
+  width: 200px;
+}
+
+.pg {
+  width: 50px;
+  text-align: right;
+}
+
+.list_table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.list_table .data {
+  text-align: justify;
+}
+
+.list_table .chkbox {
+  width: 50px;
+}
+
+.nav_table {
+  float: right;
+  border-collapse: collapse;
+}
+
+.nav_table td {
+  text-align: right;
+}
+
+.page_button {
+  text-align: center;
+  white-space: nowrap;
+  padding: 0 50px 2px 50px;
+}
+
+.go_button {
+  text-align: center;
+  white-space: nowrap;
+  padding: 0 15px 2px 15px;
+  display: inline-block;
+}
+
+#id_add, #id_delete {
+  width: 70px;
+  padding: 2px 0 2px 15px;
+}
+
+#id_find {
+  padding: 2px 17px 2px 3px;
+}
+
+#id_gen {
+  padding: 2px 45px 2px 3px;
+}
+
+.hover {
+  cursor: pointer;
+}
+
+.page_container {
+  width: 100%;
+}
+
+.space {
+  margin-top: 5px;
+}
+
+.link {
+  text-decoration: underline !important;
+}
+
+.text {
+  width: 200px;
+}
+
+.textarea {
+  width: 200px;
+  height: 100px;
+}
+
+.textarea2 {
+  width: 250px;
+  height: 50px;
+}
+
+.select {
+  width: 202px;
+  font-size: 1em;
+}
+
+.list_button {
+  margin-top: 2px;
+}
+
+.save_button, .print_button {
+  font-size: 1em;
+  padding: 2px 8px 2px 8px;
+  display: inline-block;
+  width: 60px;
+}
+
+.save_button.save {
+  margin-right: 5px;
+}
+
+div.row_button {
+  clear: both;
+  margin-right: 5px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  float: left;
+}
+
+.save_form .lbl {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.spinner {
+  display: inline-block;
+  background: url('../images/loading.gif');
+  width: 15px;
+  height: 15px;
+}
+
+.label:after {
+  content: ":";
+}
+
+.colheader,.sorticon {
+  display: inline-block !important;
+}
+
+.colheader {
+  height: 20px;
+}
+
+.aligncenter {
+  text-align: center;
+}
+
+#main_options {
+  float: right;
+  margin-right: 20px;
+  margin-top: 10px;
+  display: inline-block;
+  width: 70px;
+  text-align: justify;
+  padding-left: 10px;
+}
+
+.theme_options {
+  display: none;
+  height: 82px;
+  position: absolute;
+  top: 45px;
+  /*left: 890px;*/
+  left: 83%;
+  z-index: 3000;
+}
+
+#status-panel {
+  width: 300px;
+  position: absolute;
+  top: -14px;
+  left: 20px;
+  display: none;
+}
+
+.spacing {
+  padding-left: 30px;
+}
+
+.colspacing {
+  padding-right: 50px;
+}
+
+input[type='text'], input[type='password'] {
+  border: 1px solid #ccc;
+}
+
+input[type='text']:HOVER, input[type='password']:HOVER {
+  border: 1px solid #000;
+}
+
+input[type='text']:FOCUS, input[type='password']:FOCUS {
+  background-color: #ffc;
+}
+
+/* start payroll css */
+
+.heading, .subdet, .data_table th {
+  font-size: 1.2em;
+}
+
+.heading {
+  width: 100%;
+}
+
+.data_table {
+  width: 100%;
+  border: 1px solid;
+  border-collapse: collapse;
+}
+
+.data_table td {
+  font-size: 1.1em;
+}
+
+.data_table th, .data_table td {
+  border-right: 1px solid;
+}
+
+.data_table td.sum {
+  border-bottom: 1px solid;
+}
+
+.boldtext {
+  font-weight: bold;
+}
+
+.amt {
+  text-align: right;
+}
+
+.amt span {
+  margin-right: 15px;
+}
+
+.data_table span.det {
+  margin-left: 15px;
+}
+
+.print_container {
+  margin-top: 10px;
+}
+
+/* end payroll css */
+
+.paddicon {
+  padding-left: 18px;
+}
+
+.icons {
+  background: url('../images/icons.png') no-repeat !important;
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+}
+
+.addicon {
+  background-position: 0 0 !important;
+}
+.deleteicon {
+  background-position: 0 -21px !important;
+}
+.findicon {
+  background-position: 0 -42px !important;
+}
+.saveicon {
+  background-position: 0 -63px !important;
+}
+.cancelicon {
+  background-position: 0 -84px !important;
+}
+.lefticon {
+  background-position: 0 -105px !important;
+}
+.righticon {
+  background-position: 0 -126px !important;
+}
+.accepticon {
+  background-position: 0 -147px !important;
+}
+.printicon {
+  background-position: 0 -168px !important;
+}
+.optionicon {
+  background-position: 0 -189px !important;
+}
+.charticon {
+  background-position: 0 -210px !important;
+}
+.detailicon {
+  background-position: 0 -231px !important;
+}
+.logouticon {
+  background-position: 0 -252px !important;
+}
+.loginicon {
+  background-position: 0 -273px !important;
+}
+

@@ -1,0 +1,16 @@
+<table>
+  <tr>
+      @if (ViewBag.include_search != null && ViewBag.include_search == true)
+      {
+          <td>
+              @Html.Partial("~/Views/Shared/_search_button.cshtml")
+          </td>
+      }
+      <td>
+          @Html.Partial("~/Views/Shared/_add_button.cshtml")
+      </td>
+      <td>
+          @Html.Partial("~/Views/Shared/_delete_button.cshtml")
+      </td>
+  </tr>
+</table>

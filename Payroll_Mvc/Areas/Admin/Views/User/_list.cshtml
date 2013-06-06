@@ -1,0 +1,58 @@
+﻿@using Domain.Model;
+@using Payroll_Mvc.Models;
+
+@model ListModel<User>
+
+@{
+    ViewBag.totalpage = Model.TotalPage;
+}
+
+@if (Model.List != null && Model.List.Count > 0)
+{
+    <table class="list_table">
+        <thead class="ui-widget-header">
+            <tr>
+                <th class="data chkbox">
+                    <input class="hdchk" type="checkbox" /></th>
+                <th class="data">
+                    <div id="hd_username" class="sortheader hover">
+                        <span class="colheader">Username</span>
+                        <span class="sorticon"></span>
+                    </div>
+                </th>
+                <th class="data">
+                    <div id="hd_role" class="sortheader hover">
+                        <span class="colheader">User Role</span>
+                        <span class="sorticon"></span>
+                    </div>
+                </th>
+                <th class="data">
+                    <div id="hd_status" class="sortheader hover">
+                        <span class="colheader">Status</span>
+                        <span class="sorticon"></span>
+                    </div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        @{
+            int n = 0;
+            string css = "ui-state-active";
+        }
+        @foreach (User o in Model.List)
+        {
+            css = n % 2 == 0 ? "ui-state-active" : "ui-state-default";
+            ++n;
+        
+            <tr id="tr_@o.Id" class="@css">
+                <td class="data chkbox">
+                    <input class="chk" type="checkbox" /></td>
+                <td class="data">@o.Username</td>
+                <td class="data">@o.GetRoleDisplay()</td>
+                <td class="data">@o.GetStatusDisplay()</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+<input id="id_pg" type="hidden" value="@Model.HasPrev,@Model.HasNext,@Model.PrevPage,@Model.NextPage,@Model.ItemMsg,@Model.SortColumn,@Model.SortDir,@Model.Page" />

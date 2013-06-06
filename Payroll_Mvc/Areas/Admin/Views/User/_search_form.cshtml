@@ -1,0 +1,43 @@
+﻿<table>
+    <tr>
+        <td>
+            <label for="id_username" class="label">Username</label>
+        </td>
+        <td class="colspacing">
+            <input id="id_username" name="username" type="text" class="text" placeholder="type here to search" title="type here to search" x-webkit-speech="x-webkit-speech" />
+        </td>
+        <td>
+            <label for="id_user_role" class="label">User Role</label>
+        </td>
+        <td class="colspacing">
+            <select id="id_user_role" class="search_option">
+                <option value="0">All</option>
+                <option value="1">Admin</option>
+                <option value="2">Normal User</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label for="id_employee" class="label">Employee Name</label>
+        </td>
+        <td class="colspacing">
+            <input id="id_employee" name="employee" type="text" class="text" placeholder="type here to search" title="type here to search" x-webkit-speech="x-webkit-speech" />
+        </td>
+        <td>
+            <label for="id_status" class="label">Status</label>
+        </td>
+        <td>
+            <select id="id_status" class="search_option">
+                <option value="0">All</option>
+                <option value="1">Enabled</option>
+                <option value="2">Disabled</option>
+            </select>
+        </td>
+    </tr>
+</table>
+<br />
+@{
+    ViewBag.include_search = true;
+}
+@Html.Partial("~/Views/Shared/_panel_button.cshtml")

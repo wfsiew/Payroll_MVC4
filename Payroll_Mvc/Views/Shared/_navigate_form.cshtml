@@ -1,0 +1,34 @@
+<table class="nav_table">
+    <tr>
+        <td>Page&nbsp;
+      <input id="id_pagenum" type="text" class="pg" x-webkit-speech="x-webkit-speech" /> of @ViewBag.totalpage
+            <span id="id_go" class="go_button ui-state-default ui-corner-all">
+                <span>Go</span>
+            </span>
+        </td>
+        <td>
+            <span id="id_prev" class="page_button ui-state-default ui-corner-all">
+                <span class="icons lefticon">&nbsp;</span>
+            </span>
+        </td>
+        <td>
+            <span id="id_next" class="page_button ui-state-default ui-corner-all">
+                <span class="icons righticon">&nbsp;</span>
+            </span>
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>
+            <label for="id_display">Display:</label>
+            <select id="id_display">
+                <option value="20">20</option>
+                <option value="50" selected="selected">50</option>
+                <option value="100">100</option>
+            </select>
+        </td>
+        <td>
+            <span class="item_display"></span>
+        </td>
+    </tr>
+</table>

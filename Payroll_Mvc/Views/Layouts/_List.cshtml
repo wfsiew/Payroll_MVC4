@@ -1,0 +1,18 @@
+﻿<div id="table_container">
+    <div class="page_title ui-widget-header ui-widget">@ViewBag.title</div>
+    <table class="page_container ui-widget">
+        <tbody>
+            <tr>
+                <td valign="top">@RenderSection("search_form")</td>
+                <td valign="top">@Html.Partial("~/Views/Shared/_navigate_form.cshtml")</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="page_container ui-widget">
+        <div id="right_box">
+            @RenderSection("content_list")
+        </div>
+    </div>
+</div>
+@Html.Partial("~/Views/Shared/_alert_panel.cshtml")
+@RenderSection("dialog")

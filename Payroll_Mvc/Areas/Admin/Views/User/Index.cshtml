@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.title = "User";
+    ViewBag.dialog_title = "User";
+    ViewBag.dialog_add_title = "Add New User";
+    ViewBag.dialog_edit_title = "Edit User";        
+    Layout = "~/Views/Layouts/_List.cshtml";
+}
+
+@section search_form {
+    @Html.Partial("_search_form")
+}
+@section content_list {
+    @Html.Partial("_list")
+}
+@section dialog {
+    @Html.Partial("~/Views/Shared/_dialog_save.cshtml")
+}

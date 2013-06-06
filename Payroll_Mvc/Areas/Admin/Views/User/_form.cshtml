@@ -1,0 +1,66 @@
+﻿@using Domain.Model;
+
+@model User
+
+<form id="@ViewBag.form_id" class="save_form ui-widget-content ui-widget ui-corner-all" action=".">
+    <table>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="role" class="label">User Role</label>
+            </td>
+            <td>
+                @Html.DropDownList("role", new SelectListItem[] { 
+              new SelectListItem { Selected = Model.Role == 1, Text = "Admin", Value = "1" },
+              new SelectListItem { Selected = Model.Role == 2, Text = "Normal User", Value = "2" } },
+              new { id = "id_role", @class = "select" })
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="username" class="label">Username</label>
+            </td>
+            <td>
+                <input id="id_username" name="username" type="text" class="text" placeholder="enter username" 
+              title="enter username" x-webkit-speech="x-webkit-speech" value="@Model.Username" />
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="status" class="label">Status</label>
+            </td>
+            <td>
+                @Html.DropDownList("status", new SelectListItem[] {
+              new SelectListItem { Selected = @Model.Status == true || @Model.Status == null, Text = "Enabled", Value = "1" },
+              new SelectListItem { Selected = @Model.Status == false, Text = "Disabled", Value = "0" } },
+              new { id = "id_status", @class = "select" })
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="pwd" class="label">Password</label>
+            </td>
+            <td>
+                <input id="id_password" name="pwd" type="password" class="text" placeholder="enter password" 
+              title="Minimum is 4 characters" x-webkit-speech="x-webkit-speech" value="@Model.Password" />
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="pwd_confirmation" class="label">Confirm Password</label>
+            </td>
+            <td>
+                <input id="id_passwordconfirm" name="pwd_confirmation" type="password" class="text" placeholder="enter password confirmation" 
+              title="enter password confirmation" x-webkit-speech="x-webkit-speech" value="@Model.PasswordConfirmation" />
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <div class="row_button">
+                    @Html.Partial("~/Views/Shared/_save_button.cshtml")
+                    @Html.Partial("~/Views/Shared/_cancel_button.cshtml")
+                </div>
+            </td>
+        </tr>
+    </table>
+</form>
