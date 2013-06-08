@@ -9,15 +9,16 @@ using Domain.Model;
 
 namespace Domain.Mapping
 {
-    public class OvertimeRateMap : ClassMap<OvertimeRate>
+    public class OvertimerateMap : ClassMap<Overtimerate>
     {
-        public OvertimeRateMap()
+        public OvertimerateMap()
         {
             Table("overtime_rate");
-            Id(o => o.Id);
-            Map(o => o.Duration).Column("duration").Access.Property().Generated.Never();
-            Map(o => o.Year).Column("year").Unique().Access.Property().Generated.Never();
-            Map(o => o.PayRate).Column("pay_rate").Access.Property().Generated.Never();
+            LazyLoad();
+            Id(x => x.Id).GeneratedBy.Identity().Column("Id");
+            Map(x => x.Duration).Column("duration");
+            Map(x => x.Year).Column("year");
+            Map(x => x.Payrate).Column("pay_rate");
         }
     }
 }

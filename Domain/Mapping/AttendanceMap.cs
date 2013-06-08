@@ -14,11 +14,13 @@ namespace Domain.Mapping
         public AttendanceMap()
         {
             Table("attendance");
-            Id(o => o.Id).GeneratedBy.GuidComb();
-            Map(o => o.StaffId).Column("staff_id").Access.Property().Generated.Never().Not.Nullable();
-            Map(o => o.WorkDate).Column("work_date").Access.Property().Generated.Never().CustomSqlType("date").CustomType<DateTime>();
-            Map(o => o.TimeIn).Column("time_in").Access.Property().Generated.Never();
-            Map(o => o.TimeOut).Column("time_out").Access.Property().Generated.Never();
+            LazyLoad();
+            Id(x => x.Id).GeneratedBy.GuidComb().Column("Id");
+            Map(x => x.Staffid).Column("staff_id").Not.Nullable();
+            Map(x => x.Workdate).Column("work_date");
+            Map(x => x.Timein).Column("time_in");
+            Map(x => x.Timeout).Column("time_out");
+            HasMany(x => x.Employee).KeyColumn("staff_id").PropertyRef("Staffid");
         }
     }
 }

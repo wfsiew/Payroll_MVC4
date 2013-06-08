@@ -14,10 +14,12 @@ namespace Domain.Mapping
         public DesignationMap()
         {
             Table("designation");
-            Id(o => o.Id);
-            Map(o => o.Title).Column("title").Unique().Access.Property().Generated.Never().Not.Nullable();
-            Map(o => o.Desc).Column("description").Access.Property().Generated.Never();
-            Map(o => o.Note).Column("note").Access.Property().Generated.Never();
+            LazyLoad();
+            Id(x => x.Id).GeneratedBy.Identity().Column("Id");
+            Map(x => x.Title).Column("title").Not.Nullable();
+            Map(x => x.Description).Column("description");
+            Map(x => x.Note).Column("note");
+            HasMany(x => x.Employeejob).KeyColumn("designation_id");
         }
     }
 }

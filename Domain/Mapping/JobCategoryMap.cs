@@ -9,13 +9,15 @@ using Domain.Model;
 
 namespace Domain.Mapping
 {
-    public class JobCategoryMap : ClassMap<JobCategory>
+    public class Jobcategorymap : ClassMap<Jobcategory>
     {
-        public JobCategoryMap()
+        public Jobcategorymap()
         {
             Table("job_category");
-            Id(o => o.Id);
-            Map(o => o.Name).Column("name").Unique().Access.Property().Generated.Never().Not.Nullable();
+            LazyLoad();
+            Id(x => x.Id).GeneratedBy.Identity().Column("Id");
+            Map(x => x.Name).Column("name").Not.Nullable();
+            HasMany(x => x.Employeejob).KeyColumn("job_category_id");
         }
     }
 }

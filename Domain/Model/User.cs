@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Security.Cryptography;
 using System.Web.Mvc;
 
+using NHibernate.Validator.Constraints;
+
 using NHibernate;
 
 namespace Domain.Model
@@ -14,17 +16,18 @@ namespace Domain.Model
     {
         public const string UNCHANGED_PASSWORD = "********";
 
-        public virtual Guid Id { get; protected set; }
+        public virtual Guid Id { get; set; }
+        [NotNullNotEmpty]
         public virtual int Role { get; set; }
+        [NotNullNotEmpty]
         public virtual string Username { get; set; }
+        [NotNullNotEmpty]
         public virtual bool Status { get; set; }
+        [NotNullNotEmpty]
         public virtual string Password { get; set; }
-        public virtual string PasswordConfirmation { get; set; }
+        public virtual Employee Employee { get; set; }
 
-        public virtual void SetId(Guid id)
-        {
-            Id = id;
-        }
+        public virtual string PasswordConfirmation { get; set; }
 
         public virtual string GetRoleDisplay()
         {

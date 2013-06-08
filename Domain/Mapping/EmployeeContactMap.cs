@@ -9,26 +9,24 @@ using Domain.Model;
 
 namespace Domain.Mapping
 {
-    public class EmployeeContactMap : ClassMap<EmployeeContact>
+    public class EmployeecontactMap : ClassMap<Employeecontact>
     {
-        public EmployeeContactMap()
+        public EmployeecontactMap()
         {
             Table("employee_contact");
-            Id(o => o.Id).GeneratedBy.Foreign("Employee");
-            Map(o => o.Address1).Column("address_1").Access.Property().Generated.Never().Not.Nullable();
-            Map(o => o.Address2).Column("address_2").Access.Property().Generated.Never();
-            Map(o => o.Address3).Column("address_3").Access.Property().Generated.Never();
-            Map(o => o.City).Column("city").Access.Property().Generated.Never().Not.Nullable();
-            Map(o => o.State).Column("state").Access.Property().Generated.Never().Not.Nullable();
-            Map(o => o.PostCode).Column("postcode").Access.Property().Generated.Never().Not.Nullable();
-            Map(o => o.Country).Column("country").Access.Property().Generated.Never().Not.Nullable();
-            Map(o => o.HomePhone).Column("home_phone").Access.Property().Generated.Never();
-            Map(o => o.MobilePhone).Column("mobile_phone").Access.Property().Generated.Never();
-            Map(o => o.WorkEmail).Column("work_email").Access.Property().Generated.Never().Not.Nullable();
-            Map(o => o.OtherEmail).Column("other_email").Access.Property().Generated.Never();
-            HasOne(o => o.Employee)
-                .Constrained().ForeignKey()
-                .LazyLoad();
+            LazyLoad();
+            Id(x => x.Id).GeneratedBy.Assigned().Column("Id");
+            Map(x => x.Address1).Column("address_1").Not.Nullable();
+            Map(x => x.Address2).Column("address_2");
+            Map(x => x.Address3).Column("address_3");
+            Map(x => x.City).Column("city").Not.Nullable();
+            Map(x => x.State).Column("state").Not.Nullable();
+            Map(x => x.Postcode).Column("postcode").Not.Nullable();
+            Map(x => x.Country).Column("country").Not.Nullable();
+            Map(x => x.Homephone).Column("home_phone");
+            Map(x => x.Mobilephone).Column("mobile_phone");
+            Map(x => x.Workemail).Column("work_email").Not.Nullable();
+            Map(x => x.Otheremail).Column("other_email");
         }
     }
 }

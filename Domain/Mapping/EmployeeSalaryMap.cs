@@ -9,28 +9,26 @@ using Domain.Model;
 
 namespace Domain.Mapping
 {
-    public class EmployeeSalaryMap : ClassMap<EmployeeSalary>
+    public class EmployeesalaryMap : ClassMap<Employeesalary>
     {
-        public EmployeeSalaryMap()
+        public EmployeesalaryMap()
         {
             Table("employee_salary");
-            Id(o => o.Id).GeneratedBy.Foreign("Employee");
-            Map(o => o.Salary).Column("salary").Access.Property().Generated.Never().Not.Nullable();
-            Map(o => o.Allowance).Column("allowance").Access.Property().Generated.Never();
-            Map(o => o.Epf).Column("epf").Access.Property().Generated.Never();
-            Map(o => o.Socso).Column("socso").Access.Property().Generated.Never();
-            Map(o => o.IncomeTax).Column("income_tax").Access.Property().Generated.Never();
-            Map(o => o.BankName).Column("bank_name").Access.Property().Generated.Never().Not.Nullable();
-            Map(o => o.BankAccNo).Column("bank_acc_no").Access.Property().Generated.Never().Not.Nullable();
-            Map(o => o.BankAccType).Column("bank_acc_type").Access.Property().Generated.Never().Not.Nullable();
-            Map(o => o.BankAddress).Column("bank_address").Access.Property().Generated.Never().Not.Nullable();
-            Map(o => o.EpfNo).Column("epf_no").Access.Property().Generated.Never().Not.Nullable();
-            Map(o => o.SocsoNo).Column("socso_no").Access.Property().Generated.Never();
-            Map(o => o.IncomeTaxNo).Column("income_tax_no").Access.Property().Generated.Never();
-            Map(o => o.PayType).Column("pay_type").Access.Property().Generated.Never();
-            HasOne(o => o.Employee)
-                .Constrained().ForeignKey()
-                .LazyLoad();
+            LazyLoad();
+            Id(x => x.Id).GeneratedBy.Assigned().Column("Id");
+            Map(x => x.Salary).Column("salary").Not.Nullable();
+            Map(x => x.Allowance).Column("allowance");
+            Map(x => x.Epf).Column("epf");
+            Map(x => x.Socso).Column("socso");
+            Map(x => x.Incometax).Column("income_tax");
+            Map(x => x.Bankname).Column("bank_name").Not.Nullable();
+            Map(x => x.Bankaccno).Column("bank_acc_no").Not.Nullable();
+            Map(x => x.Bankacctype).Column("bank_acc_type").Not.Nullable();
+            Map(x => x.Bankaddress).Column("bank_address").Not.Nullable();
+            Map(x => x.Epfno).Column("epf_no").Not.Nullable();
+            Map(x => x.Socsono).Column("socso_no");
+            Map(x => x.Incometaxno).Column("income_tax_no");
+            Map(x => x.Paytype).Column("pay_type");
         }
     }
 }

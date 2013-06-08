@@ -4,23 +4,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using NHibernate.Validator.Constraints;
+
 namespace Domain.Model
 {
-    public class EmployeeContact
+    public class Employeecontact
     {
-        public virtual Guid Id { get; protected set; }
+        public virtual Guid Id { get; set; }
+        [NotNullNotEmpty]
         public virtual string Address1 { get; set; }
         public virtual string Address2 { get; set; }
         public virtual string Address3 { get; set; }
+        [NotNullNotEmpty]
         public virtual string City { get; set; }
+        [NotNullNotEmpty]
         public virtual string State { get; set; }
-        public virtual string PostCode { get; set; }
+        [NotNullNotEmpty]
+        public virtual string Postcode { get; set; }
+        [NotNullNotEmpty]
         public virtual string Country { get; set; }
-        public virtual string HomePhone { get; set; }
-        public virtual string MobilePhone { get; set; }
-        public virtual string WorkEmail { get; set; }
-        public virtual string OtherEmail { get; set; }
-
-        public virtual Employee Employee { get; set; }
+        public virtual string Homephone { get; set; }
+        public virtual string Mobilephone { get; set; }
+        [NotNullNotEmpty]
+        public virtual string Workemail { get; set; }
+        public virtual string Otheremail { get; set; }
     }
 }

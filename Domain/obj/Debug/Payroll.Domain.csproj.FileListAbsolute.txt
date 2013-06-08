@@ -9,3 +9,17 @@ E:\vs_Projects\Payroll_Mvc\Domain\bin\Debug\Iesi.Collections.xml
 E:\vs_Projects\Payroll_Mvc\Domain\bin\Debug\NHibernate.xml
 E:\vs_Projects\Payroll_Mvc\Domain\obj\Debug\Payroll.Domain.dll
 E:\vs_Projects\Payroll_Mvc\Domain\obj\Debug\Payroll.Domain.pdb
+E:\vs_Projects\Payroll_Mvc\Domain\bin\Debug\NHibernate.Validator.dll
+E:\vs_Projects\Payroll_Mvc\Domain\bin\Debug\NHibernate.Validator.Specific.dll
+E:\vs_Projects\Payroll_Mvc\Domain\bin\Debug\NHibernate.Validator.xml
+E:\vs_Projects\Payroll_Mvc\Domain\bin\Debug\NHibernate.Validator.Specific.xml
+E:\vs_Projects\Payroll_Mvc\Domain\bin\Debug\de\NHibernate.Validator.resources.dll
+E:\vs_Projects\Payroll_Mvc\Domain\bin\Debug\es\NHibernate.Validator.resources.dll
+E:\vs_Projects\Payroll_Mvc\Domain\bin\Debug\fa\NHibernate.Validator.resources.dll
+E:\vs_Projects\Payroll_Mvc\Domain\bin\Debug\fr\NHibernate.Validator.resources.dll
+E:\vs_Projects\Payroll_Mvc\Domain\bin\Debug\hr\NHibernate.Validator.resources.dll
+E:\vs_Projects\Payroll_Mvc\Domain\bin\Debug\it\NHibernate.Validator.resources.dll
+E:\vs_Projects\Payroll_Mvc\Domain\bin\Debug\lv\NHibernate.Validator.resources.dll
+E:\vs_Projects\Payroll_Mvc\Domain\bin\Debug\nl\NHibernate.Validator.resources.dll
+E:\vs_Projects\Payroll_Mvc\Domain\bin\Debug\pl\NHibernate.Validator.resources.dll
+E:\vs_Projects\Payroll_Mvc\Domain\bin\Debug\pt-BR\NHibernate.Validator.resources.dll

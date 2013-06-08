@@ -4,19 +4,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using NHibernate.Validator.Constraints;
+
 namespace Domain.Model
 {
-    public class EmployeeQualification
+    public class Employeequalification
     {
-        public virtual Guid Id { get; protected set; }
+        public virtual Guid Id { get; set; }
+        [NotNullNotEmpty]
         public virtual int Level { get; set; }
+        [NotNullNotEmpty]
         public virtual string Institute { get; set; }
         public virtual string Major { get; set; }
+        [NotNullNotEmpty]
         public virtual int Year { get; set; }
         public virtual double Gpa { get; set; }
-        public virtual DateTime StartDate { get; set; }
-        public virtual DateTime EndDate { get; set; }
-
-        public virtual Employee Employee { get; set; }
+        [NotNullNotEmpty]
+        public virtual DateTime Startdate { get; set; }
+        [NotNullNotEmpty]
+        public virtual DateTime Enddate { get; set; }
     }
 }

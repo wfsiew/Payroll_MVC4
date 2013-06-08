@@ -14,8 +14,10 @@ namespace Domain.Mapping
         public DepartmentMap()
         {
             Table("department");
-            Id(o => o.Id);
-            Map(o => o.Name).Column("name").Unique().Access.Property().Generated.Never().Not.Nullable();
+            LazyLoad();
+            Id(x => x.Id).GeneratedBy.Identity().Column("Id");
+            Map(x => x.Name).Column("name").Not.Nullable();
+            HasMany(x => x.Employeejob).KeyColumn("department_id");
         }
     }
 }

@@ -14,11 +14,13 @@ namespace Domain.Mapping
         public UserMap()
         {
             Table("user");
-            Id(o => o.Id);
-            Map(o => o.Role).Column("role").Access.Property().Generated.Never().Not.Nullable();
-            Map(o => o.Username).Column("username").Unique().Access.Property().Generated.Never().Not.Nullable();
-            Map(o => o.Status).Column("status").Access.Property().Generated.Never().Not.Nullable();
-            Map(o => o.Password).Column("password").Access.Property().Generated.Never().Not.Nullable();
+            LazyLoad();
+            Id(x => x.Id).GeneratedBy.GuidComb().Column("Id");
+            Map(x => x.Role).Column("role").Not.Nullable();
+            Map(x => x.Username).Column("username").Not.Nullable();
+            Map(x => x.Status).Column("status").Not.Nullable();
+            Map(x => x.Password).Column("password").Not.Nullable();
+            HasOne(x => x.Employee).PropertyRef("User");
         }
     }
 }

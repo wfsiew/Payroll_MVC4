@@ -9,21 +9,19 @@ using Domain.Model;
 
 namespace Domain.Mapping
 {
-    public class EmployeeJobMap : ClassMap<EmployeeJob>
+    public class EmployeejobMap : ClassMap<Employeejob>
     {
-        public EmployeeJobMap()
+        public EmployeejobMap()
         {
             Table("employee_job");
-            Id(o => o.Id).GeneratedBy.Foreign("Employee");
-            References(o => o.Designation).Column("designation_id").Access.Property().Not.Nullable();
-            References(o => o.Department).Column("department_id").Access.Property().Not.Nullable();
-            References(o => o.EmploymentStatus).Column("employment_status_id").Access.Property().Not.Nullable();
-            References(o => o.JobCategory).Column("job_category_id").Access.Property().Not.Nullable();
-            Map(o => o.JoinDate).Column("join_date").Access.Property().Not.Nullable().CustomSqlType("date").CustomType<DateTime>();
-            Map(o => o.ConfirmDate).Column("confirm_date").Access.Property().CustomSqlType("date").CustomType<DateTime>();
-            HasOne(o => o.Employee)
-                .Constrained().ForeignKey()
-                .LazyLoad();
+            LazyLoad();
+            Id(x => x.Id).GeneratedBy.Assigned().Column("Id");
+            References(x => x.Designation).Column("designation_id");
+            References(x => x.Department).Column("department_id");
+            References(x => x.Employmentstatus).Column("employment_status_id");
+            References(x => x.Jobcategory).Column("job_category_id");
+            Map(x => x.Joindate).Column("join_date").Not.Nullable();
+            Map(x => x.Confirmdate).Column("confirm_date");
         }
     }
 }

@@ -9,22 +9,20 @@ using Domain.Model;
 
 namespace Domain.Mapping
 {
-    public class EmployeeQualificationMap : ClassMap<EmployeeQualification>
+    public class EmployeequalificationMap : ClassMap<Employeequalification>
     {
-        public EmployeeQualificationMap()
+        public EmployeequalificationMap()
         {
             Table("employee_qualification");
-            Id(o => o.Id).GeneratedBy.Foreign("Employee");
-            Map(o => o.Level).Column("level").Access.Property().Generated.Never().Not.Nullable();
-            Map(o => o.Institute).Column("institute").Access.Property().Generated.Never().Not.Nullable();
-            Map(o => o.Major).Column("major").Access.Property().Generated.Never();
-            Map(o => o.Year).Column("year").Access.Property().Generated.Never().Not.Nullable();
-            Map(o => o.Gpa).Column("gpa").Access.Property().Generated.Never();
-            Map(o => o.StartDate).Column("start_date").Access.Property().Generated.Never().Not.Nullable().CustomSqlType("date").CustomType<DateTime>();
-            Map(o => o.EndDate).Column("end_date").Access.Property().Generated.Never().Not.Nullable().CustomSqlType("date").CustomType<DateTime>();
-            HasOne(o => o.Employee)
-                .Constrained().ForeignKey()
-                .LazyLoad();
+            LazyLoad();
+            Id(x => x.Id).GeneratedBy.Assigned().Column("Id");
+            Map(x => x.Level).Column("level").Not.Nullable();
+            Map(x => x.Institute).Column("institute").Not.Nullable();
+            Map(x => x.Major).Column("major");
+            Map(x => x.Year).Column("year").Not.Nullable();
+            Map(x => x.Gpa).Column("gpa");
+            Map(x => x.Startdate).Column("start_date").Not.Nullable();
+            Map(x => x.Enddate).Column("end_date").Not.Nullable();
         }
     }
 }

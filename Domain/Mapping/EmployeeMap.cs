@@ -14,23 +14,29 @@ namespace Domain.Mapping
         public EmployeeMap()
         {
             Table("employee");
-            Id(o => o.Id).GeneratedBy.GuidComb();
-            Map(o => o.StaffId).Column("staff_id").Unique().Access.Property().Generated.Never().Not.Nullable();
-            Map(o => o.FirstName).Column("first_name").Access.Property().Generated.Never().Not.Nullable();
-            Map(o => o.MiddleName).Column("middle_name").Access.Property().Generated.Never();
-            Map(o => o.LastName).Column("last_name").Access.Property().Generated.Never().Not.Nullable();
-            Map(o => o.NewIC).Column("new_ic").Access.Property().Generated.Never().Not.Nullable();
-            Map(o => o.OldIC).Column("old_ic").Access.Property().Generated.Never();
-            Map(o => o.PassportNo).Column("passport_no").Access.Property().Generated.Never();
-            Map(o => o.Gender).Column("gender").Access.Property().Generated.Never().Not.Nullable();
-            Map(o => o.MaritalStatus).Column("marital_status").Access.Property().Generated.Never().Not.Nullable();
-            Map(o => o.Nationality).Column("nationality").Access.Property().Generated.Never().Not.Nullable();
-            Map(o => o.Dob).Column("dob").Access.Property().Generated.Never().Not.Nullable().CustomSqlType("date").CustomType<DateTime>();
-            Map(o => o.PlaceOfBirth).Column("place_of_birth").Access.Property().Generated.Never().Not.Nullable();
-            Map(o => o.Race).Column("race").Access.Property().Generated.Never().Not.Nullable();
-            Map(o => o.Religion).Column("religion").Access.Property().Generated.Never();
-            Map(o => o.IsBumi).Column("is_bumi").Access.Property().Generated.Never();
-            References(o => o.User).Column("user_id");
+            LazyLoad();
+            Id(x => x.Id).GeneratedBy.GuidComb().Column("Id");
+            References(x => x.User).Column("user_id");
+            Map(x => x.Staffid).Column("staff_id").Not.Nullable();
+            Map(x => x.Firstname).Column("first_name").Not.Nullable();
+            Map(x => x.Middlename).Column("middle_name");
+            Map(x => x.Lastname).Column("last_name").Not.Nullable();
+            Map(x => x.Newic).Column("new_ic").Not.Nullable();
+            Map(x => x.Oldic).Column("old_ic");
+            Map(x => x.Passportno).Column("passport_no");
+            Map(x => x.Gender).Column("gender").Not.Nullable();
+            Map(x => x.Maritalstatus).Column("marital_status").Not.Nullable();
+            Map(x => x.Nationality).Column("nationality").Not.Nullable();
+            Map(x => x.Dob).Column("dob").Not.Nullable();
+            Map(x => x.Placeofbirth).Column("place_of_birth").Not.Nullable();
+            Map(x => x.Race).Column("race").Not.Nullable();
+            Map(x => x.Religion).Column("religion");
+            Map(x => x.Isbumi).Column("is_bumi");
+            HasOne(x => x.Employeecontact);
+            HasOne(x => x.Employeejob);
+            HasOne(x => x.Employeequalification);
+            HasOne(x => x.Employeesalary);
+            HasMany(x => x.Attendance).KeyColumn("staff_id").PropertyRef("Staffid");
         }
     }
 }

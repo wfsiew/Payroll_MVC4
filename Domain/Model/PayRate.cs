@@ -4,14 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using NHibernate.Validator.Constraints;
+
 namespace Domain.Model
 {
-    public class PayRate
+    public class Payrate
     {
         public virtual Guid Id { get; set; }
-        public virtual string StaffId { get; set; }
+        [NotNullNotEmpty]
+        public virtual string Staffid { get; set; }
+        [NotNullNotEmpty]
         public virtual int Month { get; set; }
+        [NotNullNotEmpty]
         public virtual int Year { get; set; }
-        public virtual double HourlyPayRate { get; set; }
+        [NotNullNotEmpty]
+        public virtual double Hourlypayrate { get; set; }
     }
 }

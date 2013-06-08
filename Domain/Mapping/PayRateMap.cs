@@ -9,16 +9,17 @@ using Domain.Model;
 
 namespace Domain.Mapping
 {
-    public class PayRateMap : ClassMap<PayRate>
+    public class PayrateMap : ClassMap<Payrate>
     {
-        public PayRateMap()
+        public PayrateMap()
         {
             Table("pay_rate");
-            Id(o => o.Id);
-            Map(o => o.StaffId).Column("staff_id").Access.Property().Generated.Never().Not.Nullable();
-            Map(o => o.Month).Column("month").Access.Property().Generated.Never().Not.Nullable();
-            Map(o => o.Year).Column("year").Access.Property().Generated.Never().Not.Nullable();
-            Map(o => o.HourlyPayRate).Column("hourly_pay_rate").Access.Property().Generated.Never().Not.Nullable();
+            LazyLoad();
+            Id(x => x.Id).GeneratedBy.GuidComb().Column("Id");
+            Map(x => x.Staffid).Column("staff_id").Not.Nullable();
+            Map(x => x.Month).Column("month").Not.Nullable();
+            Map(x => x.Year).Column("year").Not.Nullable();
+            Map(x => x.Hourlypayrate).Column("hourly_pay_rate").Not.Nullable();
         }
     }
 }

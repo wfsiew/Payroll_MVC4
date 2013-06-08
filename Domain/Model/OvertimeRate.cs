@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Domain.Model
 {
-    public class OvertimeRate
+    public class Overtimerate
     {
-        public virtual int Id { get; protected set; }
+        public virtual int Id { get; set; }
         public virtual double Duration { get; set; }
-        public virtual int Year { get; set; }
-        public virtual double PayRate { get; set; }
+        public virtual int? Year { get; set; }
+        public virtual double Payrate { get; set; }
     }
 }

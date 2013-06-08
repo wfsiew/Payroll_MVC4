@@ -35,6 +35,21 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
 
             Sort sort = new Sort(sortcolumn, sortdir);
 
+            Dictionary<string, object> filters = new Dictionary<string, object>
+            {
+                { "username", username },
+                { "role", role },
+                { "employee", employee },
+                { "status", status }
+            };
+
+            ListModel<User> l = null;
+
+            if (string.IsNullOrEmpty(username) && role == 0 && string.IsNullOrEmpty(employee) && status == 0)
+                l = UserHelper.GetAll(pgnum, pgsize, sort);
+
+            else
+                l = UserHelper.GetFilterBy(filters, pgnum, pgsize, sort);
 
             return View("_list", l);
         }
@@ -108,7 +123,7 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
             {
                 o = se.Get<User>(id);
                 x.SetProperties(fc);
-                x.SetId(id);
+                x.Id = id;
 
                 err = x.IsValid(se);
             }

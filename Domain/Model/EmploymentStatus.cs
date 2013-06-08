@@ -4,11 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using NHibernate.Validator.Constraints;
+
 namespace Domain.Model
 {
-    public class EmploymentStatus
+    public class Employmentstatus
     {
-        public virtual int Id { get; protected set; }
+        public Employmentstatus()
+        {
+			Employeejob = new List<Employeejob>();
+        }
+
+        public virtual int Id { get; set; }
+        [NotNullNotEmpty]
         public virtual string Name { get; set; }
+        public virtual IList<Employeejob> Employeejob { get; set; }
     }
 }
