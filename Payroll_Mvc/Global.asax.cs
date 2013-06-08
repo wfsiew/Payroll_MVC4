@@ -6,7 +6,9 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-using Payroll_Mvc.Models;
+using NHibernate;
+using NHibernate.Context;
+using Payroll_Mvc.Helpers;
 
 namespace Payroll_Mvc
 {
@@ -23,6 +25,18 @@ namespace Payroll_Mvc
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
             NHibernateHelper.EnsureStartup();
+        }
+
+        protected void Application_BeginRequest(object sender, EventArgs e)
+        {
+            ISession s = NHibernateHelper.OpenSession();
+            CurrentSessionContext.Bind(s);
+        }
+
+        protected void Application_EndRequest(object sender, EventArgs e)
+        {
+            ISession s = CurrentSessionContext.Unbind(NHibernateHelper.SessionFactory);
+            s.Dispose();
         }
     }
 }

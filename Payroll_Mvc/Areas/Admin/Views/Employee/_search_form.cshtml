@@ -1,0 +1,64 @@
+﻿@using Domain.Model;
+
+<table>
+    <tr>
+        <td>
+            <label for="id_employee" class="label">Employee</label>
+        </td>
+        <td class="colspacing">
+            <input id="id_employee" name="employee" type="text" class="search" placeholder="type here to search" title="type here to search" x-webkit-speech="x-webkit-speech" />
+        </td>
+        <td>
+            <label for="id_staff_id" class="label">Id</label>
+        </td>
+        <td>
+            <input id="id_staff_id" name="staff_id" type="text" class="search" placeholder="type here to search" title="type here to search" x-webkit-speech="x-webkit-speech" />
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label for="id_employment_status" class="label">Employment Status</label>
+        </td>
+        <td class="colspacing">
+            <select id="id_employment_status" class="select">
+                <option value="0">All</option>
+                @foreach (Employmentstatus o in ViewBag.employmentstatus)
+                {
+                    <option value="@o.Id">@o.Name</option>
+                }
+            </select>
+        </td>
+        <td>
+            <label for="id_designation" class="label">Job Title</label>
+        </td>
+        <td class="colspacing">
+            <select id="id_designation" class="select">
+                <option value="0">All</option>
+                @foreach (Designation o in ViewBag.designation)
+                {
+                    <option value="@o.Id">@o.Title</option>
+                }
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label for="id_dept" class="label">Department</label>
+        </td>
+        <td>
+            <select id="id_dept" class="select">
+                <option value="0">All</option>
+                @foreach (Department o in ViewBag.dept)
+                {
+                    <option value="@o.Id">@o.Name</option>
+                }
+            </select>
+        </td>
+        <td colspan="2"></td>
+    </tr>
+</table>
+<br />
+@{
+    ViewBag.include_search = true;
+}
+@Html.Partial("~/Views/Shared/_panel_button.cshtml")

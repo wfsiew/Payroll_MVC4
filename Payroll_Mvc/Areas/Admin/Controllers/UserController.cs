@@ -18,7 +18,10 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
 
         public ActionResult Index()
         {
-            ListModel<User> l = UserHelper.GetAll();
+            ListModel<User> l = null;
+
+            l = UserHelper.GetAll();
+
             return View(l);
         }
 
@@ -54,7 +57,7 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
             return View("_list", l);
         }
 
-        public ActionResult Create()
+        public ActionResult New()
         {
             ViewBag.form_id = "add-form";
             return View("_form", new User());
@@ -68,21 +71,16 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
 
             Dictionary<string, object> err = new Dictionary<string, object>();
 
-            using (ISession se = NHibernateHelper.OpenSession())
-            {
-                err = o.IsValid(se);
-            }
+            ISession se = NHibernateHelper.CurrentSession;
+            err = o.IsValid(se);
 
             if (err.Keys.Count == 0)
             {
-                using (ISession se = NHibernateHelper.OpenSession())
+                using (ITransaction tx = se.BeginTransaction())
                 {
-                    using (ITransaction tx = se.BeginTransaction())
-                    {
-                        o.EncryptPassword();
-                        se.SaveOrUpdate(o);
-                        tx.Commit();
-                    }
+                    o.EncryptPassword();
+                    se.SaveOrUpdate(o);
+                    tx.Commit();
                 }
 
                 return Json(new Dictionary<string, object>
@@ -104,10 +102,8 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
             User o = new User();
             ViewBag.form_id = "edit-form";
 
-            using (ISession se = NHibernateHelper.OpenSession())
-            {
-                o = se.Get<User>(id);
-            }
+            ISession se = NHibernateHelper.CurrentSession;
+            o = se.Get<User>(id);
 
             return View("_form", o);
         }
@@ -119,34 +115,30 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
             User o = null;
             User x = new User();
 
-            using (ISession se = NHibernateHelper.OpenSession())
-            {
-                o = se.Get<User>(id);
-                x.SetProperties(fc);
-                x.Id = id;
+            ISession se = NHibernateHelper.CurrentSession;
 
-                err = x.IsValid(se);
-            }
+            o = se.Get<User>(id);
+            x.SetProperties(fc);
+            x.Id = id;
+
+            err = x.IsValid(se);
 
             if (err.Keys.Count == 0)
             {
-                using (ISession se = NHibernateHelper.OpenSession())
+                using (ITransaction tx = se.BeginTransaction())
                 {
-                    using (ITransaction tx = se.BeginTransaction())
+                    o.Role = x.Role;
+                    o.Username = x.Username;
+                    o.Status = x.Status;
+
+                    if (x.Password != Domain.Model.User.UNCHANGED_PASSWORD)
                     {
-                        o.Role = x.Role;
-                        o.Username = x.Username;
-                        o.Status = x.Status;
-
-                        if (x.Password != Domain.Model.User.UNCHANGED_PASSWORD)
-                        {
-                            o.Password = x.Password;
-                            o.EncryptPassword();
-                        }
-
-                        se.SaveOrUpdate(o);
-                        tx.Commit();
+                        o.Password = x.Password;
+                        o.EncryptPassword();
                     }
+
+                    se.SaveOrUpdate(o);
+                    tx.Commit();
                 }
 
                 return Json(new Dictionary<string, object>
@@ -166,23 +158,45 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
         [HttpPost]
         public JsonResult Delete(FormCollection fc)
         {
+            string username = string.IsNullOrEmpty(Request["username"]) ? "" : Request["username"];
+            int role = string.IsNullOrEmpty(Request["role"]) ? 0 : Convert.ToInt32(Request["role"]);
+            string employee = string.IsNullOrEmpty(Request["employee"]) ? "" : Request["employee"];
+            int status = string.IsNullOrEmpty(Request["status"]) ? 0 : Convert.ToInt32(Request["status"]);
+            int pgnum = string.IsNullOrEmpty(Request["pgnum"]) ? 1 : Convert.ToInt32(Request["pgnum"]);
+            int pgsize = string.IsNullOrEmpty(Request["pgsize"]) ? 0 : Convert.ToInt32(Request["pgsize"]);
             string ids = fc.Get("id[]");
             string[] idlist = ids.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 
-            using (ISession se = NHibernateHelper.OpenSession())
+            string itemscount = null;
+
+            Dictionary<string, object> filters = new Dictionary<string, object>
             {
-                using (ITransaction tx = se.BeginTransaction())
-                {
-                    se.CreateQuery("delete from User where id in (:idlist)")
-                        .SetParameterList("idlist", idlist)
-                        .ExecuteUpdate();
-                    tx.Commit();
-                }
+                { "username", username },
+                { "role", role },
+                { "employee", employee },
+                { "status", status }
+            };
+
+            ISession se = NHibernateHelper.CurrentSession;
+
+            using (ITransaction tx = se.BeginTransaction())
+            {
+                se.CreateQuery("delete from User where id in (:idlist)")
+                    .SetParameterList("idlist", idlist)
+                    .ExecuteUpdate();
+                tx.Commit();
             }
+
+            if (string.IsNullOrEmpty(username) && role == 0 && string.IsNullOrEmpty(employee) && status == 0)
+                itemscount = UserHelper.GetItemMessage(null, pgnum, pgsize);
+
+            else
+                itemscount = UserHelper.GetItemMessage(filters, pgnum, pgsize);
             
             return Json(new Dictionary<string, object>
             {
                 { "success", 1 },
+                { "itemscount", itemscount },
                 { "message", string.Format("{0} user(s) was successfully deleted.", idlist.Length) }
             },
             JsonRequestBehavior.AllowGet);

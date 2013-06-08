@@ -10,17 +10,25 @@ using NHibernate.Cfg;
 using NHibernate.Tool.hbm2ddl;
 using System.Reflection;
 
-namespace Payroll_Mvc.Models
+namespace Payroll_Mvc.Helpers
 {
     public class NHibernateHelper
     {
-        private static ISessionFactory SessionFactory { get; set; }
+        public static ISessionFactory SessionFactory { get; private set; }
         private static bool StartupComplete { get; set; }
         private static readonly object locker = new object();
 
         public static ISession OpenSession()
         {
             return SessionFactory.OpenSession();
+        }
+
+        public static ISession CurrentSession
+        {
+            get
+            {
+                return SessionFactory.GetCurrentSession();
+            }
         }
 
         public static void EnsureStartup()

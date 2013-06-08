@@ -1,13 +1,13 @@
 ﻿@using Domain.Model;
 @using Payroll_Mvc.Models;
 
-@model ListModel<User>
+@model ListModel<Employee>
 
 @{
-    ViewBag.title = "User";
-    ViewBag.dialog_title = "User";
-    ViewBag.dialog_add_title = "Add New User";
-    ViewBag.dialog_edit_title = "Edit User";
+    ViewBag.title = "Employee";
+    ViewBag.dialog_title = "Employee";
+    ViewBag.dialog_add_title = "Add New Employee";
+    ViewBag.dialog_edit_title = "Edit Employee";
     ViewBag.totalpage = Model.TotalPage;
     Layout = "~/Views/Layouts/_List.cshtml";
 }

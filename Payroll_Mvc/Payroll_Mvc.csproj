@@ -119,14 +119,18 @@
   <ItemGroup>
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
+    <Compile Include="Areas\Admin\Controllers\EmployeeController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
+    <Compile Include="Areas\Admin\Models\EmployeeView.cs" />
     <Compile Include="Controllers\ApplicationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\CommonHelper.cs" />
+    <Compile Include="Helpers\EmployeeHelper.cs" />
     <Compile Include="Helpers\UserHelper.cs" />
     <Compile Include="Models\ListModel.cs" />
-    <Compile Include="Models\NHibernateHelper.cs" />
+    <Compile Include="Helpers\NHibernateHelper.cs" />
     <Compile Include="Models\Pager.cs" />
     <Compile Include="Models\Sort.cs" />
     <Compile Include="Models\Utils.cs" />
@@ -250,7 +254,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
@@ -272,6 +275,15 @@
     <Content Include="Areas\Admin\Views\User\_search_form.cshtml" />
     <Content Include="Areas\Admin\Views\User\Index.cshtml" />
     <Content Include="Areas\Admin\Views\User\_form.cshtml" />
+    <Content Include="Areas\Admin\Views\Employee\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Employee\_search_form.cshtml" />
+    <Content Include="Areas\Admin\Views\Employee\_list.cshtml" />
+    <Content Include="Areas\Admin\Views\Employee\_form.cshtml" />
+    <Content Include="Areas\Admin\Views\Employee\_form_employee.cshtml" />
+    <Content Include="Areas\Admin\Views\Employee\_form_employee_job.cshtml" />
+    <Content Include="Areas\Admin\Views\Employee\_form_employee_salary.cshtml" />
+    <Content Include="Areas\Admin\Views\Employee\_form_employee_qualification.cshtml" />
+    <Content Include="Areas\Admin\Views\Employee\_form_employee_contact.cshtml" />
     <None Include="Views\Shared\_add_button.cshtml" />
     <None Include="Views\Shared\_alert_panel.cshtml" />
     <None Include="Views\Shared\_cancel_button.cshtml" />

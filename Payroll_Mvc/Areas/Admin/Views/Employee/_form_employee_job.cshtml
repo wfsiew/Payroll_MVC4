@@ -1,0 +1,122 @@
+﻿@using Domain.Model;
+@using Payroll_Mvc.Helpers;
+@using Payroll_Mvc.Areas.Admin.Models;
+
+@model EmployeeView
+
+<div id="form-employee-job">
+    <table>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="designation_id" class="label">Job Title</label>
+            </td>
+            <td>
+                @{
+                    List<SelectListItem> deslist = new List<SelectListItem>()
+                    {
+                        new SelectListItem { Selected = @Model.Employeejob.Designation == null, Text = "-- Select --", Value = "0" }
+                    };
+                    foreach (Designation o in ViewBag.designations)
+                    {
+                        deslist.Add(new SelectListItem
+                        {
+                            Selected = @Model.Employeejob.Designation != null && @Model.Employeejob.Designation.Id == o.Id,
+                            Text = o.Title,
+                            Value = o.Id.ToString()
+                        });
+                    }
+                }
+                @Html.DropDownList("designation_id", deslist,
+            new { id = "id_designation_id", @class = "select" })
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="employment_status_id" class="label">Employment Status</label>
+            </td>
+            <td>
+                @{
+                    List<SelectListItem> eslist = new List<SelectListItem>()
+                    {
+                        new SelectListItem { Selected = @Model.Employeejob.Employmentstatus == null, Text = "-- Select --", Value = "0" }
+                    };
+                    foreach (Employmentstatus o in ViewBag.employment_statuses)
+                    {
+                        eslist.Add(new SelectListItem
+                        {
+                            Selected = @Model.Employeejob.Employmentstatus != null && @Model.Employeejob.Employmentstatus.Id == o.Id,
+                            Text = o.Name,
+                            Value = o.Id.ToString()
+                        });
+                    }
+                }
+                @Html.DropDownList("employment_status_id", eslist,
+            new { id = "id_employment_status_id", @class = "select" })
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="job_category_id" class="label">Job Category</label>
+            </td>
+            <td>
+                @{
+                    List<SelectListItem> jobcatlist = new List<SelectListItem>()
+                    {
+                        new SelectListItem { Selected = @Model.Employeejob.Jobcategory == null, Text = "-- Select --", Value = "0" }
+                    };
+                    foreach (Jobcategory o in ViewBag.job_categories)
+                    {
+                        jobcatlist.Add(new SelectListItem
+                        {
+                            Selected = @Model.Employeejob.Jobcategory != null && @Model.Employeejob.Jobcategory.Id == o.Id,
+                            Text = o.Name,
+                            Value = o.Id.ToString()
+                        });
+                    }
+                }
+                @Html.DropDownList("job_category_id", jobcatlist,
+            new { id = "id_job_category_id", @class = "select" })
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="join_date" class="label">Join Date</label>
+            </td>
+            <td>
+                <input id="id_join_date" name="join_date" type="text" class="text date_input" placeholder="dd-mm-YYYY" x-webkit-speech="x-webkit-speech" value="@CommonHelper.FormatDate(Model.Employeejob.Joindate)" />
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="confirm_date" class="label">Confirm Date</label>
+            </td>
+            <td>
+                <input id="id_confirm_date" name="confirm_date" type="text" class="text date_input" placeholder="dd-mm-YYYY" x-webkit-speech="x-webkit-speech" value="@CommonHelper.FormatDate(Model.Employeejob.Confirmdate)" />
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="department_id" class="label">Department</label>
+            </td>
+            <td>
+                @{
+                    List<SelectListItem> deptlist = new List<SelectListItem>()
+                    {
+                        new SelectListItem { Selected = @Model.Employee.User == null, Text = "-- Select --", Value = "0" }
+                    };
+                    foreach (Department o in ViewBag.departments)
+                    {
+                        deptlist.Add(new SelectListItem
+                        {
+                            Selected = @Model.Employeejob.Department != null && @Model.Employeejob.Department.Id == o.Id,
+                            Text = o.Name,
+                            Value = o.Id.ToString()
+                        });
+                    }
+                }
+                @Html.DropDownList("department_id", deptlist,
+            new { id = "id_department_id", @class = "select" })
+            </td>
+        </tr>
+    </table>
+</div>

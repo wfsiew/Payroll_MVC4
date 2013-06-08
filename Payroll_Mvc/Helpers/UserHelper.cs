@@ -25,33 +25,31 @@ namespace Payroll_Mvc.Helpers
             if (sort == null)
                 sort = new Sort(DEFAULT_SORT_COLUMN, DEFAULT_SORT_DIR);
 
-            using (ISession se = NHibernateHelper.OpenSession())
-            {
-                int total = se.QueryOver<User>().Future().Count();
-                Pager pager = new Pager(total, pagenum, pagesize);
+            ISession se = NHibernateHelper.CurrentSession;
+            int total = se.QueryOver<User>().Future().Count();
+            Pager pager = new Pager(total, pagenum, pagesize);
 
-                int has_next = pager.HasNext ? 1 : 0;
-                int has_prev = pager.HasPrev ? 1 : 0;
+            int has_next = pager.HasNext ? 1 : 0;
+            int has_prev = pager.HasPrev ? 1 : 0;
 
-                ICriteria cr = se.CreateCriteria<User>("user");
-                GetOrder(sort, cr);
+            ICriteria cr = se.CreateCriteria<User>("user");
+            GetOrder(sort, cr);
 
-                cr.SetFirstResult(pager.LowerBound);
-                cr.SetMaxResults(pager.PageSize);
+            cr.SetFirstResult(pager.LowerBound);
+            cr.SetMaxResults(pager.PageSize);
 
-                List<User> list = cr.List<User>().ToList();
+            List<User> list = cr.List<User>().ToList();
 
-                l.ItemMsg = pager.GetItemMessage();
-                l.HasNext = has_next;
-                l.HasPrev = has_prev;
-                l.NextPage = pager.PageNum + 1;
-                l.PrevPage = pager.PageNum - 1;
-                l.List = list;
-                l.SortColumn = sort.Column;
-                l.SortDir = sort.Direction;
-                l.Page = pager.PageNum;
-                l.TotalPage = pager.TotalPages;
-            }
+            l.ItemMsg = pager.GetItemMessage();
+            l.HasNext = has_next;
+            l.HasPrev = has_prev;
+            l.NextPage = pager.PageNum + 1;
+            l.PrevPage = pager.PageNum - 1;
+            l.List = list;
+            l.SortColumn = sort.Column;
+            l.SortDir = sort.Direction;
+            l.Page = pager.PageNum;
+            l.TotalPage = pager.TotalPages;
 
             return l;
         }
@@ -64,37 +62,64 @@ namespace Payroll_Mvc.Helpers
             if (sort == null)
                 sort = new Sort(DEFAULT_SORT_COLUMN, DEFAULT_SORT_DIR);
 
-            using (ISession se = NHibernateHelper.OpenSession())
+            ISession se = NHibernateHelper.CurrentSession;
+            ICriteria cr = se.CreateCriteria<User>("user");
+            GetFilterCriteria(cr, filters);
+
+            ICriteria crCount = se.CreateCriteria<User>("user");
+            GetFilterCriteria(crCount, filters);
+
+            int total = crCount.SetProjection(Projections.Count(Projections.Id())).UniqueResult<int>();
+            Pager pager = new Pager(total, pagenum, pagesize);
+
+            int has_next = pager.HasNext ? 1 : 0;
+            int has_prev = pager.HasPrev ? 1 : 0;
+
+            GetOrder(sort, cr);
+
+            cr.SetFirstResult(pager.LowerBound);
+            cr.SetMaxResults(pager.PageSize);
+
+            List<User> list = cr.List<User>().ToList();
+
+            l.ItemMsg = pager.GetItemMessage();
+            l.HasNext = has_next;
+            l.HasPrev = has_prev;
+            l.NextPage = pager.PageNum + 1;
+            l.PrevPage = pager.PageNum - 1;
+            l.List = list;
+            l.SortColumn = sort.Column;
+            l.SortDir = sort.Direction;
+            l.Page = pager.PageNum;
+            l.TotalPage = pager.TotalPages;
+
+            return l;
+        }
+
+        public static string GetItemMessage(Dictionary<string, object> filters, int pagenum, int pagesize)
+        {
+            int total = 0;
+            Pager pager = null;
+            string m = null;
+            ISession se = NHibernateHelper.CurrentSession;
+
+            if (filters == null)
+            {
+                total = se.QueryOver<User>().Future().Count();
+                pager = new Pager(total, pagenum, pagesize);
+                m = pager.GetItemMessage();
+            }
+
+            else
             {
                 ICriteria cr = se.CreateCriteria<User>("user");
                 GetFilterCriteria(cr, filters);
-
-                int total = cr.List().Count;
-                Pager pager = new Pager(total, pagenum, pagesize);
-
-                int has_next = pager.HasNext ? 1 : 0;
-                int has_prev = pager.HasPrev ? 1 : 0;
-
-                GetOrder(sort, cr);
-
-                cr.SetFirstResult(pager.LowerBound);
-                cr.SetMaxResults(pager.PageSize);
-
-                List<User> list = cr.List<User>().ToList();
-
-                l.ItemMsg = pager.GetItemMessage();
-                l.HasNext = has_next;
-                l.HasPrev = has_prev;
-                l.NextPage = pager.PageNum + 1;
-                l.PrevPage = pager.PageNum - 1;
-                l.List = list;
-                l.SortColumn = sort.Column;
-                l.SortDir = sort.Direction;
-                l.Page = pager.PageNum;
-                l.TotalPage = pager.TotalPages;
+                total = cr.SetProjection(Projections.Count(Projections.Id())).UniqueResult<int>();
+                pager = new Pager(total, pagenum, pagesize);
+                m = pager.GetItemMessage();
             }
 
-            return l;
+            return m;
         }
 
         private static void GetOrder(Sort sort, ICriteria cr)

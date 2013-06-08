@@ -1,6 +1,6 @@
 ﻿var user = ( function() {
     var url = {
-      add : '/admin/user/create/',
+      add : '/admin/user/new/',
       create : '/admin/user/create/',
       edit : '/admin/user/edit/',
       update : '/admin/user/update/',

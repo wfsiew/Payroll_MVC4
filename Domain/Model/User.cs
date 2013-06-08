@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using NHibernate.Validator.Constraints;
 
 using NHibernate;
+using NHibernate.Criterion;
 
 namespace Domain.Model
 {
@@ -80,7 +81,12 @@ namespace Domain.Model
 
             else
             {
-                User k = se.QueryOver<User>().Where(x => x.Username == Username).SingleOrDefault();
+                ICriteria cr = se.CreateCriteria<User>();
+                cr.Add(Restrictions.Eq("Username", Username));
+                cr.SetFirstResult(0);
+                cr.SetMaxResults(1);
+                User k = cr.List<User>().FirstOrDefault();
+
                 if (k != null)
                 {
                     if (k.Id != Id)

@@ -1,0 +1,159 @@
+﻿@using Domain.Model;
+@using Payroll_Mvc.Areas.Admin.Models;
+
+@model EmployeeView
+
+<div id="form-employee">
+    <table>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="full_name" class="label">Full Name</label>
+            </td>
+            <td valign="top">
+                <input id="id_first_name" name="first_name" type="text" class="text" placeholder="enter first name" title="enter first name" x-webkit-speech="x-webkit-speech" value="@Model.Employee.Firstname" />
+            </td>
+            <td valign="top">
+                <input id="id_middle_name" name="middle_name" type="text" class="text" placeholder="enter middle name" title="enter middle name" x-webkit-speech="x-webkit-speech" value="@Model.Employee.Middlename" />
+            </td>
+            <td valign="top">
+                <input id="id_last_name" name="last_name" type="text" class="text" placeholder="enter last name" title="enter last name" x-webkit-speech="x-webkit-speech" value="@Model.Employee.Lastname" />
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td align="center">First Name</td>
+            <td align="center">Middle Name</td>
+            <td align="center">Last Name</td>
+        </tr>
+    </table>
+    <hr />
+    <table>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="staff_id" class="label">Employee Id</label>
+            </td>
+            <td class="colspacing">
+                <input id="id_staff_id" name="staff_id" type="text" class="text" placeholder="enter employee id" title="enter employee id" x-webkit-speech="x-webkit-speech" value="@Model.Employee.Staffid" />
+            </td>
+            <td valign="top" class="lbl">
+                <label for="new_ic" class="label">New I.C No.</label>
+            </td>
+            <td>
+                <input id="id_new_ic" name="new_ic" type="text" class="text" placeholder="enter new I.C no." title="enter new I.C no." x-webkit-speech="x-webkit-speech" value="@Model.Employee.Newic" />
+
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="passport_no" class="label">Passport No</label>
+            </td>
+            <td class="colspacing">
+                <input id="id_passport_no" name="passport_no" type="text" class="text" placeholder="enter passport no." title="enter passport no." x-webkit-speech="x-webkit-speech" value="@Model.Employee.Passportno" />
+            </td>
+            <td valign="top" class="lbl">
+                <label for="old_ic" class="label">Old I.C No.</label>
+            </td>
+            <td>
+                <input id="id_old_ic" name="old_ic" type="text" class="text" placeholder="enter old I.C no." title="enter old I.C no." x-webkit-speech="x-webkit-speech" value="@Model.Employee.Oldic" />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <hr />
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="gender" class="label">Gender</label>
+            </td>
+            <td valign="top">
+                @Html.RadioButton("gender", "M", @Model.Employee.Gender == "M" ? true : false)
+                <label for="gender_m">Male</label>
+                @Html.RadioButton("gender", "F", @Model.Employee.Gender == "F" ? true : false)
+                <label for="gender_f">Female</label>
+            </td>
+            <td valign="top" class="lbl">
+                <label for="marital_status" class="label">Marital Status</label>
+            </td>
+            <td>
+                @Html.DropDownList("marital_status", new SelectListItem[] {
+              new SelectListItem { Selected = string.IsNullOrEmpty(Model.Employee.Maritalstatus), Text = "-- Select --", Value = "0" },
+              new SelectListItem { Selected = Model.Employee.Maritalstatus == "S", Text = "Single", Value = "S" },
+              new SelectListItem { Selected = Model.Employee.Maritalstatus == "M", Text = "Married", Value = "M" },
+              new SelectListItem { Selected = Model.Employee.Maritalstatus == "O", Text = "Other", Value = "O" } },
+              new { id = "id_marital_status", @class = "select" })
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="nationality" class="label">Nationality</label>
+            </td>
+            <td>
+                <input id="id_nationality" name="nationality" type="text" class="text" placeholder="enter nationality" title="enter nationality" x-webkit-speech="x-webkit-speech" value="@Model.Employee.Nationality" />
+            </td>
+            <td colspan="2"></td>
+        </tr>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="dob" class="label">Date of Birth</label>
+            </td>
+            <td class="colspacing">
+                <input id="id_dob" name="dob" type="text" class="text date_input" placeholder="dd-mm-YYYY" x-webkit-speech="x-webkit-speech" value="@Model.Employee.Dob" />
+            </td>
+            <td valign="top" class="lbl">
+                <label for="place_of_birth" class="label">Place of Birth</label>
+            </td>
+            <td>
+                <input id="id_place_of_birth" name="place_of_birth" type="text" class="text" placeholder="enter place of birth" title="enter place of birth" x-webkit-speech="x-webkit-speech" value="@Model.Employee.Placeofbirth" />
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="race" class="label">Race</label>
+            </td>
+            <td class="colspacing">
+                <input id="id_race" name="race" type="text" class="text" placeholder="enter race" title="enter race" x-webkit-speech="x-webkit-speech" value="@Model.Employee.Race" />
+            </td>
+            <td>
+                <label for="is_bumi" class="label">Is Bumiputra</label>
+            </td>
+            <td>
+                @Html.CheckBox("is_bumi", @Model.Employee.Isbumi.GetValueOrDefault(), new { id = "id_is_bumi" })
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="religion" class="label">Religion</label>
+            </td>
+            <td>
+                <input id="id_religion" name="religion" type="text" class="text" placeholder="enter religion" title="enter religion" x-webkit-speech="x-webkit-speech" value="@Model.Employee.Religion" />
+            </td>
+            <td colspan="2"></td>
+        </tr>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="user_id" class="label">User ID</label>
+            </td>
+            <td>
+                @{
+                    List<SelectListItem> userlist = new List<SelectListItem>()
+                    {
+                        new SelectListItem { Selected = @Model.Employee.User == null, Text = "-- Select --", Value = "0" }
+                    };
+                    foreach (User o in ViewBag.users)
+                    {
+                        userlist.Add(new SelectListItem
+                        {
+                            Selected = @Model.Employee.User != null && @Model.Employee.User.Id == o.Id,
+                            Text = o.Username,
+                            Value = o.Id.ToString()
+                        });
+                    }
+                }
+                @Html.DropDownList("user_id", userlist,
+              new { id = "id_user_id", @class = "select" })
+            </td>
+            <td colspan="2"></td>
+        </tr>
+    </table>
+</div>

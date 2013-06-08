@@ -79,7 +79,7 @@ var emp = ( function() {
                   msg : result.employee.errors[e][0]
                 };
                 var h = new EJS({
-                  url : '/assets/tpl/label_error.html',
+                  url : '/Js/tpl/label_error.html',
                   ext : '.html'
                 }).render(o);
                 if (e == 'gender')
@@ -103,7 +103,7 @@ var emp = ( function() {
                   msg : result.employee_contact.errors[e][0]
                 };
                 var h = new EJS({
-                  url : '/assets/tpl/label_error_inline.html',
+                  url : '/Js/tpl/label_error_inline.html',
                   ext : '.html'
                 }).render(o);
                 $("#add-form #form-employee-contact input[name='" + e + "']").after(h);
@@ -120,7 +120,7 @@ var emp = ( function() {
                   msg : result.employee_job.errors[e][0]
                 };
                 var h = new EJS({
-                  url : '/assets/tpl/label_error_inline.html',
+                  url : '/Js/tpl/label_error_inline.html',
                   ext : '.html'
                 }).render(o);
                 if (e == 'designation_id' || e == 'department_id' || e == 'employment_status_id' || e == 'job_category_id')
@@ -140,7 +140,7 @@ var emp = ( function() {
                   msg : result.employee_salary.errors[e][0]
                 };
                 var h = new EJS({
-                  url : '/assets/tpl/label_error_inline.html',
+                  url : '/Js/tpl/label_error_inline.html',
                   ext : '.html'
                 }).render(o);
                 $("#add-form #form-employee-salary input[name='" + e + "']").after(h);
@@ -156,7 +156,7 @@ var emp = ( function() {
                   msg : result.employee_qualification.errors[e][0]
                 };
                 var h = new EJS({
-                  url : '/assets/tpl/label_error_inline.html',
+                  url : '/Js/tpl/label_error_inline.html',
                   ext : '.html'
                 }).render(o);
                 if (e == 'level')
@@ -222,7 +222,7 @@ var emp = ( function() {
                   msg : result.employee.errors[e][0]
                 };
                 var h = new EJS({
-                  url : '/assets/tpl/label_error.html',
+                  url : '/Js/tpl/label_error.html',
                   ext : '.html'
                 }).render(o);
                 if (e == 'gender')
@@ -246,7 +246,7 @@ var emp = ( function() {
                   msg : result.employee_contact.errors[e][0]
                 };
                 var h = new EJS({
-                  url : '/assets/tpl/label_error_inline.html',
+                  url : '/Js/tpl/label_error_inline.html',
                   ext : '.html'
                 }).render(o);
                 $("#edit-form #form-employee-contact input[name='" + e + "']").after(h);
@@ -263,7 +263,7 @@ var emp = ( function() {
                   msg : result.employee_job.errors[e][0]
                 };
                 var h = new EJS({
-                  url : '/assets/tpl/label_error_inline.html',
+                  url : '/Js/tpl/label_error_inline.html',
                   ext : '.html'
                 }).render(o);
                 if (e == 'designation_id' || e == 'department_id' || e == 'employment_status_id' || e == 'job_category_id')
@@ -283,7 +283,7 @@ var emp = ( function() {
                   msg : result.employee_salary.errors[e][0]
                 };
                 var h = new EJS({
-                  url : '/assets/tpl/label_error_inline.html',
+                  url : '/Js/tpl/label_error_inline.html',
                   ext : '.html'
                 }).render(o);
                 $("#edit-form #form-employee-salary input[name='" + e + "']").after(h);
@@ -299,7 +299,7 @@ var emp = ( function() {
                   msg : result.employee_qualification.errors[e][0]
                 };
                 var h = new EJS({
-                  url : '/assets/tpl/label_error_inline.html',
+                  url : '/Js/tpl/label_error_inline.html',
                   ext : '.html'
                 }).render(o);
                 if (e == 'level')
