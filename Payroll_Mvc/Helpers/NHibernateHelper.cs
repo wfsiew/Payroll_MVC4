@@ -59,8 +59,11 @@ namespace Payroll_Mvc.Helpers
 
         private static FluentConfiguration BuildConfiguration()
         {
+            string online = "server=d22d5c2f-e928-4e03-aac0-a1da00acf6dd.mysql.sequelizer.com;database=dbd22d5c2fe9284e03aac0a1da00acf6dd;uid=jmemnjdpuwuksena;pwd=cteRnmTVvMGzf3pwYRD3vmErzQcmJoEjy7rk2FBiTvh2YQE4LzHaNLMYVUqEjFkg";
+            string local = "Server=localhost;Port=3307;Database=test;Uid=root;Pwd=root";
+
             FluentConfiguration cfg = Fluently.Configure()
-                .Database(MySQLConfiguration.Standard.ConnectionString("Server=localhost;Port=3307;Database=test;Uid=root;Pwd=root")
+                .Database(MySQLConfiguration.Standard.ConnectionString(online)
                 .ShowSql()
                 .AdoNetBatchSize(100))
                 .CurrentSessionContext("web")
