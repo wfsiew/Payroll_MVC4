@@ -6,10 +6,18 @@ using System.Threading.Tasks;
 
 using NHibernate.Validator.Constraints;
 
+using Domain.Validator;
+using FluentValidation.Results;
+
 namespace Domain.Model
 {
     public class Employeesalary
     {
+        public Employeesalary()
+        {
+            Validator = new EmployeesalaryValidator();
+        }
+
         public virtual Guid Id { get; set; }
         [NotNullNotEmpty]
         public virtual double Salary { get; set; }
@@ -30,5 +38,14 @@ namespace Domain.Model
         public virtual string Socsono { get; set; }
         public virtual string Incometaxno { get; set; }
         public virtual int? Paytype { get; set; }
+
+        public virtual EmployeesalaryValidator Validator { get; set; }
+
+        public virtual Dictionary<string, object> IsValid()
+        {
+            ValidationResult r = Validator.Validate(this);
+
+            return ValidationHelper.GetErrors(r);
+        }
     }
 }

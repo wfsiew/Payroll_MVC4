@@ -45,3 +45,16 @@ E:\vs_Projects\Payroll_Mvc\Payroll_Mvc\bin\lv\NHibernate.Validator.resources.dll
 E:\vs_Projects\Payroll_Mvc\Payroll_Mvc\bin\nl\NHibernate.Validator.resources.dll
 E:\vs_Projects\Payroll_Mvc\Payroll_Mvc\bin\pl\NHibernate.Validator.resources.dll
 E:\vs_Projects\Payroll_Mvc\Payroll_Mvc\bin\pt-BR\NHibernate.Validator.resources.dll
+E:\vs_Projects\Payroll_Mvc\Payroll_Mvc\bin\FluentValidation.dll
+E:\vs_Projects\Payroll_Mvc\Payroll_Mvc\bin\FluentValidation.pdb
+E:\vs_Projects\Payroll_Mvc\Payroll_Mvc\bin\FluentValidation.xml
+E:\vs_Projects\Payroll_Mvc\Payroll_Mvc\bin\de\FluentValidation.resources.dll
+E:\vs_Projects\Payroll_Mvc\Payroll_Mvc\bin\es\FluentValidation.resources.dll
+E:\vs_Projects\Payroll_Mvc\Payroll_Mvc\bin\fr\FluentValidation.resources.dll
+E:\vs_Projects\Payroll_Mvc\Payroll_Mvc\bin\it\FluentValidation.resources.dll
+E:\vs_Projects\Payroll_Mvc\Payroll_Mvc\bin\nl\FluentValidation.resources.dll
+E:\vs_Projects\Payroll_Mvc\Payroll_Mvc\bin\pl\FluentValidation.resources.dll
+E:\vs_Projects\Payroll_Mvc\Payroll_Mvc\bin\pt\FluentValidation.resources.dll
+E:\vs_Projects\Payroll_Mvc\Payroll_Mvc\bin\ru\FluentValidation.resources.dll
+E:\vs_Projects\Payroll_Mvc\Payroll_Mvc\bin\sv\FluentValidation.resources.dll
+E:\vs_Projects\Payroll_Mvc\Payroll_Mvc\bin\tr\FluentValidation.resources.dll

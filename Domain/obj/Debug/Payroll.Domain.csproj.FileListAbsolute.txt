@@ -23,3 +23,16 @@ E:\vs_Projects\Payroll_Mvc\Domain\bin\Debug\lv\NHibernate.Validator.resources.dl
 E:\vs_Projects\Payroll_Mvc\Domain\bin\Debug\nl\NHibernate.Validator.resources.dll
 E:\vs_Projects\Payroll_Mvc\Domain\bin\Debug\pl\NHibernate.Validator.resources.dll
 E:\vs_Projects\Payroll_Mvc\Domain\bin\Debug\pt-BR\NHibernate.Validator.resources.dll
+E:\vs_Projects\Payroll_Mvc\Domain\bin\Debug\FluentValidation.dll
+E:\vs_Projects\Payroll_Mvc\Domain\bin\Debug\FluentValidation.pdb
+E:\vs_Projects\Payroll_Mvc\Domain\bin\Debug\FluentValidation.xml
+E:\vs_Projects\Payroll_Mvc\Domain\bin\Debug\de\FluentValidation.resources.dll
+E:\vs_Projects\Payroll_Mvc\Domain\bin\Debug\es\FluentValidation.resources.dll
+E:\vs_Projects\Payroll_Mvc\Domain\bin\Debug\fr\FluentValidation.resources.dll
+E:\vs_Projects\Payroll_Mvc\Domain\bin\Debug\it\FluentValidation.resources.dll
+E:\vs_Projects\Payroll_Mvc\Domain\bin\Debug\nl\FluentValidation.resources.dll
+E:\vs_Projects\Payroll_Mvc\Domain\bin\Debug\pl\FluentValidation.resources.dll
+E:\vs_Projects\Payroll_Mvc\Domain\bin\Debug\pt\FluentValidation.resources.dll
+E:\vs_Projects\Payroll_Mvc\Domain\bin\Debug\ru\FluentValidation.resources.dll
+E:\vs_Projects\Payroll_Mvc\Domain\bin\Debug\sv\FluentValidation.resources.dll
+E:\vs_Projects\Payroll_Mvc\Domain\bin\Debug\tr\FluentValidation.resources.dll

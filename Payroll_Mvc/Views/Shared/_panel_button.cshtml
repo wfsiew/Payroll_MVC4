@@ -3,14 +3,14 @@
       @if (ViewBag.include_search != null && ViewBag.include_search == true)
       {
           <td>
-              @Html.Partial("~/Views/Shared/_search_button.cshtml")
+              @Html.Partial("_search_button")
           </td>
       }
       <td>
-          @Html.Partial("~/Views/Shared/_add_button.cshtml")
+          @Html.Partial("_add_button")
       </td>
       <td>
-          @Html.Partial("~/Views/Shared/_delete_button.cshtml")
+          @Html.Partial("_delete_button")
       </td>
   </tr>
 </table>

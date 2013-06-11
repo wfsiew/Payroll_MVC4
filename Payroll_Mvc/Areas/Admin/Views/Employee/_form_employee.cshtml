@@ -1,4 +1,5 @@
 ﻿@using Domain.Model;
+@using Payroll_Mvc.Helpers;
 @using Payroll_Mvc.Areas.Admin.Models;
 
 @model EmployeeView
@@ -98,7 +99,7 @@
                 <label for="dob" class="label">Date of Birth</label>
             </td>
             <td class="colspacing">
-                <input id="id_dob" name="dob" type="text" class="text date_input" placeholder="dd-mm-YYYY" x-webkit-speech="x-webkit-speech" value="@Model.Employee.Dob" />
+                <input id="id_dob" name="dob" type="text" class="text date_input" placeholder="dd-mm-YYYY" x-webkit-speech="x-webkit-speech" value="@CommonHelper.FormatDate(Model.Employee.Dob)" />
             </td>
             <td valign="top" class="lbl">
                 <label for="place_of_birth" class="label">Place of Birth</label>

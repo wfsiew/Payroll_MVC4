@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 using NHibernate.Validator.Constraints;
 
+using NHibernate;
+using Domain.Validator;
+using Domain.Helper;
+using FluentValidation.Results;
+
 namespace Domain.Model
 {
     public class Employee
@@ -13,6 +18,7 @@ namespace Domain.Model
         public Employee()
         {
             Attendance = new List<Attendance>();
+            Validator = new EmployeeValidator();
         }
 
         public virtual Guid Id { get; set; }
@@ -47,5 +53,17 @@ namespace Domain.Model
         public virtual Employeequalification Employeequalification { get; set; }
         public virtual Employeesalary Employeesalary { get; set; }
         public virtual IList<Attendance> Attendance { get; set; }
+
+        public virtual EmployeeValidator Validator { get; set; }
+
+        public virtual Dictionary<string, object> IsValid(ISession se)
+        {
+            Validator.Id = Id;
+            Validator.Session = se;
+
+            ValidationResult r = Validator.Validate(this);
+
+            return ValidationHelper.GetErrors(r);
+        }
     }
 }

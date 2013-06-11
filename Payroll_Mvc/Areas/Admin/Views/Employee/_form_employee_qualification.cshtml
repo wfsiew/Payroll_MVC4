@@ -1,2 +1,80 @@
-﻿@model Payroll_Mvc.Areas.Admin.Models.EmployeeView
+﻿@using Domain.Model;
+@using Payroll_Mvc.Helpers;
+@using Payroll_Mvc.Areas.Admin.Models;
 
+@model EmployeeView
+
+<div id="form-employee-qualification">
+    <table>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="level" class="label">Level</label>
+            </td>
+            <td>
+                @{
+                    List<SelectListItem> levellist = new List<SelectListItem>()
+                    {
+                        new SelectListItem { Selected = @Model.Employeequalification.Level < 1, Text = "-- Select --", Value = "0" },
+                        new SelectListItem { Selected = @Model.Employeequalification.Level == 1, Text = "PhD", Value = "1" },
+                        new SelectListItem { Selected = @Model.Employeequalification.Level == 2, Text = "Masters Degree", Value = "2" },
+                        new SelectListItem { Selected = @Model.Employeequalification.Level == 3, Text = "Bachelor Degree", Value = "3" },
+                        new SelectListItem { Selected = @Model.Employeequalification.Level == 4, Text = "Diploma", Value = "4" },
+                        new SelectListItem { Selected = @Model.Employeequalification.Level == 5, Text = "STPM", Value = "5" },
+                        new SelectListItem { Selected = @Model.Employeequalification.Level == 6, Text = "SPM", Value = "6" },
+                        new SelectListItem { Selected = @Model.Employeequalification.Level == 7, Text = "Others", Value = "7" }
+                    };
+                }
+                @Html.DropDownList("level", levellist,
+            new { id = "id_level", @class = "select" })
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="institute" class="label">Institute</label>
+            </td>
+            <td>
+                <input id="id_institute" name="institute" type="text" class="text" placeholder="enter institute" title="enter institute" x-webkit-speech="x-webkit-speech" value="@Model.Employeequalification.Institute" />
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="major" class="label">Major</label>
+            </td>
+            <td>
+                <input id="id_major" name="major" type="text" class="text" placeholder="enter major" title="enter major" x-webkit-speech="x-webkit-speech" value="@Model.Employeequalification.Major" />
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="year" class="label">Year</label>
+            </td>
+            <td>
+                <input id="id_year" name="year" type="text" class="text" placeholder="enter year" title="enter year" x-webkit-speech="x-webkit-speech" value="@CommonHelper.FormatNumberInt(Model.Employeequalification.Year)" />
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="gpa" class="label">GPA/Grade</label>
+            </td>
+            <td>
+                <input id="id_gpa" name="gpa" type="text" class="text" placeholder="enter gpa/grade" title="enter gpa/grade" x-webkit-speech="x-webkit-speech" value="@CommonHelper.FormatNumberDouble(Model.Employeequalification.Gpa)" />
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="start_date" class="label">Start Date</label>
+            </td>
+            <td>
+                <input id="id_start_date" name="start_date" type="text" class="text date_input" placeholder="dd-mm-YYYY" x-webkit-speech="x-webkit-speech" value="@CommonHelper.FormatDate(Model.Employeequalification.Startdate)" />
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="end_date" class="label">End Date</label>
+            </td>
+            <td>
+                <input id="id_end_date" name="end_date" type="text" class="text" placeholder="dd-mm-YYYY" x-webkit-speech="x-webkit-speech" value="@CommonHelper.FormatDate(Model.Employeequalification.Enddate)" />
+            </td>
+        </tr>
+    </table>
+</div>

@@ -6,10 +6,18 @@ using System.Threading.Tasks;
 
 using NHibernate.Validator.Constraints;
 
+using Domain.Validator;
+using FluentValidation.Results;
+
 namespace Domain.Model
 {
     public class Employeecontact
     {
+        public Employeecontact()
+        {
+            Validator = new EmployeecontactValidator();
+        }
+
         public virtual Guid Id { get; set; }
         [NotNullNotEmpty]
         public virtual string Address1 { get; set; }
@@ -28,5 +36,14 @@ namespace Domain.Model
         [NotNullNotEmpty]
         public virtual string Workemail { get; set; }
         public virtual string Otheremail { get; set; }
+
+        public virtual EmployeecontactValidator Validator { get; set; }
+
+        public virtual Dictionary<string, object> IsValid()
+        {
+            ValidationResult r = Validator.Validate(this);
+
+            return ValidationHelper.GetErrors(r);
+        }
     }
 }

@@ -66,15 +66,14 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
         [HttpPost]
         public JsonResult Create(FormCollection fc)
         {
-            User o = new User();
-            o.SetProperties(fc);
+            User o = UserHelper.GetObject(fc);
 
-            Dictionary<string, object> err = new Dictionary<string, object>();
+            Dictionary<string, object> err = null;
 
             ISession se = NHibernateHelper.CurrentSession;
             err = o.IsValid(se);
 
-            if (err.Keys.Count == 0)
+            if (err == null)
             {
                 using (ITransaction tx = se.BeginTransaction())
                 {
@@ -99,11 +98,10 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
 
         public ActionResult Edit(Guid id)
         {
-            User o = new User();
             ViewBag.form_id = "edit-form";
 
             ISession se = NHibernateHelper.CurrentSession;
-            o = se.Get<User>(id);
+            User o = se.Get<User>(id);
 
             return View("_form", o);
         }
@@ -111,19 +109,18 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
         [HttpPost]
         public JsonResult Update(Guid id, FormCollection fc)
         {
-            Dictionary<string, object> err = new Dictionary<string, object>();
+            Dictionary<string, object> err = null;
             User o = null;
-            User x = new User();
+            User x = UserHelper.GetObject(fc);
 
             ISession se = NHibernateHelper.CurrentSession;
 
             o = se.Get<User>(id);
-            x.SetProperties(fc);
             x.Id = id;
 
             err = x.IsValid(se);
 
-            if (err.Keys.Count == 0)
+            if (err == null)
             {
                 using (ITransaction tx = se.BeginTransaction())
                 {

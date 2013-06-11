@@ -33,6 +33,9 @@
     <Reference Include="FluentNHibernate">
       <HintPath>..\packages\FluentNHibernate.1.3.0.733\lib\FluentNHibernate.dll</HintPath>
     </Reference>
+    <Reference Include="FluentValidation">
+      <HintPath>..\packages\FluentValidation.4.0.0.0\lib\Net40\FluentValidation.dll</HintPath>
+    </Reference>
     <Reference Include="Iesi.Collections">
       <HintPath>..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
     </Reference>
@@ -58,6 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helper\CommonHelper.cs" />
     <Compile Include="Mapping\AttendanceMap.cs" />
     <Compile Include="Mapping\DepartmentMap.cs" />
     <Compile Include="Mapping\DesignationMap.cs" />
@@ -86,7 +90,15 @@
     <Compile Include="Model\Payrate.cs" />
     <Compile Include="Model\Salaryadjustment.cs" />
     <Compile Include="Model\User.cs" />
+    <Compile Include="Model\Validator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Validator\EmployeecontactValidator.cs" />
+    <Compile Include="Validator\EmployeejobValidator.cs" />
+    <Compile Include="Validator\EmployeequalificationValidator.cs" />
+    <Compile Include="Validator\EmployeesalaryValidator.cs" />
+    <Compile Include="Validator\EmployeeValidator.cs" />
+    <Compile Include="Validator\UserValidator.cs" />
+    <Compile Include="Validator\ValidationHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -1,0 +1,19 @@
+﻿@using Domain.Model;
+@using Payroll_Mvc.Models;
+
+@model ListModel<Attendance>
+
+@{
+    ViewBag.title = "Attendance Record";
+    ViewBag.dialog_title = "Attendance Record";
+    ViewBag.totalpage = Model.TotalPage;
+    Layout = "~/Views/Layouts/_List.cshtml";
+}
+
+@section search_form {
+    @Html.Partial("_search_form")
+}
+@section content_list {
+    @Html.Partial("_list")
+}
+@section dialog {}

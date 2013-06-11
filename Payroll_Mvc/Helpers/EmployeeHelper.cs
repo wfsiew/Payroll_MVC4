@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 using NHibernate;
 using NHibernate.SqlCommand;
@@ -100,6 +101,74 @@ namespace Payroll_Mvc.Helpers
             l.TotalPage = pager.TotalPages;
 
             return l;
+        }
+
+        public static Employee GetObject(FormCollection fc)
+        {
+            string paramDob = GetParam("dob", fc);
+            DateTime dob = CommonHelper.GetDateTime(paramDob);
+
+            string paramIsbumi = GetParam("is_bumi", fc);
+            bool? isbumi = string.IsNullOrEmpty(paramIsbumi) ? null : new Nullable<bool>(Convert.ToBoolean(paramIsbumi));
+
+            string paramUserid = GetParam("user_id", fc);
+            User user = string.IsNullOrEmpty(paramUserid) || paramUserid == "0" ? null : new User();
+
+            if (user != null)
+                user.Id = new Guid(paramUserid);
+
+            Employee o = new Employee
+            {
+                Staffid = GetParam("staff_id", fc),
+                Firstname = GetParam("first_name", fc),
+                Middlename = GetParam("middle_name", fc),
+                Lastname = GetParam("last_name", fc),
+                Newic = GetParam("new_ic", fc),
+                Oldic = GetParam("old_ic", fc),
+                Passportno = GetParam("passport_no", fc),
+                Gender = GetParam("gender", fc),
+                Maritalstatus = GetParam("marital_status", fc),
+                Nationality = GetParam("nationality", fc),
+                Dob = dob,
+                Placeofbirth = GetParam("place_of_birth", fc),
+                Race = GetParam("race", fc),
+                Religion = GetParam("religion", fc),
+                Isbumi = isbumi,
+                User = user
+            };
+
+            return o;
+        }
+
+        public static string GetItemMessage(Dictionary<string, object> filters, int pagenum, int pagesize)
+        {
+            int total = 0;
+            Pager pager = null;
+            string m = null;
+            ISession se = NHibernateHelper.CurrentSession;
+
+            if (filters == null)
+            {
+                total = se.QueryOver<Employee>().Future().Count();
+                pager = new Pager(total, pagenum, pagesize);
+                m = pager.GetItemMessage();
+            }
+
+            else
+            {
+                ICriteria cr = se.CreateCriteria<Employee>("employee");
+                GetFilterCriteria(cr, filters);
+                total = cr.SetProjection(Projections.Count(Projections.Id())).UniqueResult<int>();
+                pager = new Pager(total, pagenum, pagesize);
+                m = pager.GetItemMessage();
+            }
+
+            return m;
+        }
+
+        private static string GetParam(string key, FormCollection fc)
+        {
+            return fc.Get(string.Format("employee[{0}]", key));
         }
 
         private static void GetOrder(Sort sort, ICriteria cr)

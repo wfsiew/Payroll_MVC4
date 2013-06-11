@@ -1,2 +1,123 @@
-﻿@model Payroll_Mvc.Areas.Admin.Models.EmployeeView
+﻿@using Domain.Model;
+@using Payroll_Mvc.Helpers;
+@using Payroll_Mvc.Areas.Admin.Models;
 
+@model EmployeeView
+
+<div id="form-employee-salary">
+    <table>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="salary" class="label">Salary</label>
+            </td>
+            <td>
+                <input id="id_salary" name="salary" type="text" class="text" placeholder="enter salary" title="enter salary" x-webkit-speech="x-webkit-speech" value="@CommonHelper.FormatNumberDouble(Model.Employeesalary.Salary)" />
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="allowance" class="label">Allowance</label>
+            </td>
+            <td>
+                <input id="id_allowance" name="allowance" type="text" class="text" placeholder="enter allowance" title="enter allowance" x-webkit-speech="x-webkit-speech" value="@CommonHelper.FormatNumberDouble(Model.Employeesalary.Allowance)" />
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="epf" class="label">EPF Deduction</label>
+            </td>
+            <td>
+                <input id="id_epf" name="epf" type="text" class="text" placeholder="enter EPF deduction" title="enter EPF deduction" x-webkit-speech="x-webkit-speech" value="@CommonHelper.FormatNumberDouble(Model.Employeesalary.Epf)" />
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="socso" class="label">SOCSO Deduction</label>
+            </td>
+            <td>
+                <input id="id_socso" name="socso" type="text" class="text" placeholder="enter SOCSO deduction" title="enter SOCSO deduction" x-webkit-speech="x-webkit-speech" value="@CommonHelper.FormatNumberDouble(Model.Employeesalary.Socso)" />
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="income_tax" class="label">Income Tax Deduction</label>
+            </td>
+            <td>
+                <input id="id_income_tax" name="income_tax" type="text" class="text" placeholder="enter Income Tax deduction" title="enter Income Tax deduction" x-webkit-speech="x-webkit-speech" value="@CommonHelper.FormatNumberDouble(Model.Employeesalary.Incometax)" />
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="bank_name" class="label">Bank Name</label>
+            </td>
+            <td>
+                <input id="id_bank_name" name="bank_name" type="text" class="text" placeholder="enter bank name" title="enter bank name" x-webkit-speech="x-webkit-speech" value="@Model.Employeesalary.Bankname" />
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="bank_acc_no" class="label">Bank Account No.</label>
+            </td>
+            <td>
+                <input id="id_bank_acc_no" name="bank_acc_no" type="text" class="text" placeholder="enter bank account no." title="enter bank account no." x-webkit-speech="x-webkit-speech" value="@Model.Employeesalary.Bankaccno" />
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="bank_acc_type" class="label">Bank Account Type</label>
+            </td>
+            <td>
+                <input id="id_bank_acc_type" name="bank_acc_type" type="text" class="text" placeholder="enter bank account type" title="enter bank account type" x-webkit-speech="x-webkit-speech" value="@Model.Employeesalary.Bankacctype" />
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="bank_address" class="label">Bank Address</label>
+            </td>
+            <td>
+                <input id="id_bank_address" name="bank_address" type="text" class="text" placeholder="enter bank address" title="enter bank address" x-webkit-speech="x-webkit-speech" value="@Model.Employeesalary.Bankaddress" />
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="epf_no" class="label">EPF no.</label>
+            </td>
+            <td>
+                <input id="id_epf_no" name="epf_no" type="text" class="text" placeholder="enter EPF no." title="enter EPF no." x-webkit-speech="x-webkit-speech" value="@Model.Employeesalary.Epfno" />
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="socso_no" class="label">SOCSO no.</label>
+            </td>
+            <td>
+                <input id="id_socso_no" name="socso_no" type="text" class="text" placeholder="enter SOCSO no." title="enter SOCSO no." x-webkit-speech="x-webkit-speech" value="@Model.Employeesalary.Socsono" />
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="income_tax_no" class="label">Income Tax no.</label>
+            </td>
+            <td>
+                <input id="id_income_tax_no" name="income_tax_no" type="text" class="text" placeholder="enter income tax no." title="enter income tax no." x-webkit-speech="x-webkit-speech" value="@Model.Employeesalary.Incometaxno" />
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="pay_type" class="label">Pay Type</label>
+            </td>
+            <td>
+                @{
+                    List<SelectListItem> paytypelist = new List<SelectListItem>()
+                    {
+                        new SelectListItem { Selected = @Model.Employeesalary.Paytype.GetValueOrDefault() < 1, Text = "-- Select --", Value = "0" },
+                        new SelectListItem { Selected = @Model.Employeesalary.Paytype.GetValueOrDefault() == 1, Text = "Monthly", Value = "1" },
+                        new SelectListItem { Selected = @Model.Employeesalary.Paytype.GetValueOrDefault() == 2, Text = "Hourly", Value = "2" }
+                    };
+                }
+                @Html.DropDownList("pay_type", paytypelist,
+            new { id = "id_pay_type", @class = "select" })
+            </td>
+        </tr>
+    </table>
+</div>

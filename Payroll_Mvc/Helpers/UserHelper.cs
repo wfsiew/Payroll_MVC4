@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 using NHibernate;
 using NHibernate.SqlCommand;
@@ -94,6 +95,26 @@ namespace Payroll_Mvc.Helpers
             l.TotalPage = pager.TotalPages;
 
             return l;
+        }
+
+        public static User GetObject(FormCollection fc)
+        {
+            string paramStatus = fc.Get("status");
+            bool status = paramStatus == "1" ? true : false;
+
+            string paramRole = fc.Get("role");
+            int role = Convert.ToInt32(paramRole);
+
+            User o = new User
+            {
+                Role = role,
+                Username = fc.Get("username"),
+                Status = status,
+                Password = fc.Get("pwd"),
+                PasswordConfirmation = fc.Get("pwdconfirm")
+            };
+
+            return o;
         }
 
         public static string GetItemMessage(Dictionary<string, object> filters, int pagenum, int pagesize)

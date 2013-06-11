@@ -61,14 +61,13 @@
         {
             css = n % 2 == 0 ? "ui-state-active" : "ui-state-default";
             ++n;
+
+            Employeejob ej = o.Employeejob;
+            Designation d = ej == null ? null : ej.Designation;
+            Department dept = ej == null ? null : ej.Department;
+            Employmentstatus es = ej == null ? null : ej.Employmentstatus;
         
             <tr id="tr_@o.Id" class="@css">
-                @{
-                    Employeejob ej = o.Employeejob;
-                    Designation d = ej == null ? null : ej.Designation;
-                    Department dept = ej == null ? null : ej.Department;
-                    Employmentstatus es = ej == null ? null : ej.Employmentstatus;
-                }
                 <td class="data chkbox">
                     <input class="chk" type="checkbox" /></td>
                 <td class="data">@o.Staffid</td>
