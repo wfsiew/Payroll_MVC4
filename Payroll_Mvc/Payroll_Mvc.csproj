@@ -297,23 +297,24 @@
     <Content Include="Areas\Admin\Views\Attendance\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Attendance\_search_form.cshtml" />
     <Content Include="Areas\Admin\Views\Attendance\_list.cshtml" />
-    <None Include="Views\Shared\_add_button.cshtml" />
-    <None Include="Views\Shared\_alert_panel.cshtml" />
-    <None Include="Views\Shared\_cancel_button.cshtml" />
-    <None Include="Views\Shared\_chart_button.cshtml" />
-    <None Include="Views\Shared\_delete_button.cshtml" />
-    <None Include="Views\Shared\_dialog_save.cshtml" />
-    <None Include="Views\Shared\_gen_button.cshtml" />
-    <None Include="Views\Shared\_logout.cshtml" />
-    <None Include="Views\Shared\_navigate_form.cshtml" />
-    <None Include="Views\Shared\_panel_button.cshtml" />
-    <None Include="Views\Shared\_progress_panel.cshtml" />
-    <None Include="Views\Shared\_save_button.cshtml" />
-    <None Include="Views\Shared\_search_button.cshtml" />
-    <None Include="Views\Shared\_search_input.cshtml" />
-    <None Include="Views\Shared\_search_panel.cshtml" />
-    <None Include="Views\Shared\_status_panel.cshtml" />
-    <None Include="Views\Shared\_theme_select.cshtml" />
+    <None Include="Properties\PublishProfiles\ok.pubxml" />
+    <Content Include="Views\Shared\_add_button.cshtml" />
+    <Content Include="Views\Shared\_alert_panel.cshtml" />
+    <Content Include="Views\Shared\_cancel_button.cshtml" />
+    <Content Include="Views\Shared\_chart_button.cshtml" />
+    <Content Include="Views\Shared\_delete_button.cshtml" />
+    <Content Include="Views\Shared\_dialog_save.cshtml" />
+    <Content Include="Views\Shared\_gen_button.cshtml" />
+    <Content Include="Views\Shared\_logout.cshtml" />
+    <Content Include="Views\Shared\_navigate_form.cshtml" />
+    <Content Include="Views\Shared\_panel_button.cshtml" />
+    <Content Include="Views\Shared\_progress_panel.cshtml" />
+    <Content Include="Views\Shared\_save_button.cshtml" />
+    <Content Include="Views\Shared\_search_button.cshtml" />
+    <Content Include="Views\Shared\_search_input.cshtml" />
+    <Content Include="Views\Shared\_search_panel.cshtml" />
+    <Content Include="Views\Shared\_status_panel.cshtml" />
+    <Content Include="Views\Shared\_theme_select.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
