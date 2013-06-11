@@ -58,3 +58,4 @@ E:\vs_Projects\Payroll_Mvc\Payroll_Mvc\bin\pt-BR\NHibernate.Validator.resources.
 E:\vs_Projects\Payroll_Mvc\Payroll_Mvc\obj\Release\Payroll_Mvc.csprojResolveAssemblyReference.cache
 E:\vs_Projects\Payroll_Mvc\Payroll_Mvc\obj\Release\Payroll.Mvc.dll
 E:\vs_Projects\Payroll_Mvc\Payroll_Mvc\obj\Release\Payroll.Mvc.pdb
+E:\vs_Projects\Payroll_Mvc\Payroll_Mvc\bin\MySql.Data.dll

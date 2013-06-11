@@ -58,3 +58,4 @@ E:\vs_Projects\Payroll_Mvc\Payroll_Mvc\bin\pt\FluentValidation.resources.dll
 E:\vs_Projects\Payroll_Mvc\Payroll_Mvc\bin\ru\FluentValidation.resources.dll
 E:\vs_Projects\Payroll_Mvc\Payroll_Mvc\bin\sv\FluentValidation.resources.dll
 E:\vs_Projects\Payroll_Mvc\Payroll_Mvc\bin\tr\FluentValidation.resources.dll
+E:\vs_Projects\Payroll_Mvc\Payroll_Mvc\bin\MySql.Data.dll

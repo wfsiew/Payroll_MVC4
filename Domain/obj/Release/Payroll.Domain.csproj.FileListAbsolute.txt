@@ -34,6 +34,5 @@ E:\vs_Projects\Payroll_Mvc\Domain\bin\Release\lv\NHibernate.Validator.resources.
 E:\vs_Projects\Payroll_Mvc\Domain\bin\Release\nl\NHibernate.Validator.resources.dll
 E:\vs_Projects\Payroll_Mvc\Domain\bin\Release\pl\NHibernate.Validator.resources.dll
 E:\vs_Projects\Payroll_Mvc\Domain\bin\Release\pt-BR\NHibernate.Validator.resources.dll
-E:\vs_Projects\Payroll_Mvc\Domain\obj\Release\Payroll.Domain.csprojResolveAssemblyReference.cache
 E:\vs_Projects\Payroll_Mvc\Domain\obj\Release\Payroll.Domain.dll
 E:\vs_Projects\Payroll_Mvc\Domain\obj\Release\Payroll.Domain.pdb
