@@ -6,9 +6,9 @@
 <div id="maincontainer">
   <div id="topsection" class="ui-state-default">
     <div class="innertube">
-        @Html.Partial("_status_panel")
-        @Html.Partial("_logout")
-        @Html.Partial("_theme_select")
+        @{ Html.RenderPartial("_status_panel"); }
+        @{ Html.RenderPartial("_logout"); }
+        @{ Html.RenderPartial("_theme_select"); }
     </div>
   </div>
   <div id="contentwrapper">
@@ -18,7 +18,7 @@
   </div>
   <div id="leftcolumn">
     <div class="innertube">
-        @Html.Partial("_menu")
+        @{ Html.RenderPartial("_menu"); }
     </div>
   </div>
 </div>
@@ -26,5 +26,5 @@
   <div id="error_dialog"></div>
 </div>
 <div id="progress_status">
-    @Html.Partial("_progress_panel")
+    @{ Html.Partial("_progress_panel"); }
 </div>

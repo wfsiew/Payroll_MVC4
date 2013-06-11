@@ -18,23 +18,23 @@
             </li>
         </ul>
         <div id="tabs-1">
-            @Html.Partial("_form_employee")
+            @{ Html.RenderPartial("_form_employee"); }
         </div>
         <div id="tabs-2">
-            @Html.Partial("_form_employee_contact")
+            @{ Html.RenderPartial("_form_employee_contact"); }
         </div>
         <div id="tabs-3">
-            @Html.Partial("_form_employee_job")
+            @{ Html.RenderPartial("_form_employee_job"); }
         </div>
         <div id="tabs-4">
-            @Html.Partial("_form_employee_salary")
+            @{ Html.RenderPartial("_form_employee_salary"); }
         </div>
         <div id="tabs-5">
-            @Html.Partial("_form_employee_qualification")
+            @{ Html.RenderPartial("_form_employee_qualification"); }
         </div>
     </div>
     <div class="row_button">
-        @Html.Partial("_save_button")
-        @Html.Partial("_cancel_button")
+        @{ Html.RenderPartial("_save_button"); }
+        @{ Html.RenderPartial("_cancel_button"); }
     </div>
 </form>

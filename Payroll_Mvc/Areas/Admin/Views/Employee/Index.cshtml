@@ -13,11 +13,11 @@
 }
 
 @section search_form {
-    @Html.Partial("_search_form")
+    @{ Html.RenderPartial("_search_form"); }
 }
 @section content_list {
-    @Html.Partial("_list")
+    @{ Html.RenderPartial("_list"); }
 }
 @section dialog {
-    @Html.Partial("_dialog_save")
+    @{ Html.RenderPartial("_dialog_save"); }
 }
