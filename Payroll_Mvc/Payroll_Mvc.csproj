@@ -125,9 +125,12 @@
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\AttendanceController.cs" />
     <Compile Include="Areas\Admin\Controllers\EmployeeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\OvertimeChartController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TotalWorkHoursChartController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Areas\Admin\Models\EmployeeView.cs" />
     <Compile Include="Controllers\ApplicationController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -265,6 +268,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
+    <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -297,7 +301,9 @@
     <Content Include="Areas\Admin\Views\Attendance\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Attendance\_search_form.cshtml" />
     <Content Include="Areas\Admin\Views\Attendance\_list.cshtml" />
-    <None Include="Properties\PublishProfiles\ok.pubxml" />
+    <Content Include="Areas\Admin\Views\OvertimeChart\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\OvertimeChart\_search_form.cshtml" />
+    <Content Include="Areas\Admin\Views\OvertimeChart\_chart.cshtml" />
     <Content Include="Views\Shared\_add_button.cshtml" />
     <Content Include="Views\Shared\_alert_panel.cshtml" />
     <Content Include="Views\Shared\_cancel_button.cshtml" />
@@ -315,6 +321,16 @@
     <Content Include="Views\Shared\_search_panel.cshtml" />
     <Content Include="Views\Shared\_status_panel.cshtml" />
     <Content Include="Views\Shared\_theme_select.cshtml" />
+    <Content Include="Views\Layouts\_Chart.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\TotalWorkHoursChart\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\TotalWorkHoursChart\_chart.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\TotalWorkHoursChart\_search_form.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

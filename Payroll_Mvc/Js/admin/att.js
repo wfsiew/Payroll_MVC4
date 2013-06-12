@@ -1,6 +1,6 @@
 var att = ( function() {
     var url = {
-      list : '/admin/attendance/list/'
+      list : '/admin/att/list/'
     };
     
     function get_search_param() {
@@ -35,7 +35,7 @@ var att = ( function() {
     }
     
     function load() {
-      return menu.get('/admin/attendance/', init);
+      return menu.get('/admin/att/', init);
     }
     
     return {

@@ -113,6 +113,33 @@ namespace Payroll_Mvc.Helpers
             return e;
         }
 
+        public static double GetTotalHours(Dictionary<string, object> filters)
+        {
+            ISession se = NHibernateHelper.CurrentSession;
+            ICriteria cr = se.CreateCriteria<Attendance>();
+
+            IProjection yearProjection = Projections.SqlFunction("year", NHibernateUtil.Int32, Projections.Property("Workdate"));
+            cr.Add(Restrictions.Eq(yearProjection, filters["year"]));
+
+            IProjection monthProjection = Projections.SqlFunction("month", NHibernateUtil.Int32, Projections.Property("Workdate"));
+            cr.Add(Restrictions.Eq(monthProjection, filters["month"]));
+
+            if (filters.ContainsKey("staff_id"))
+                cr.Add(Restrictions.Eq("Staffid", filters["staff_id"]));
+
+            IList<Attendance> list = cr.List<Attendance>();
+            double total_hours = 0;
+
+            foreach (Attendance o in list)
+            {
+                DateTime to = o.Timeout.GetValueOrDefault();
+                DateTime ti = o.Timein.GetValueOrDefault();
+                total_hours += (to - ti).TotalSeconds / 3600.0;
+            }
+
+            return total_hours;
+        }
+
         private static void GetOrder(Sort sort, ICriteria cr)
         {
             bool sortDir = sort.Direction == "ASC" ? true : false;

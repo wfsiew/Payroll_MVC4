@@ -9,6 +9,7 @@ namespace Payroll_Mvc.Helpers
     public class CommonHelper
     {
         public const string DATE_FMT = "dd-MM-yyyy";
+        public const int END_YEAR = 2000;
 
         public static string FormatDate(DateTime? dt)
         {
@@ -53,6 +54,11 @@ namespace Payroll_Mvc.Helpers
                 return new Dictionary<string, object>();
 
             return o;
+        }
+
+        public static string GetAbbreviatedMonthName(int i)
+        {
+            return DateTimeFormatInfo.CurrentInfo.GetAbbreviatedMonthName(i);
         }
     }
 }
