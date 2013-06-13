@@ -124,7 +124,7 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
                         double rate = PayrateHelper.GetPayRate(filters);
                         double v = total_hours * rate;
                         object[,] t = o[m - 1] as object[,];
-                        double x = (double)t[0, 1];
+                        double x = Convert.ToDouble(t[0, 1]);
                         x += v;
                         t[0, 1] = x;
                         b[m - 1] += v;
