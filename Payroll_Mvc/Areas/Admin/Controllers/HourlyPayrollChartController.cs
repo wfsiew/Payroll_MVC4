@@ -143,10 +143,10 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
                     {
                         { "data", c },
                         { "categories", categories },
-                        { "title", title },
                         { "yaxis", yaxis }
                     }
-                }
+                },
+                { "title", title }
             },
             JsonRequestBehavior.AllowGet);
         }
