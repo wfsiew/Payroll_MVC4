@@ -1,0 +1,44 @@
+﻿@using Payroll_Mvc.Helpers;
+
+<table>
+    <tr>
+        <td>
+            <label for="id_staff_id" class="label">Id</label>
+        </td>
+        <td class="colspacing">
+            <input id="id_staff_id" name="id_staff_id" type="text" class="search" placeholder="type here to search" title="type here to search" x-webkit-speech="x-webkit-speech" />
+        </td>
+        <td>
+            <label for="id_year" class="label">Year</label>
+        </td>
+        <td class="colspacing">
+            @{
+                List<SelectListItem> li = new List<SelectListItem>();
+                for (int i = DateTime.Now.Year; i >= CommonHelper.END_YEAR; i--)
+                {
+                    li.Add(new SelectListItem { Selected = i == DateTime.Now.Year, Text = i.ToString(), Value = i.ToString() });
+                }
+            }
+            @Html.DropDownList("id_year", li, new { id = "id_year", @class = "select" })
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>
+            <label for="id_month" class="label">Month</label>
+        </td>
+        <td colspan="4">
+            <label>All</label>
+            <input type="checkbox" name="month" value="0" class="chkall" />
+            @{
+                for (int i = 1; i < 13; i++)
+                {
+                <label>@CommonHelper.GetAbbreviatedMonthName(i)</label>
+                <input name="month" type="checkbox" class="chkmonth" value="@i" />
+                }
+            }
+        </td>
+    </tr>
+</table>
+<br />
+@{ Html.RenderPartial("_chart_button"); }

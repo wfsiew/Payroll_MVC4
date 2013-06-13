@@ -125,6 +125,7 @@
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\AttendanceController.cs" />
     <Compile Include="Areas\Admin\Controllers\EmployeeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\HourlyPayrollChartController.cs" />
     <Compile Include="Areas\Admin\Controllers\OvertimeChartController.cs" />
     <Compile Include="Areas\Admin\Controllers\TotalWorkHoursChartController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
@@ -141,6 +142,7 @@
     <Compile Include="Helpers\EmployeejobHelper.cs" />
     <Compile Include="Helpers\EmployeequalificationHelper.cs" />
     <Compile Include="Helpers\EmployeesalaryHelper.cs" />
+    <Compile Include="Helpers\PayrateHelper.cs" />
     <Compile Include="Helpers\UserHelper.cs" />
     <Compile Include="Models\ListModel.cs" />
     <Compile Include="Helpers\NHibernateHelper.cs" />
@@ -331,6 +333,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Views\TotalWorkHoursChart\_search_form.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\HourlyPayrollChart\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\HourlyPayrollChart\_chart.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\HourlyPayrollChart\_search_form.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

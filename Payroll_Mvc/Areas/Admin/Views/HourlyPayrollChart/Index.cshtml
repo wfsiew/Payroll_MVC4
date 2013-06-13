@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.title = "Employee Hourly Payroll Chart";
+    ViewBag.dialog_title = "Employee Hourly Payroll Chart";
+    Layout = "~/Views/Layouts/_Chart.cshtml";
+}
+
+@section search_form {
+    @{ Html.RenderPartial("_search_form"); }
+}
+
+@section content_list {
+    @{ Html.RenderPartial("_chart"); }
+}

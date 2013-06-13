@@ -60,5 +60,10 @@ namespace Payroll_Mvc.Helpers
         {
             return DateTimeFormatInfo.CurrentInfo.GetAbbreviatedMonthName(i);
         }
+
+        public static string GetMonthName(int i)
+        {
+            return DateTimeFormatInfo.CurrentInfo.GetMonthName(i);
+        }
     }
 }

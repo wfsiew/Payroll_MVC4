@@ -22,6 +22,12 @@ namespace Payroll_Mvc.Areas.Admin
             );
 
             context.MapRoute(
+                "Admin_hourlypayrollchart",
+                "admin/hourly/chart/{action}",
+                new { controller = "HourlyPayrollChart", action = "Index" }
+            );
+
+            context.MapRoute(
                 "Admin_totalworkhourschart",
                 "admin/workhours/chart/{action}",
                 new { controller = "TotalWorkHoursChart", action = "Index" }
