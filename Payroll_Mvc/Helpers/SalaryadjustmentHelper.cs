@@ -14,33 +14,33 @@ using Payroll_Mvc.Models;
 
 namespace Payroll_Mvc.Helpers
 {
-    public class UserHelper
+    public class SalaryadjustmentHelper
     {
-        public const string DEFAULT_SORT_COLUMN = "Username";
+        public const string DEFAULT_SORT_COLUMN = "Staffid";
         public const string DEFAULT_SORT_DIR = "ASC";
 
-        public static async Task<ListModel<User>> GetAll(int pagenum = 1, int pagesize = Pager.DEFAULT_PAGE_SIZE,
+        public static async Task<ListModel<Salaryadjustment>> GetAll(int pagenum = 1, int pagesize = Pager.DEFAULT_PAGE_SIZE,
             Sort sort = null)
         {
-            ListModel<User> l = new ListModel<User>();
+            ListModel<Salaryadjustment> l = new ListModel<Salaryadjustment>();
 
             if (sort == null)
                 sort = new Sort(DEFAULT_SORT_COLUMN, DEFAULT_SORT_DIR);
 
             ISession se = NHibernateHelper.CurrentSession;
-            int total = await Task.Run(() => { return se.QueryOver<User>().Future().Count(); });
+            int total = await Task.Run(() => { return se.QueryOver<Salaryadjustment>().Future().Count(); });
             Pager pager = new Pager(total, pagenum, pagesize);
 
             int has_next = pager.HasNext ? 1 : 0;
             int has_prev = pager.HasPrev ? 1 : 0;
 
-            ICriteria cr = se.CreateCriteria<User>("user");
+            ICriteria cr = se.CreateCriteria<Salaryadjustment>("saladj");
             GetOrder(sort, cr);
 
             cr.SetFirstResult(pager.LowerBound);
             cr.SetMaxResults(pager.PageSize);
 
-            IList<User> list = await Task.Run(() => { return cr.List<User>(); });
+            IList<Salaryadjustment> list = await Task.Run(() => { return cr.List<Salaryadjustment>(); });
 
             l.ItemMsg = pager.GetItemMessage();
             l.HasNext = has_next;
@@ -56,19 +56,19 @@ namespace Payroll_Mvc.Helpers
             return l;
         }
 
-        public static async Task<ListModel<User>> GetFilterBy(Dictionary<string, object> filters, int pagenum = 1,
+        public static async Task<ListModel<Salaryadjustment>> GetFilterBy(Dictionary<string, object> filters, int pagenum = 1,
             int pagesize = Pager.DEFAULT_PAGE_SIZE, Sort sort = null)
         {
-            ListModel<User> l = new ListModel<User>();
+            ListModel<Salaryadjustment> l = new ListModel<Salaryadjustment>();
 
             if (sort == null)
                 sort = new Sort(DEFAULT_SORT_COLUMN, DEFAULT_SORT_DIR);
 
             ISession se = NHibernateHelper.CurrentSession;
-            ICriteria cr = se.CreateCriteria<User>("user");
+            ICriteria cr = se.CreateCriteria<Salaryadjustment>("saladj");
             GetFilterCriteria(cr, filters);
 
-            ICriteria crCount = se.CreateCriteria<User>("user");
+            ICriteria crCount = se.CreateCriteria<Salaryadjustment>("saladj");
             GetFilterCriteria(crCount, filters);
 
             int total = await Task.Run(() => { return crCount.SetProjection(Projections.Count(Projections.Id())).UniqueResult<int>(); });
@@ -82,7 +82,7 @@ namespace Payroll_Mvc.Helpers
             cr.SetFirstResult(pager.LowerBound);
             cr.SetMaxResults(pager.PageSize);
 
-            IList<User> list = await Task.Run(() => { return cr.List<User>(); });
+            IList<Salaryadjustment> list = await Task.Run(() => { return cr.List<Salaryadjustment>(); });
 
             l.ItemMsg = pager.GetItemMessage();
             l.HasNext = has_next;
@@ -98,22 +98,26 @@ namespace Payroll_Mvc.Helpers
             return l;
         }
 
-        public static User GetObject(FormCollection fc)
+        public static Salaryadjustment GetObject(Salaryadjustment o, FormCollection fc)
         {
-            string paramStatus = fc.Get("status");
-            bool status = paramStatus == "1" ? true : false;
+            string staff_id = fc.Get("staff_id");
 
-            string paramRole = fc.Get("role");
-            int role = CommonHelper.GetValue<int>(paramRole);
+            string paramInc = fc.Get("inc");
+            double inc = CommonHelper.GetValue<double>(paramInc);
 
-            User o = new User
-            {
-                Role = role,
-                Username = fc.Get("username"),
-                Status = status,
-                Password = fc.Get("pwd"),
-                PasswordConfirmation = fc.Get("pwdconfirm")
-            };
+            string paramMonth = fc.Get("month");
+            int month = CommonHelper.GetValue<int>(paramMonth);
+
+            string paramYear = fc.Get("year");
+            int year = CommonHelper.GetValue<int>(paramYear);
+
+            if (o == null)
+                o = new Salaryadjustment();
+
+            o.Staffid = staff_id;
+            o.Inc = inc;
+            o.Month = month;
+            o.Year = year;
 
             return o;
         }
@@ -134,7 +138,7 @@ namespace Payroll_Mvc.Helpers
 
             else
             {
-                ICriteria cr = se.CreateCriteria<User>("user");
+                ICriteria cr = se.CreateCriteria<User>("saladj");
                 GetFilterCriteria(cr, filters);
                 total = await Task.Run(() => { return cr.SetProjection(Projections.Count(Projections.Id())).UniqueResult<int>(); });
                 pager = new Pager(total, pagenum, pagesize);
@@ -147,39 +151,24 @@ namespace Payroll_Mvc.Helpers
         private static void GetOrder(Sort sort, ICriteria cr)
         {
             bool sortDir = sort.Direction == "ASC" ? true : false;
-            Order order = new Order(string.Format("user.{0}", sort.Column), sortDir);
+            Order order = new Order(string.Format("saladj.{0}", sort.Column), sortDir);
             cr.AddOrder(order);
         }
 
         private static void GetFilterCriteria(ICriteria cr, Dictionary<string, object> filters)
         {
-            string employee = Convert.ToString(filters["employee"]);
-            string username = Convert.ToString(filters["username"]);
-            int role = (int)filters["role"];
-            int status = (int)filters["status"];
-            bool statusVal = status == 1 ? true : false;
+            string staff_id = Convert.ToString(filters["staff_id"]);
+            int month = (int)filters["month"];
+            int year = (int)filters["year"];
 
-            if (!string.IsNullOrEmpty(username))
-                cr.Add(Restrictions.InsensitiveLike("user.Username", username, MatchMode.Anywhere));
+            if (!string.IsNullOrEmpty(staff_id))
+                cr.Add(Restrictions.InsensitiveLike("saladj.Staffid", staff_id, MatchMode.Anywhere));
 
-            if (role != 0)
-                cr.Add(Restrictions.Eq("user.Role", role));
+            if (month != 0)
+                cr.Add(Restrictions.Eq("saladj.Month", month));
 
-            if (status != 0)
-                cr.Add(Restrictions.Eq("user.Status", statusVal));
-
-            if (!string.IsNullOrEmpty(employee))
-            {
-                cr = cr.CreateCriteria("user.Employee", "e", JoinType.InnerJoin);
-                AbstractCriterion a1 = Restrictions.InsensitiveLike("e.Firstname", employee, MatchMode.Anywhere);
-                AbstractCriterion a2 = Restrictions.InsensitiveLike("e.Middlename", employee, MatchMode.Anywhere);
-                AbstractCriterion a3 = Restrictions.InsensitiveLike("e.Lastname", employee, MatchMode.Anywhere);
-
-                AbstractCriterion b1 = Restrictions.Or(a1, a2);
-                AbstractCriterion b2 = Restrictions.Or(b1, a3);
-
-                cr.Add(b2);
-            }
+            if (year != 0)
+                cr.Add(Restrictions.Eq("saladj.Year", year));
         }
     }
 }

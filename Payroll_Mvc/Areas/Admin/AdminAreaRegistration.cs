@@ -34,6 +34,12 @@ namespace Payroll_Mvc.Areas.Admin
             );
 
             context.MapRoute(
+                "Admin_salaryadj",
+                "admin/salaryadj/{action}/{id}",
+                new { controller = "SalaryAdjustment", action = "Index", id = UrlParameter.Optional }
+            );
+
+            context.MapRoute(
                 "Admin_overtimechart",
                 "admin/overtime/chart/{action}",
                 new { controller = "OvertimeChart", action = "Index" }

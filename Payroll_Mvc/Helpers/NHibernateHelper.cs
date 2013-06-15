@@ -63,7 +63,7 @@ namespace Payroll_Mvc.Helpers
             string local = "Server=localhost;Port=3307;Database=test;Uid=root;Pwd=root";
 
             FluentConfiguration cfg = Fluently.Configure()
-                .Database(MySQLConfiguration.Standard.ConnectionString(online)
+                .Database(MySQLConfiguration.Standard.ConnectionString(local)
                 .ShowSql()
                 .AdoNetBatchSize(100))
                 .CurrentSessionContext("web")

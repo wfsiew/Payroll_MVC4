@@ -127,6 +127,7 @@
     <Compile Include="Areas\Admin\Controllers\EmployeeController.cs" />
     <Compile Include="Areas\Admin\Controllers\HourlyPayrollChartController.cs" />
     <Compile Include="Areas\Admin\Controllers\OvertimeChartController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SalaryAdjustmentController.cs" />
     <Compile Include="Areas\Admin\Controllers\TotalWorkHoursChartController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Areas\Admin\Models\EmployeeView.cs" />
@@ -143,6 +144,7 @@
     <Compile Include="Helpers\EmployeequalificationHelper.cs" />
     <Compile Include="Helpers\EmployeesalaryHelper.cs" />
     <Compile Include="Helpers\PayrateHelper.cs" />
+    <Compile Include="Helpers\SalaryadjustmentHelper.cs" />
     <Compile Include="Helpers\UserHelper.cs" />
     <Compile Include="Models\ListModel.cs" />
     <Compile Include="Helpers\NHibernateHelper.cs" />
@@ -249,6 +251,7 @@
     <Content Include="Js\app\stat.js" />
     <Content Include="Js\app\theme.js" />
     <Content Include="Js\app\utils.js" />
+    <Content Include="Js\blank.html" />
     <Content Include="Js\ejs.min.js" />
     <Content Include="Js\exporting.js" />
     <Content Include="Js\highcharts.js" />
@@ -342,6 +345,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Views\HourlyPayrollChart\_search_form.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\SalaryAdjustment\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\SalaryAdjustment\_search_form.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\SalaryAdjustment\_form.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\SalaryAdjustment\_list.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

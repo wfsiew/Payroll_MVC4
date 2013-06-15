@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Threading.Tasks;
 
 using NHibernate;
 using NHibernate.Criterion;
@@ -14,7 +15,7 @@ using Payroll_Mvc.Areas.Admin.Models;
 
 namespace Payroll_Mvc.Areas.Admin.Controllers
 {
-    public class OvertimeChartController : Controller
+    public class OvertimeChartController : AsyncController
     {
         //
         // GET: /Admin/OvertimeChart/
@@ -24,11 +25,11 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
             return View();
         }
 
-        public JsonResult Data()
+        public async Task<JsonResult> Data()
         {
-            string staff_id = string.IsNullOrEmpty(Request["staff_id"]) ? "" : Request["staff_id"];
+            string staff_id = CommonHelper.GetValue(Request["staff_id"]);
             string _month = Request["month"];
-            string _year = string.IsNullOrEmpty(Request["year"]) ? "0" : Request["year"];
+            string _year = CommonHelper.GetValue(Request["year"], "0");
 
             if (string.IsNullOrEmpty(_month))
                 _month = Request["month[]"];
@@ -38,6 +39,15 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
 
             string title = "Overtime";
             string yaxis = "Duration (hours)";
+
+            double[] b = new double[12];
+            string[] categories = new string[12];
+            double[] c = new double[12];
+
+            for (int i = 1; i < 13; i++)
+            {
+                categories[i - 1] = CommonHelper.GetAbbreviatedMonthName(i);
+            }
 
             ISession se = NHibernateHelper.CurrentSession;
 
@@ -61,28 +71,22 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
                 cr.Add(Restrictions.In(monthProjection, monthlist));
             }
 
-            List<Attendance> list = cr.List<Attendance>().ToList();
+            IList<Attendance> list = await Task.Run(() => { return cr.List<Attendance>(); });
 
-            string[] categories = new string[12];
-            for (int i = 1; i < 13; i++)
-            {
-                categories[i - 1] = CommonHelper.GetAbbreviatedMonthName(i);
-            }
+            await Task.Run(() =>
+                {
+                    foreach (Attendance o in list)
+                    {
+                        DateTime to = o.Timeout.GetValueOrDefault();
+                        DateTime v = new DateTime(to.Year, to.Month, to.Day, 18, 0, 0, DateTimeKind.Utc);
+                        double x = (to - v).TotalSeconds / 3600.0;
+                        int m = o.Workdate.GetValueOrDefault().Month;
 
-            double[] b = new double[12];
+                        if (x > 0)
+                            b[m - 1] += x;
+                    }
+                });
 
-            foreach (Attendance o in list)
-            {
-                DateTime to = o.Timeout.GetValueOrDefault();
-                DateTime v = new DateTime(to.Year, to.Month, to.Day, 18, 0, 0, DateTimeKind.Utc);
-                double x = (to - v).TotalSeconds / 3600.0;
-                int m = o.Workdate.GetValueOrDefault().Month;
-
-                if (x > 0)
-                    b[m - 1] += x;
-            }
-
-            double[] c = new double[12];
             for (int i = 0; i < b.Length; i++)
             {
                 c[i] = Math.Round(b[i], 2);

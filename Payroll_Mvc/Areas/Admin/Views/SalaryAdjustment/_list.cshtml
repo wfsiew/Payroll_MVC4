@@ -1,0 +1,66 @@
+﻿@using Domain.Model;
+@using Payroll_Mvc.Models;
+@using Payroll_Mvc.Helpers;
+
+@model ListModel<Salaryadjustment>
+
+@{
+    ViewBag.totalpage = Model.TotalPage;
+}
+
+@if (Model.List != null && Model.List.Count > 0)
+{
+    <table class="list_table">
+        <thead class="ui-widget-header">
+            <tr>
+                <th class="data chkbox">
+                    <input class="hdchk" type="checkbox" /></th>
+                <th class="data">
+                    <div id="hd_Staffid" class="sortheader hover">
+                        <span class="colheader">Id</span>
+                        <span class="sorticon"></span>
+                    </div>
+                </th>
+                <th class="data">
+                    <div id="hd_Month" class="sortheader hover">
+                        <span class="colheader">Month</span>
+                        <span class="sorticon"></span>
+                    </div>
+                </th>
+                <th class="data">
+                    <div id="hd_Year" class="sortheader hover">
+                        <span class="colheader">Year</span>
+                        <span class="sorticon"></span>
+                    </div>
+                </th>
+                <th class="data">
+                    <div id="hd_Inc" class="sortheader hover">
+                        <span class="colheader">Increment</span>
+                        <span class="sorticon"></span>
+                    </div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        @{
+            int n = 0;
+            string css = "ui-state-active";
+        }
+        @foreach (Salaryadjustment o in Model.List)
+        {
+            css = n % 2 == 0 ? "ui-state-active" : "ui-state-default";
+            ++n;
+            
+            <tr id="tr_@o.Id" class="@css">
+                <td class="data chkbox">
+                    <input class="chk" type="checkbox" /></td>
+                <td class="data">@o.Staffid</td>
+                <td class="data">@CommonHelper.GetMonthName(o.Month)</td>
+                <td class="data">@o.Year</td>
+                <td class="data">@CommonHelper.FormatNumber(o.Inc)</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+<input id="id_pg" type="hidden" value="@Model.HasPrev,@Model.HasNext,@Model.PrevPage,@Model.NextPage,@Model.ItemMsg,@Model.SortColumn,@Model.SortDir,@Model.Page" />

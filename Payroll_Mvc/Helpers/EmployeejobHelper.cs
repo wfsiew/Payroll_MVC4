@@ -32,16 +32,16 @@ namespace Payroll_Mvc.Helpers
             Jobcategory jobcat = string.IsNullOrEmpty(paramJobcategoryid) || paramJobcategoryid == "0" ? null : new Jobcategory();
 
             if (des != null)
-                des.Id = Convert.ToInt32(paramDesignationid);
+                des.Id = CommonHelper.GetValue<int>(paramDesignationid);
 
             if (dept != null)
-                dept.Id = Convert.ToInt32(paramDepartmentid);
+                dept.Id = CommonHelper.GetValue<int>(paramDepartmentid);
 
             if (es != null)
-                es.Id = Convert.ToInt32(paramEmploymentstatusid);
+                es.Id = CommonHelper.GetValue<int>(paramEmploymentstatusid);
 
             if (jobcat != null)
-                jobcat.Id = Convert.ToInt32(paramJobcategoryid);
+                jobcat.Id = CommonHelper.GetValue<int>(paramJobcategoryid);
 
             Employeejob o = e.Employeejob;
 

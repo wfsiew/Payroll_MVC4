@@ -20,13 +20,13 @@ namespace Payroll_Mvc.Helpers
             DateTime enddate = CommonHelper.GetDateTime(paramEnddate);
 
             string paramLevel = GetParam("level", fc);
-            int level = string.IsNullOrEmpty(paramLevel) ? default(int) : Convert.ToInt32(paramLevel);
+            int level = CommonHelper.GetValue<int>(paramLevel);
 
             string paramYear = GetParam("year", fc);
-            int year = string.IsNullOrEmpty(paramYear) ? default(int) : Convert.ToInt32(paramYear);
+            int year = CommonHelper.GetValue<int>(paramYear);
 
             string paramGpa = GetParam("gpa", fc);
-            double gpa = string.IsNullOrEmpty(paramGpa) ? default(double) : Convert.ToDouble(paramGpa);
+            double gpa = CommonHelper.GetValue<double>(paramGpa);
 
             Employeequalification o = e.Employeequalification;
 

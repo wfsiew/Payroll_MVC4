@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Threading.Tasks;
 
 using Domain.Model;
 using NHibernate;
@@ -12,17 +13,17 @@ using Payroll_Mvc.Areas.Admin.Models;
 
 namespace Payroll_Mvc.Areas.Admin.Controllers
 {
-    public class EmployeeController : Controller
+    public class EmployeeController : AsyncController
     {
         //
         // GET: /Admin/Employee/
 
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             ListModel<Employee> l = null;
 
             ISession se = NHibernateHelper.CurrentSession;
-            l = EmployeeHelper.GetAll();
+            l = await EmployeeHelper.GetAll();
             ViewBag.employmentstatus = se.QueryOver<Employmentstatus>()
                 .OrderBy(x => x.Name).Asc.List();
             ViewBag.designation = se.QueryOver<Designation>()
@@ -33,17 +34,17 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
             return View(l);
         }
 
-        public ActionResult List()
+        public async Task<ActionResult> List()
         {
-            string employee = string.IsNullOrEmpty(Request["employee"]) ? "" : Request["employee"];
-            string staff_id = string.IsNullOrEmpty(Request["staff_id"]) ? "" : Request["staff_id"];
-            int employment_status = string.IsNullOrEmpty(Request["employment_status"]) ? 0 : Convert.ToInt32(Request["employment_status"]);
-            int designation = string.IsNullOrEmpty(Request["designation"]) ? 0 : Convert.ToInt32(Request["designation"]);
-            int dept = string.IsNullOrEmpty(Request["dept"]) ? 0 : Convert.ToInt32(Request["dept"]);
-            int pgnum = string.IsNullOrEmpty(Request["pgnum"]) ? 1 : Convert.ToInt32(Request["pgnum"]);
-            int pgsize = string.IsNullOrEmpty(Request["pgsize"]) ? 0 : Convert.ToInt32(Request["pgsize"]);
-            string sortcolumn = string.IsNullOrEmpty(Request["sortcolumn"]) ? EmployeeHelper.DEFAULT_SORT_COLUMN : Request["sortcolumn"];
-            string sortdir = string.IsNullOrEmpty(Request["sortdir"]) ? EmployeeHelper.DEFAULT_SORT_DIR : Request["sortdir"];
+            string employee = CommonHelper.GetValue(Request["employee"]);
+            string staff_id = CommonHelper.GetValue(Request["staff_id"]);
+            int employment_status = CommonHelper.GetValue<int>(Request["employment_status"], 0);
+            int designation = CommonHelper.GetValue<int>(Request["designation"], 0);
+            int dept = CommonHelper.GetValue<int>(Request["dept"], 0);
+            int pgnum = CommonHelper.GetValue<int>(Request["pgnum"], 1);
+            int pgsize = CommonHelper.GetValue<int>(Request["pgsize"], 0);
+            string sortcolumn = CommonHelper.GetValue(Request["sortcolumn"], EmployeeHelper.DEFAULT_SORT_COLUMN);
+            string sortdir = CommonHelper.GetValue(Request["sortdir"], EmployeeHelper.DEFAULT_SORT_DIR);
 
             Sort sort = new Sort(sortcolumn, sortdir);
 
@@ -60,10 +61,10 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
 
             if (string.IsNullOrEmpty(employee) && string.IsNullOrEmpty(staff_id) && employment_status == 0 &&
                     designation == 0 && dept == 0)
-                l = EmployeeHelper.GetAll(pgnum, pgsize, sort);
+                l = await EmployeeHelper.GetAll(pgnum, pgsize, sort);
 
             else
-                l = EmployeeHelper.GetFilterBy(filters, pgnum, pgsize, sort);
+                l = await EmployeeHelper.GetFilterBy(filters, pgnum, pgsize, sort);
 
             return View("_list", l);
         }
@@ -96,9 +97,9 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public JsonResult Create(FormCollection fc)
+        public async Task<JsonResult> Create(FormCollection fc)
         {
-            Employee o = EmployeeHelper.GetObject(fc);
+            Employee o = EmployeeHelper.GetObject(null, fc);
 
             bool b1 = EmployeecontactHelper.IsEmptyParams(fc);
             Employeecontact oc = EmployeecontactHelper.GetObject(o, fc);
@@ -140,28 +141,31 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
                 return Json(err, JsonRequestBehavior.AllowGet);
             }
 
-            using (ITransaction tx = se.BeginTransaction())
-            {
-                se.SaveOrUpdate(o);
-                oc.Id = o.Id;
-                oej.Id = o.Id;
-                osa.Id = o.Id;
-                oq.Id = o.Id;
+            await Task.Run(() =>
+                {
+                    using (ITransaction tx = se.BeginTransaction())
+                    {
+                        se.SaveOrUpdate(o);
+                        oc.Id = o.Id;
+                        oej.Id = o.Id;
+                        osa.Id = o.Id;
+                        oq.Id = o.Id;
 
-                if (!b1)
-                    se.SaveOrUpdate(oc);
+                        if (!b1)
+                            se.SaveOrUpdate(oc);
 
-                if (!b2)
-                    se.SaveOrUpdate(oej);
+                        if (!b2)
+                            se.SaveOrUpdate(oej);
 
-                if (!b3)
-                    se.SaveOrUpdate(osa);
+                        if (!b3)
+                            se.SaveOrUpdate(osa);
 
-                if (!b4)
-                    se.SaveOrUpdate(oq);
+                        if (!b4)
+                            se.SaveOrUpdate(oq);
 
-                tx.Commit();
-            }
+                        tx.Commit();
+                    }
+                });
 
             return Json(new Dictionary<string, object>
             {
@@ -171,10 +175,10 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
             JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult Edit(Guid id)
+        public async Task<ActionResult> Edit(Guid id)
         {
             ISession se = NHibernateHelper.CurrentSession;
-            Employee o = se.Get<Employee>(id);
+            Employee o = await Task.Run(() => { return se.Get<Employee>(id); });
             Employeecontact oc = o.Employeecontact;
             Employeejob oej = o.Employeejob;
             Employeesalary osa = o.Employeesalary;
@@ -205,11 +209,12 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public JsonResult Update(Guid id, FormCollection fc)
+        public async Task<JsonResult> Update(Guid id, FormCollection fc)
         {
             ISession se = NHibernateHelper.CurrentSession;
 
-            Employee o = se.Get<Employee>(id);
+            Employee o = await Task.Run(() => { return se.Get<Employee>(id); });
+            o = EmployeeHelper.GetObject(o, fc);
             Employeecontact oc = EmployeecontactHelper.GetObject(o, fc);
             Employeejob oej = EmployeejobHelper.GetObject(o, fc); ;
             Employeesalary osa = EmployeesalaryHelper.GetObject(o, fc);
@@ -246,16 +251,27 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
                 return Json(err, JsonRequestBehavior.AllowGet);
             }
 
-            using (ITransaction tx = se.BeginTransaction())
-            {
-                se.SaveOrUpdate(o);
-                se.SaveOrUpdate(oc);
-                se.SaveOrUpdate(oej);
-                se.SaveOrUpdate(osa);
-                se.SaveOrUpdate(oq);
+            await Task.Run(() =>
+                {
+                    using (ITransaction tx = se.BeginTransaction())
+                    {
+                        se.SaveOrUpdate(o);
 
-                tx.Commit();
-            }
+                        if (!b1)
+                            se.SaveOrUpdate(oc);
+
+                        if (!b2)
+                            se.SaveOrUpdate(oej);
+
+                        if (!b3)
+                            se.SaveOrUpdate(osa);
+
+                        if (!b4)
+                            se.SaveOrUpdate(oq);
+
+                        tx.Commit();
+                    }
+                });
 
             return Json(new Dictionary<string, object>
             {
@@ -266,15 +282,15 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public JsonResult Delete(FormCollection fc)
+        public async Task<JsonResult> Delete(FormCollection fc)
         {
-            string employee = string.IsNullOrEmpty(Request["employee"]) ? "" : Request["employee"];
-            string staff_id = string.IsNullOrEmpty(Request["staff_id"]) ? "" : Request["staff_id"];
-            int employment_status = string.IsNullOrEmpty(Request["employment_status"]) ? 0 : Convert.ToInt32(Request["employment_status"]);
-            int designation = string.IsNullOrEmpty(Request["designation"]) ? 0 : Convert.ToInt32(Request["designation"]);
-            int dept = string.IsNullOrEmpty(Request["dept"]) ? 0 : Convert.ToInt32(Request["dept"]);
-            int pgnum = string.IsNullOrEmpty(Request["pgnum"]) ? 1 : Convert.ToInt32(Request["pgnum"]);
-            int pgsize = string.IsNullOrEmpty(Request["pgsize"]) ? 0 : Convert.ToInt32(Request["pgsize"]);
+            string employee = CommonHelper.GetValue(Request["employee"]);
+            string staff_id = CommonHelper.GetValue(Request["staff_id"]);
+            int employment_status = CommonHelper.GetValue<int>(Request["employment_status"], 0);
+            int designation = CommonHelper.GetValue<int>(Request["designation"], 0);
+            int dept = CommonHelper.GetValue<int>(Request["dept"], 0);
+            int pgnum = CommonHelper.GetValue<int>(Request["pgnum"], 1);
+            int pgsize = CommonHelper.GetValue<int>(Request["pgsize"], 0);
             string ids = fc.Get("id[]");
             string[] idlist = ids.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 
@@ -291,33 +307,36 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
 
             ISession se = NHibernateHelper.CurrentSession;
 
-            using (ITransaction tx = se.BeginTransaction())
-            {
-                se.CreateQuery("delete from Employee where id in (:idlist)")
-                    .SetParameterList("idlist", idlist)
-                    .ExecuteUpdate();
-                se.CreateQuery("delete from Employeecontact where id in (:idlist)")
-                    .SetParameterList("idlist", idlist)
-                    .ExecuteUpdate();
-                se.CreateQuery("delete from Employeejob where id in (:idlist)")
-                    .SetParameterList("idlist", idlist)
-                    .ExecuteUpdate();
-                se.CreateQuery("delete from Employeesalary where id in (:idlist)")
-                    .SetParameterList("idlist", idlist)
-                    .ExecuteUpdate();
-                se.CreateQuery("delete from Employeequalification where id in (:idlist)")
-                    .SetParameterList("idlist", idlist)
-                    .ExecuteUpdate();
+            await Task.Run(() =>
+                {
+                    using (ITransaction tx = se.BeginTransaction())
+                    {
+                        se.CreateQuery("delete from Employee where id in (:idlist)")
+                            .SetParameterList("idlist", idlist)
+                            .ExecuteUpdate();
+                        se.CreateQuery("delete from Employeecontact where id in (:idlist)")
+                            .SetParameterList("idlist", idlist)
+                            .ExecuteUpdate();
+                        se.CreateQuery("delete from Employeejob where id in (:idlist)")
+                            .SetParameterList("idlist", idlist)
+                            .ExecuteUpdate();
+                        se.CreateQuery("delete from Employeesalary where id in (:idlist)")
+                            .SetParameterList("idlist", idlist)
+                            .ExecuteUpdate();
+                        se.CreateQuery("delete from Employeequalification where id in (:idlist)")
+                            .SetParameterList("idlist", idlist)
+                            .ExecuteUpdate();
 
-                tx.Commit();
-            }
+                        tx.Commit();
+                    }
+                });
 
             if (string.IsNullOrEmpty(employee) && string.IsNullOrEmpty(staff_id) && employment_status == 0 &&
                 designation == 0 && dept == 0)
-                itemscount = EmployeeHelper.GetItemMessage(null, pgnum, pgsize);
+                itemscount = await EmployeeHelper.GetItemMessage(null, pgnum, pgsize);
 
             else
-                itemscount = EmployeeHelper.GetItemMessage(filters, pgnum, pgsize);
+                itemscount = await EmployeeHelper.GetItemMessage(filters, pgnum, pgsize);
 
             return Json(new Dictionary<string, object>
             {

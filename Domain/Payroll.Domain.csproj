@@ -97,6 +97,7 @@
     <Compile Include="Validator\EmployeequalificationValidator.cs" />
     <Compile Include="Validator\EmployeesalaryValidator.cs" />
     <Compile Include="Validator\EmployeeValidator.cs" />
+    <Compile Include="Validator\SalaryadjustmentValidator.cs" />
     <Compile Include="Validator\UserValidator.cs" />
     <Compile Include="Validator\ValidationHelper.cs" />
   </ItemGroup>

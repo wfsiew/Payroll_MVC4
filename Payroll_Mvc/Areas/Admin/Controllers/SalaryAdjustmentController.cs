@@ -12,48 +12,46 @@ using Payroll_Mvc.Helpers;
 
 namespace Payroll_Mvc.Areas.Admin.Controllers
 {
-    public class UserController : AsyncController
+    public class SalaryAdjustmentController : AsyncController
     {
         //
-        // GET: /Admin/User/
+        // GET: /Admin/SalaryAdjustment/
 
         public async Task<ActionResult> Index()
         {
-            ListModel<User> l = null;
+            ListModel<Salaryadjustment> l = null;
 
-            l = await UserHelper.GetAll();
+            l = await SalaryadjustmentHelper.GetAll();
 
             return View(l);
         }
 
         public async Task<ActionResult> List()
         {
-            string username = CommonHelper.GetValue(Request["username"]);
-            int role = CommonHelper.GetValue<int>(Request["role"], 0);
-            string employee = CommonHelper.GetValue(Request["employee"]);
-            int status = CommonHelper.GetValue<int>(Request["status"], 0);
+            string staff_id = CommonHelper.GetValue(Request["staff_id"]);
+            int month = CommonHelper.GetValue<int>(Request["month"], 0);
+            int year = CommonHelper.GetValue<int>(Request["year"], 0);
             int pgnum = CommonHelper.GetValue<int>(Request["pgnum"], 1);
             int pgsize = CommonHelper.GetValue<int>(Request["pgsize"], 0);
-            string sortcolumn = CommonHelper.GetValue(Request["sortcolumn"], UserHelper.DEFAULT_SORT_COLUMN);
-            string sortdir = CommonHelper.GetValue(Request["sortdir"], UserHelper.DEFAULT_SORT_DIR);
+            string sortcolumn = CommonHelper.GetValue(Request["sortcolumn"], SalaryadjustmentHelper.DEFAULT_SORT_COLUMN);
+            string sortdir = CommonHelper.GetValue(Request["sortdir"], SalaryadjustmentHelper.DEFAULT_SORT_DIR);
 
             Sort sort = new Sort(sortcolumn, sortdir);
 
             Dictionary<string, object> filters = new Dictionary<string, object>
             {
-                { "username", username },
-                { "role", role },
-                { "employee", employee },
-                { "status", status }
+                { "staff_id", staff_id },
+                { "month", month },
+                { "year", year }
             };
 
-            ListModel<User> l = null;
+            ListModel<Salaryadjustment> l = null;
 
-            if (string.IsNullOrEmpty(username) && role == 0 && string.IsNullOrEmpty(employee) && status == 0)
-                l = await UserHelper.GetAll(pgnum, pgsize, sort);
+            if (string.IsNullOrEmpty(staff_id) && month == 0 && year == 0)
+                l = await SalaryadjustmentHelper.GetAll(pgnum, pgsize, sort);
 
             else
-                l = await UserHelper.GetFilterBy(filters, pgnum, pgsize, sort);
+                l = await SalaryadjustmentHelper.GetFilterBy(filters, pgnum, pgsize, sort);
 
             return View("_list", l);
         }
@@ -61,18 +59,18 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
         public ActionResult New()
         {
             ViewBag.form_id = "add-form";
-            return View("_form", new User());
+            return View("_form", new Salaryadjustment());
         }
 
         [HttpPost]
         public async Task<JsonResult> Create(FormCollection fc)
         {
-            User o = UserHelper.GetObject(fc);
+            Salaryadjustment o = SalaryadjustmentHelper.GetObject(null, fc);
 
             Dictionary<string, object> err = null;
 
             ISession se = NHibernateHelper.CurrentSession;
-            err = o.IsValid(se);
+            err = o.IsValid();
 
             if (err == null)
             {
@@ -80,7 +78,6 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
                     {
                         using (ITransaction tx = se.BeginTransaction())
                         {
-                            o.EncryptPassword();
                             se.SaveOrUpdate(o);
                             tx.Commit();
                         }
@@ -89,7 +86,7 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
                 return Json(new Dictionary<string, object>
                 {
                     { "success", 1 },
-                    { "message", "User was successfully added." }
+                    { "message", "Salary Adjustment was successfully added." }
                 },
                 JsonRequestBehavior.AllowGet);
             }
@@ -105,7 +102,7 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
             ViewBag.form_id = "edit-form";
 
             ISession se = NHibernateHelper.CurrentSession;
-            User o = await Task.Run(() => { return se.Get<User>(id); });
+            Salaryadjustment o = await Task.Run(() => { return se.Get<Salaryadjustment>(id); });
 
             return View("_form", o);
         }
@@ -114,15 +111,14 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
         public async Task<JsonResult> Update(Guid id, FormCollection fc)
         {
             Dictionary<string, object> err = null;
-            User o = null;
-            User x = UserHelper.GetObject(fc);
+            Salaryadjustment o = null;
 
             ISession se = NHibernateHelper.CurrentSession;
 
-            o = await Task.Run(() => { return se.Get<User>(id); });
-            x.Id = id;
+            o = await Task.Run(() => { return se.Get<Salaryadjustment>(id); });
+            o = SalaryadjustmentHelper.GetObject(o, fc);
 
-            err = x.IsValid(se);
+            err = o.IsValid();
 
             if (err == null)
             {
@@ -130,16 +126,6 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
                     {
                         using (ITransaction tx = se.BeginTransaction())
                         {
-                            o.Role = x.Role;
-                            o.Username = x.Username;
-                            o.Status = x.Status;
-
-                            if (x.Password != Domain.Model.User.UNCHANGED_PASSWORD)
-                            {
-                                o.Password = x.Password;
-                                o.EncryptPassword();
-                            }
-
                             se.SaveOrUpdate(o);
                             tx.Commit();
                         }
@@ -148,7 +134,7 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
                 return Json(new Dictionary<string, object>
                 {
                     { "success", 1 },
-                    { "message", "User was successfully updated." }
+                    { "message", "Salary Adjustment was successfully updated." }
                 },
                 JsonRequestBehavior.AllowGet);
             }
@@ -162,10 +148,9 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
         [HttpPost]
         public async Task<JsonResult> Delete(FormCollection fc)
         {
-            string username = CommonHelper.GetValue(Request["username"]);
-            int role = CommonHelper.GetValue<int>(Request["role"], 0);
-            string employee = CommonHelper.GetValue(Request["employee"]);
-            int status = CommonHelper.GetValue<int>(Request["status"], 0);
+            string staff_id = CommonHelper.GetValue(Request["staff_id"]);
+            int month = CommonHelper.GetValue<int>(Request["month"], 0);
+            int year = CommonHelper.GetValue<int>(Request["year"], 0);
             int pgnum = CommonHelper.GetValue<int>(Request["pgnum"], 1);
             int pgsize = CommonHelper.GetValue<int>(Request["pgsize"], 0);
             string ids = fc.Get("id[]");
@@ -175,10 +160,9 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
 
             Dictionary<string, object> filters = new Dictionary<string, object>
             {
-                { "username", username },
-                { "role", role },
-                { "employee", employee },
-                { "status", status }
+                { "staff_id", staff_id },
+                { "month", month },
+                { "year", year }
             };
 
             ISession se = NHibernateHelper.CurrentSession;
@@ -187,24 +171,24 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
                 {
                     using (ITransaction tx = se.BeginTransaction())
                     {
-                        se.CreateQuery("delete from User where id in (:idlist)")
+                        se.CreateQuery("delete from Salaryadjustment where id in (:idlist)")
                             .SetParameterList("idlist", idlist)
                             .ExecuteUpdate();
                         tx.Commit();
                     }
                 });
 
-            if (string.IsNullOrEmpty(username) && role == 0 && string.IsNullOrEmpty(employee) && status == 0)
-                itemscount = await UserHelper.GetItemMessage(null, pgnum, pgsize);
+            if (string.IsNullOrEmpty(staff_id) && month == 0 && year == 0)
+                itemscount = await SalaryadjustmentHelper.GetItemMessage(null, pgnum, pgsize);
 
             else
-                itemscount = await UserHelper.GetItemMessage(filters, pgnum, pgsize);
-            
+                itemscount = await SalaryadjustmentHelper.GetItemMessage(filters, pgnum, pgsize);
+
             return Json(new Dictionary<string, object>
             {
                 { "success", 1 },
                 { "itemscount", itemscount },
-                { "message", string.Format("{0} user(s) was successfully deleted.", idlist.Length) }
+                { "message", string.Format("{0} salary adjustment(s) was successfully deleted.", idlist.Length) }
             },
             JsonRequestBehavior.AllowGet);
         }

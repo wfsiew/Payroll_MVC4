@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Threading.Tasks;
 
 using NHibernate;
 using NHibernate.SqlCommand;
@@ -15,7 +16,7 @@ namespace Payroll_Mvc.Helpers
 {
     public class PayrateHelper
     {
-        public static double GetPayRate(Dictionary<string, object> filters)
+        public static async Task<double> GetPayRate(Dictionary<string, object> filters)
         {
             ISession se = NHibernateHelper.CurrentSession;
             ICriteria cr = se.CreateCriteria<Payrate>();
@@ -24,7 +25,7 @@ namespace Payroll_Mvc.Helpers
             cr.Add(Restrictions.Eq("Year", filters["year"]));
             cr.Add(Restrictions.Eq("Month", filters["month"]));
 
-            Payrate o = cr.List<Payrate>().SingleOrDefault();
+            Payrate o = await Task.Run(() => { return cr.List<Payrate>().SingleOrDefault(); });
             double rate = 0;
 
             if (o != null)

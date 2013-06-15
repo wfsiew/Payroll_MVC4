@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Threading.Tasks;
 
 using NHibernate;
 using NHibernate.SqlCommand;
@@ -18,7 +19,7 @@ namespace Payroll_Mvc.Helpers
         public const string DEFAULT_SORT_COLUMN = "Workdate";
         public const string DEFAULT_SORT_DIR = "ASC";
 
-        public static ListModel<Attendance> GetAll(int pagenum = 1, int pagesize = Pager.DEFAULT_PAGE_SIZE,
+        public static async Task<ListModel<Attendance>> GetAll(int pagenum = 1, int pagesize = Pager.DEFAULT_PAGE_SIZE,
             Sort sort = null)
         {
             ListModel<Attendance> l = new ListModel<Attendance>();
@@ -43,7 +44,7 @@ namespace Payroll_Mvc.Helpers
             cr.SetFirstResult(pager.LowerBound);
             cr.SetMaxResults(pager.PageSize);
 
-            List<Attendance> list = cr.List<Attendance>().ToList();
+            IList<Attendance> list = await Task.Run(() => { return cr.List<Attendance>(); });
 
             l.ItemMsg = pager.GetItemMessage();
             l.HasNext = has_next;
@@ -59,7 +60,7 @@ namespace Payroll_Mvc.Helpers
             return l;
         }
 
-        public static ListModel<Attendance> GetFilterBy(Dictionary<string, object> filters, int pagenum = 1,
+        public static async Task<ListModel<Attendance>> GetFilterBy(Dictionary<string, object> filters, int pagenum = 1,
             int pagesize = Pager.DEFAULT_PAGE_SIZE, Sort sort = null)
         {
             ListModel<Attendance> l = new ListModel<Attendance>();
@@ -85,7 +86,7 @@ namespace Payroll_Mvc.Helpers
             cr.SetFirstResult(pager.LowerBound);
             cr.SetMaxResults(pager.PageSize);
 
-            List<Attendance> list = cr.List<Attendance>().ToList();
+            IList<Attendance> list = await Task.Run(() => { return cr.List<Attendance>(); });
 
             l.ItemMsg = pager.GetItemMessage();
             l.HasNext = has_next;
@@ -113,7 +114,7 @@ namespace Payroll_Mvc.Helpers
             return e;
         }
 
-        public static double GetTotalHours(Dictionary<string, object> filters)
+        public static async Task<double> GetTotalHours(Dictionary<string, object> filters)
         {
             ISession se = NHibernateHelper.CurrentSession;
             ICriteria cr = se.CreateCriteria<Attendance>();
@@ -127,7 +128,7 @@ namespace Payroll_Mvc.Helpers
             if (filters.ContainsKey("staff_id"))
                 cr.Add(Restrictions.Eq("Staffid", filters["staff_id"]));
 
-            IList<Attendance> list = cr.List<Attendance>();
+            IList<Attendance> list = await Task.Run(() => { return cr.List<Attendance>(); });
             double total_hours = 0;
 
             foreach (Attendance o in list)

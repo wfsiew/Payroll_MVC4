@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Threading.Tasks;
 
 using NHibernate;
 using NHibernate.Criterion;
@@ -15,7 +16,7 @@ using Payroll_Mvc.Areas.Admin.Models;
 
 namespace Payroll_Mvc.Areas.Admin.Controllers
 {
-    public class HourlyPayrollChartController : Controller
+    public class HourlyPayrollChartController : AsyncController
     {
         //
         // GET: /Admin/HourlyPayrollChart/
@@ -25,11 +26,11 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
             return View();
         }
 
-        public JsonResult Data()
+        public async Task<JsonResult> Data()
         {
-            string staff_id = string.IsNullOrEmpty(Request["staff_id"]) ? "" : Request["staff_id"];
+            string staff_id = CommonHelper.GetValue(Request["staff_id"]);
             string _month = Request["month"];
-            string _year = string.IsNullOrEmpty(Request["year"]) ? "0" : Request["year"];
+            string _year = CommonHelper.GetValue(Request["year"], "0");
 
             if (string.IsNullOrEmpty(_month))
                 _month = Request["month[]"];
@@ -43,6 +44,7 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
             object[] o = new object[12];
             double[] b = new double[12];
             string[] categories = new string[12];
+            double[] c = new double[12];
 
             for (int i = 1; i < 13; i++)
             {
@@ -68,10 +70,13 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
 
                 cr.SetResultTransformer(new AliasToBeanResultTransformer(typeof(Payrate)));
 
-                IList<Payrate> list = cr.List<Payrate>();
+                IList<Payrate> list = await Task.Run(() => { return cr.List<Payrate>(); });
 
-                foreach (Payrate x in list)
-                    liststaff.Add(x.Staffid);
+                await Task.Run(() =>
+                    {
+                        foreach (Payrate x in list)
+                            liststaff.Add(x.Staffid);
+                    });
             }
 
             if (_year != "0")
@@ -88,10 +93,13 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
 
                 cr.SetResultTransformer(new AliasToBeanResultTransformer(typeof(Payrate)));
 
-                IList<Payrate> list = cr.List<Payrate>();
+                IList<Payrate> list = await Task.Run(() => { return cr.List<Payrate>(); });
 
-                foreach (Payrate x in list)
-                    listyear.Add(x.Year);
+                await Task.Run(() =>
+                    {
+                        foreach (Payrate x in list)
+                            listyear.Add(x.Year);
+                    });
             }
 
             if (_month != "0")
@@ -106,7 +114,7 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
                 for (int i = 1; i < 13; i++)
                     listmonth.Add(i);
             }
-
+                
             foreach (int y in listyear)
             {
                 foreach (int m in listmonth)
@@ -120,8 +128,8 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
                             { "staff_id", s }
                         };
 
-                        double total_hours = AttendanceHelper.GetTotalHours(filters);
-                        double rate = PayrateHelper.GetPayRate(filters);
+                        double total_hours = await AttendanceHelper.GetTotalHours(filters);
+                        double rate = await PayrateHelper.GetPayRate(filters);
                         double v = total_hours * rate;
                         object[,] t = o[m - 1] as object[,];
                         double x = Convert.ToDouble(t[0, 1]);
@@ -132,7 +140,6 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
                 }
             }
 
-            double[] c = new double[12];
             for (int i = 0; i < b.Length; i++)
             {
                 c[i] = Math.Round(b[i], 2);

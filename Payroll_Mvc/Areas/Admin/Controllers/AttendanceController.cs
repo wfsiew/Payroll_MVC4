@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Threading.Tasks;
 
 using Domain.Model;
 using Payroll_Mvc.Models;
@@ -11,20 +12,20 @@ using Payroll_Mvc.Areas.Admin.Models;
 
 namespace Payroll_Mvc.Areas.Admin.Controllers
 {
-    public class AttendanceController : Controller
+    public class AttendanceController : AsyncController
     {
         //
         // GET: /Admin/Attendance/
 
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             ListModel<Attendance> l = null;
-            l = AttendanceHelper.GetAll();
+            l = await AttendanceHelper.GetAll();
 
             return View(l);
         }
 
-        public ActionResult List()
+        public async Task<ActionResult> List()
         {
             string _work_date = Request["work_date"];
             string employee = string.IsNullOrEmpty(Request["employee"]) ? "" : Request["employee"];
@@ -47,10 +48,10 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
             ListModel<Attendance> l = null;
 
             if (work_date == default(DateTime) && string.IsNullOrEmpty(employee))
-                l = AttendanceHelper.GetAll(pgnum, pgsize, sort);
+                l = await AttendanceHelper.GetAll(pgnum, pgsize, sort);
 
             else
-                l = AttendanceHelper.GetFilterBy(filters, pgnum, pgsize, sort);
+                l = await AttendanceHelper.GetFilterBy(filters, pgnum, pgsize, sort);
 
             return View("_list", l);
         }

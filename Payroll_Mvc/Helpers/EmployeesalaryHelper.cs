@@ -14,22 +14,22 @@ namespace Payroll_Mvc.Helpers
         public static Employeesalary GetObject(Employee e,FormCollection fc)
         {
             string paramSalary = GetParam("salary", fc);
-            double salary = string.IsNullOrEmpty(paramSalary) ? default(double) : Convert.ToDouble(paramSalary);
+            double salary = CommonHelper.GetValue<double>(paramSalary);
 
             string paramAllowance = GetParam("allowance", fc);
-            double allowance = string.IsNullOrEmpty(paramAllowance) ? default(double) : Convert.ToDouble(paramAllowance);
+            double allowance = CommonHelper.GetValue<double>(paramAllowance);
 
             string paramEpf = GetParam("epf", fc);
-            double epf = string.IsNullOrEmpty(paramEpf) ? default(double) : Convert.ToDouble(paramEpf);
+            double epf = CommonHelper.GetValue<double>(paramEpf);
 
             string paramSocso = GetParam("socso", fc);
-            double socso = string.IsNullOrEmpty(paramSocso) ? default(double) : Convert.ToDouble(paramSocso);
+            double socso = CommonHelper.GetValue<double>(paramSocso);
 
             string paramIncometax = GetParam("income_tax", fc);
-            double incometax = string.IsNullOrEmpty(paramIncometax) ? default(double) : Convert.ToDouble(paramIncometax);
+            double incometax = CommonHelper.GetValue<double>(paramIncometax);
 
             string paramPaytype = GetParam("pay_type", fc);
-            int? paytype = string.IsNullOrEmpty(paramPaytype) ? null : new Nullable<int>(Convert.ToInt32(paramPaytype));
+            int? paytype = string.IsNullOrEmpty(paramPaytype) ? null : new Nullable<int>(CommonHelper.GetValue<int>(paramPaytype));
 
             Employeesalary o = e.Employeesalary;
 

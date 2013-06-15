@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Threading.Tasks;
 
 using NHibernate;
 using NHibernate.SqlCommand;
@@ -19,7 +20,7 @@ namespace Payroll_Mvc.Helpers
         public const string DEFAULT_SORT_COLUMN = "Staffid";
         public const string DEFAULT_SORT_DIR = "ASC";
 
-        public static ListModel<Employee> GetAll(int pagenum = 1, int pagesize = Pager.DEFAULT_PAGE_SIZE,
+        public static async Task<ListModel<Employee>> GetAll(int pagenum = 1, int pagesize = Pager.DEFAULT_PAGE_SIZE,
             Sort sort = null)
         {
             ListModel<Employee> l = new ListModel<Employee>();
@@ -28,7 +29,7 @@ namespace Payroll_Mvc.Helpers
                 sort = new Sort(DEFAULT_SORT_COLUMN, DEFAULT_SORT_DIR);
 
             ISession se = NHibernateHelper.CurrentSession;
-            int total = se.QueryOver<Employee>().Future().Count();
+            int total = await Task.Run(() => { return se.QueryOver<Employee>().Future().Count(); });
             Pager pager = new Pager(total, pagenum, pagesize);
 
             int has_next = pager.HasNext ? 1 : 0;
@@ -45,7 +46,7 @@ namespace Payroll_Mvc.Helpers
             cr.SetFirstResult(pager.LowerBound);
             cr.SetMaxResults(pager.PageSize);
 
-            List<Employee> list = cr.List<Employee>().ToList();
+            IList<Employee> list = await Task.Run(() => { return cr.List<Employee>(); });
 
             l.ItemMsg = pager.GetItemMessage();
             l.HasNext = has_next;
@@ -61,7 +62,7 @@ namespace Payroll_Mvc.Helpers
             return l;
         }
 
-        public static ListModel<Employee> GetFilterBy(Dictionary<string, object> filters, int pagenum = 1,
+        public static async Task<ListModel<Employee>> GetFilterBy(Dictionary<string, object> filters, int pagenum = 1,
             int pagesize = Pager.DEFAULT_PAGE_SIZE, Sort sort = null)
         {
             ListModel<Employee> l = new ListModel<Employee>();
@@ -87,7 +88,7 @@ namespace Payroll_Mvc.Helpers
             cr.SetFirstResult(pager.LowerBound);
             cr.SetMaxResults(pager.PageSize);
 
-            List<Employee> list = cr.List<Employee>().ToList();
+            IList<Employee> list = await Task.Run(() => { return cr.List<Employee>(); });
 
             l.ItemMsg = pager.GetItemMessage();
             l.HasNext = has_next;
@@ -103,7 +104,7 @@ namespace Payroll_Mvc.Helpers
             return l;
         }
 
-        public static Employee GetObject(FormCollection fc)
+        public static Employee GetObject(Employee o, FormCollection fc)
         {
             string paramDob = GetParam("dob", fc);
             DateTime dob = CommonHelper.GetDateTime(paramDob);
@@ -117,30 +118,32 @@ namespace Payroll_Mvc.Helpers
             if (user != null)
                 user.Id = new Guid(paramUserid);
 
-            Employee o = new Employee
+            if (o == null)
             {
-                Staffid = GetParam("staff_id", fc),
-                Firstname = GetParam("first_name", fc),
-                Middlename = GetParam("middle_name", fc),
-                Lastname = GetParam("last_name", fc),
-                Newic = GetParam("new_ic", fc),
-                Oldic = GetParam("old_ic", fc),
-                Passportno = GetParam("passport_no", fc),
-                Gender = GetParam("gender", fc),
-                Maritalstatus = GetParam("marital_status", fc),
-                Nationality = GetParam("nationality", fc),
-                Dob = dob,
-                Placeofbirth = GetParam("place_of_birth", fc),
-                Race = GetParam("race", fc),
-                Religion = GetParam("religion", fc),
-                Isbumi = isbumi,
-                User = user
-            };
+                o = new Employee();
+            }
+
+            o.Staffid = GetParam("staff_id", fc);
+            o.Firstname = GetParam("first_name", fc);
+            o.Middlename = GetParam("middle_name", fc);
+            o.Lastname = GetParam("last_name", fc);
+            o.Newic = GetParam("new_ic", fc);
+            o.Oldic = GetParam("old_ic", fc);
+            o.Passportno = GetParam("passport_no", fc);
+            o.Gender = GetParam("gender", fc);
+            o.Maritalstatus = GetParam("marital_status", fc);
+            o.Nationality = GetParam("nationality", fc);
+            o.Dob = dob;
+            o.Placeofbirth = GetParam("place_of_birth", fc);
+            o.Race = GetParam("race", fc);
+            o.Religion = GetParam("religion", fc);
+            o.Isbumi = isbumi;
+            o.User = user;
 
             return o;
         }
 
-        public static string GetItemMessage(Dictionary<string, object> filters, int pagenum, int pagesize)
+        public static async Task<string> GetItemMessage(Dictionary<string, object> filters, int pagenum, int pagesize)
         {
             int total = 0;
             Pager pager = null;
@@ -149,7 +152,7 @@ namespace Payroll_Mvc.Helpers
 
             if (filters == null)
             {
-                total = se.QueryOver<Employee>().Future().Count();
+                total = await Task.Run(() => { return se.QueryOver<Employee>().Future().Count(); });
                 pager = new Pager(total, pagenum, pagesize);
                 m = pager.GetItemMessage();
             }
@@ -158,7 +161,7 @@ namespace Payroll_Mvc.Helpers
             {
                 ICriteria cr = se.CreateCriteria<Employee>("employee");
                 GetFilterCriteria(cr, filters);
-                total = cr.SetProjection(Projections.Count(Projections.Id())).UniqueResult<int>();
+                total = await Task.Run(() => { return cr.SetProjection(Projections.Count(Projections.Id())).UniqueResult<int>(); });
                 pager = new Pager(total, pagenum, pagesize);
                 m = pager.GetItemMessage();
             }
