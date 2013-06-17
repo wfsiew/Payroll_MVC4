@@ -148,6 +148,22 @@ namespace Payroll_Mvc.Helpers
             return m;
         }
 
+        public static async Task<double> GetSalaryAdjustment(Dictionary<string, object> filters)
+        {
+            ISession se = NHibernateHelper.CurrentSession;
+
+            ICriteria cr = se.CreateCriteria<Salaryadjustment>();
+
+            cr.Add(Restrictions.Eq("Staffid", filters["staff_id"]));
+
+            IProjection yearProjection = Projections.SqlFunction("year", NHibernateUtil.Int32, Projections.Property("Workdate"));
+            cr.Add(Restrictions.Eq(yearProjection, filters["year"]));
+
+            cr.SetProjection(Projections.Sum("Inc"));
+
+            return await Task.Run(() => { return cr.UniqueResult<double>(); });
+        }
+
         private static void GetOrder(Sort sort, ICriteria cr)
         {
             bool sortDir = sort.Direction == "ASC" ? true : false;

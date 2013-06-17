@@ -76,6 +76,12 @@ namespace Payroll_Mvc.Areas.Admin
             );
 
             context.MapRoute(
+                "Admin_payslip",
+                "admin/payslip/slip/{id}/{month}/{year}",
+                new { controller = "Payslip", action = "Payslip" }
+            );
+
+            context.MapRoute(
                 "Admin_default",
                 "Admin/{controller}/{action}/{id}",
                 new { action = "Index", id = UrlParameter.Optional }

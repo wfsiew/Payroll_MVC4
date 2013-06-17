@@ -28,10 +28,8 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
 
         public async Task<ActionResult> List()
         {
-            string _work_date = Request["work_date"];
-            string employee = string.IsNullOrEmpty(Request["employee"]) ? "" : Request["employee"];
-
-            DateTime work_date = string.IsNullOrEmpty(_work_date) ? default(DateTime) : CommonHelper.GetDateTime(_work_date);
+            DateTime work_date = CommonHelper.GetDateTime(Request["work_date"]);
+            string employee = CommonHelper.GetValue(Request["employee"]);
 
             int pgnum = string.IsNullOrEmpty(Request["pgnum"]) ? 1 : Convert.ToInt32(Request["pgnum"]);
             int pgsize = string.IsNullOrEmpty(Request["pgsize"]) ? 0 : Convert.ToInt32(Request["pgsize"]);

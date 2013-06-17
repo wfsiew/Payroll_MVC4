@@ -133,6 +133,7 @@
     <Compile Include="Areas\Admin\Controllers\OvertimeChartController.cs" />
     <Compile Include="Areas\Admin\Controllers\OvertimeRateController.cs" />
     <Compile Include="Areas\Admin\Controllers\PayRateController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PayslipController.cs" />
     <Compile Include="Areas\Admin\Controllers\SalaryAdjustmentController.cs" />
     <Compile Include="Areas\Admin\Controllers\TotalWorkHoursChartController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
@@ -155,11 +156,13 @@
     <Compile Include="Helpers\JobcategoryHelper.cs" />
     <Compile Include="Helpers\OvertimerateHelper.cs" />
     <Compile Include="Helpers\PayrateHelper.cs" />
+    <Compile Include="Helpers\PayslipHelper.cs" />
     <Compile Include="Helpers\SalaryadjustmentHelper.cs" />
     <Compile Include="Helpers\UserHelper.cs" />
     <Compile Include="Models\ListModel.cs" />
     <Compile Include="Helpers\NHibernateHelper.cs" />
     <Compile Include="Models\Pager.cs" />
+    <Compile Include="Models\PayslipModel.cs" />
     <Compile Include="Models\Sort.cs" />
     <Compile Include="Models\Utils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -447,6 +450,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Views\OvertimeRate\_form.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\Payslip\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\Payslip\_search_form.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\Payslip\_list.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

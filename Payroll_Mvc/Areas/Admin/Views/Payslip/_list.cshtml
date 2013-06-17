@@ -1,0 +1,99 @@
+﻿@using Domain.Model;
+@using Payroll_Mvc.Models;
+
+@model ListModel<Employee>
+
+@{
+    ViewBag.totalpage = Model.TotalPage;
+}
+
+@if (Model.List != null && Model.List.Count > 0)
+{
+    <table class="list_table">
+        <thead class="ui-widget-header">
+            <tr>
+                <th class="data chkbox">
+                    <input class="hdchk" type="checkbox" /></th>
+                <th class="data">
+                    <div id="hd_Staffid" class="sortheader hover">
+                        <span class="colheader">Id</span>
+                        <span class="sorticon"></span>
+                    </div>
+                </th>
+                <th class="data">
+                    <div id="hd_Firstname" class="sortheader hover">
+                        <span class="colheader">First (&amp; Middle) Name</span>
+                        <span class="sorticon"></span>
+                    </div>
+                </th>
+                <th class="data">
+                    <div id="hd_Lastname" class="sortheader hover">
+                        <span class="colheader">Last Name</span>
+                        <span class="sorticon"></span>
+                    </div>
+                </th>
+                <th class="data">
+                    <div id="hd_d-Title" class="sortheader hover">
+                        <span class="colheader">Job Title</span>
+                        <span class="sorticon"></span>
+                    </div>
+                </th>
+                <th class="data">
+                    <div id="hd_es-Name" class="sortheader hover">
+                        <span class="colheader">Employment Status</span>
+                        <span class="sorticon"></span>
+                    </div>
+                </th>
+                <th class="data">
+                    <div id="hd_dept-Name" class="sortheader hover">
+                        <span class="colheader">Department</span>
+                        <span class="sorticon"></span>
+                    </div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        @{
+            int n = 0;
+            string css = "ui-state-active";
+        }
+        @foreach (Employee o in Model.List)
+        {
+            css = n % 2 == 0 ? "ui-state-active" : "ui-state-default";
+            ++n;
+
+            Employeejob ej = o.Employeejob;
+            Designation d = ej == null ? null : ej.Designation;
+            Department dept = ej == null ? null : ej.Department;
+            Employmentstatus es = ej == null ? null : ej.Employmentstatus;
+        
+            <tr id="tr_@o.Id" class="@css">
+                <td class="data chkbox">
+                    <input class="chk" type="checkbox" /></td>
+                <td class="data">@o.Staffid</td>
+                <td class="data">@o.Firstname</td>
+                <td class="data">@o.Lastname</td>
+                <td class="data">
+                    @if (d != null)
+                    {
+                        @d.Title
+                    }
+                </td>
+                <td class="data">
+                    @if (es != null)
+                    {
+                        @es.Name
+                    }
+                </td>
+                <td class="data">
+                    @if (dept != null)
+                    {
+                        @dept.Name
+                    }
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+<input id="id_pg" type="hidden" value="@Model.HasPrev,@Model.HasNext,@Model.PrevPage,@Model.NextPage,@Model.ItemMsg,@Model.SortColumn,@Model.SortDir,@Model.Page" />

@@ -1,0 +1,18 @@
+﻿@using Domain.Model;
+@using Payroll_Mvc.Models;
+
+@model ListModel<Employee>
+
+@{
+    ViewBag.title = "Employee Payslip";
+    ViewBag.dialog_title = "Employee Payslip";
+    Layout = "~/Views/Layouts/_List.cshtml";
+}
+
+@section search_form {
+    @{ Html.RenderPartial("_search_form"); }
+}
+@section content_list {
+    @{ Html.RenderPartial("_list"); }
+}
+@section dialog {}
