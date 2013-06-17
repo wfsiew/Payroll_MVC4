@@ -102,10 +102,35 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
                     o.TotalOvertimeEarnings = await PayslipHelper.GetTotalOvertimeEarnings(filters, o.TotalOvertime);
                     o.Adjustment = await SalaryadjustmentHelper.GetSalaryAdjustment(filters);
 
+                    o.TotalEarnings = PayslipHelper.GetTotalEarnings(employee_salary, o.Adjustment, o.TotalOvertimeEarnings);
+                    o.TotalDeduct = PayslipHelper.GetTotalDeductions(employee_salary);
+                    o.NettSalary = PayslipHelper.GetNettSalary(o.TotalEarnings, o.TotalDeduct);
+
+                    o.BasicPay = employee_salary.Salary + o.Adjustment;
+
+                    return View("payslip_monthly", o);
+                }
+
+                else
+                {
+                    Dictionary<string, object> filters = new Dictionary<string, object>
+                    {
+                        { "year", year },
+                        { "month", month },
+                        { "staff_id", employee.Staffid }
+                    };
+
+                    double[] x = await PayslipHelper.GetTotalEarningsHourly(employee_salary, filters);
+                    o.TotalEarnings = x[0];
+                    o.TotalHours = x[1];
+                    o.HourlyPayRate = x[2];
+
+                    o.TotalDeduct = PayslipHelper.GetTotalDeductions(employee_salary);
+                    o.NettSalary = PayslipHelper.GetNettSalaryHourly(o.TotalEarnings, o.TotalDeduct);
+
+                    return View("payslip_hourly", o);
                 }
             }
-
-            return null;
         }
     }
 }
