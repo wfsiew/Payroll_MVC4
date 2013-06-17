@@ -127,9 +127,12 @@
     <Compile Include="Areas\Admin\Controllers\DepartmentController.cs" />
     <Compile Include="Areas\Admin\Controllers\DesignationController.cs" />
     <Compile Include="Areas\Admin\Controllers\EmployeeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\EmploymentStatusController.cs" />
     <Compile Include="Areas\Admin\Controllers\HourlyPayrollChartController.cs" />
     <Compile Include="Areas\Admin\Controllers\JobCategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\OvertimeChartController.cs" />
+    <Compile Include="Areas\Admin\Controllers\OvertimeRateController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PayRateController.cs" />
     <Compile Include="Areas\Admin\Controllers\SalaryAdjustmentController.cs" />
     <Compile Include="Areas\Admin\Controllers\TotalWorkHoursChartController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
@@ -148,7 +151,9 @@
     <Compile Include="Helpers\EmployeejobHelper.cs" />
     <Compile Include="Helpers\EmployeequalificationHelper.cs" />
     <Compile Include="Helpers\EmployeesalaryHelper.cs" />
+    <Compile Include="Helpers\EmploymentstatusHelper.cs" />
     <Compile Include="Helpers\JobcategoryHelper.cs" />
+    <Compile Include="Helpers\OvertimerateHelper.cs" />
     <Compile Include="Helpers\PayrateHelper.cs" />
     <Compile Include="Helpers\SalaryadjustmentHelper.cs" />
     <Compile Include="Helpers\UserHelper.cs" />
@@ -406,6 +411,42 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Views\JobCategory\_form.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\EmploymentStatus\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\EmploymentStatus\_list.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\EmploymentStatus\_search_form.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\EmploymentStatus\_form.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\PayRate\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\PayRate\_search_form.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\PayRate\_form.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\PayRate\_list.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\OvertimeRate\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\OvertimeRate\_search_form.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\OvertimeRate\_list.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\OvertimeRate\_form.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

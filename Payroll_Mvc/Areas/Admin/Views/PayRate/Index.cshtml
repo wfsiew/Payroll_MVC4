@@ -1,0 +1,23 @@
+﻿@using Domain.Model;
+@using Payroll_Mvc.Models;
+
+@model ListModel<Payrate>
+
+@{
+    ViewBag.title = "Employee Pay Rate";
+    ViewBag.dialog_title = "Employee Pay Rate";
+    ViewBag.dialog_add_title = "Add New Pay Rate";
+    ViewBag.dialog_edit_title = "Edit Pay Rate";
+    ViewBag.totalpage = Model.TotalPage;
+    Layout = "~/Views/Layouts/_List.cshtml";
+}
+
+@section search_form {
+    @{ Html.RenderPartial("_search_form"); }
+}
+@section content_list {
+    @{ Html.RenderPartial("_list"); }
+}
+@section dialog {
+    @{ Html.RenderPartial("_dialog_save"); }
+}

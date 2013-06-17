@@ -1,0 +1,64 @@
+﻿@using Domain.Model;
+@using Payroll_Mvc.Helpers;
+
+@model Payrate
+
+<form id="@ViewBag.form_id" class="save_form ui-widget-content ui-widget ui-corner-all" action=".">
+    <table>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="staff_id" class="label">Staff ID</label>
+            </td>
+            <td>
+                <input id="id_staff_id" name="staff_id" type="text" class="text" placeholder="enter staff id" title="enter staff id" x-webkit-speech="x-webkit-speech" value="@Model.Staffid" />
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="month" class="label">Month</label>
+            </td>
+            <td>
+                @{
+                    List<SelectListItem> lm = new List<SelectListItem>();
+                    for (int i = 1; i < 13; i++)
+                    {
+                        lm.Add(new SelectListItem { Selected = Model.Month == i, Text = CommonHelper.GetMonthName(i), Value = i.ToString() });
+                    }
+                }
+                @Html.DropDownList("month", lm, new { id = "id_month", @class = "select" })
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="year" class="label">Year</label>
+            </td>
+            <td>
+                @{
+                    List<SelectListItem> ly = new List<SelectListItem>();
+                    for (int i = DateTime.Now.Year; i >= CommonHelper.END_YEAR; i--)
+                    {
+                        ly.Add(new SelectListItem { Selected = Model.Year == i, Text = i.ToString(), Value = i.ToString() });
+                    }
+                }
+                @Html.DropDownList("year", ly, new { id = "id_year", @class = "select" })
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="hourly_pay_rate" class="label">Pay rate</label>
+            </td>
+            <td>
+                <input id="id_pay_rate" name="hourly_pay_rate" type="text" class="text" placeholder="enter hourly pay rate" title="enter hourly pay rate" x-webkit-speech="x-webkit-speech" value="@CommonHelper.FormatNumberDouble(Model.Hourlypayrate)" />
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <div class="row_button">
+                    @{ Html.RenderPartial("_save_button"); }
+                    @{ Html.RenderPartial("_cancel_button"); }
+                </div>
+            </td>
+        </tr>
+    </table>
+</form>

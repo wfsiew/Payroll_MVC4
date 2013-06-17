@@ -1,0 +1,44 @@
+﻿@using Payroll_Mvc.Helpers;
+
+<table>
+    <tr>
+        <td>
+            <label for="id_staff_id" class="label">Id</label>
+        </td>
+        <td class="colspacing">
+            <input id="id_staff_id" name="id_staff_id" type="text" class="search" placeholder="type here to search" title="type here to search" x-webkit-speech="x-webkit-speech" />
+        </td>
+        <td>
+            <label for="id_month" class="label">Month</label>
+        </td>
+        <td>
+            <select id="id_month" class="select">
+                <option value="0">All</option>
+                @for (int i = 1; i < 13; i++)
+                {
+                    <option value="@i">@CommonHelper.GetMonthName(i)</option>
+                }
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label for="id_year" class="label">Year</label>
+        </td>
+        <td class="colspacing">
+            <select id="id_year" class="select">
+                <option value="0">All</option>
+                @for (int i = DateTime.Now.Year; i >= CommonHelper.END_YEAR; i--)
+                {
+                    <option value="@i">@i</option>
+                }
+            </select>
+        </td>
+        <td colspan="2"></td>
+    </tr>
+</table>
+<br />
+@{
+    ViewBag.include_search = true;
+}
+@{ Html.RenderPartial("_panel_button"); }

@@ -11,36 +11,37 @@ using NHibernate.Criterion;
 using NHibernate.Criterion.Lambda;
 using Domain.Model;
 using Payroll_Mvc.Models;
+using Payroll_Mvc.Areas.Admin.Models;
 
 namespace Payroll_Mvc.Helpers
 {
-    public class SalaryadjustmentHelper
+    public class OvertimerateHelper
     {
-        public const string DEFAULT_SORT_COLUMN = "Staffid";
+        public const string DEFAULT_SORT_COLUMN = "Year";
         public const string DEFAULT_SORT_DIR = "ASC";
 
-        public static async Task<ListModel<Salaryadjustment>> GetAll(int pagenum = 1, int pagesize = Pager.DEFAULT_PAGE_SIZE,
+        public static async Task<ListModel<Overtimerate>> GetAll(int pagenum = 1, int pagesize = Pager.DEFAULT_PAGE_SIZE,
             Sort sort = null)
         {
-            ListModel<Salaryadjustment> l = new ListModel<Salaryadjustment>();
+            ListModel<Overtimerate> l = new ListModel<Overtimerate>();
 
             if (sort == null)
                 sort = new Sort(DEFAULT_SORT_COLUMN, DEFAULT_SORT_DIR);
 
             ISession se = NHibernateHelper.CurrentSession;
-            int total = await Task.Run(() => { return se.QueryOver<Salaryadjustment>().Future().Count(); });
+            int total = await Task.Run(() => { return se.QueryOver<Overtimerate>().Future().Count(); });
             Pager pager = new Pager(total, pagenum, pagesize);
 
             int has_next = pager.HasNext ? 1 : 0;
             int has_prev = pager.HasPrev ? 1 : 0;
 
-            ICriteria cr = se.CreateCriteria<Salaryadjustment>("saladj");
+            ICriteria cr = se.CreateCriteria<Overtimerate>("ov");
             GetOrder(sort, cr);
 
             cr.SetFirstResult(pager.LowerBound);
             cr.SetMaxResults(pager.PageSize);
 
-            IList<Salaryadjustment> list = await Task.Run(() => { return cr.List<Salaryadjustment>(); });
+            IList<Overtimerate> list = await Task.Run(() => { return cr.List<Overtimerate>(); });
 
             l.ItemMsg = pager.GetItemMessage();
             l.HasNext = has_next;
@@ -56,19 +57,19 @@ namespace Payroll_Mvc.Helpers
             return l;
         }
 
-        public static async Task<ListModel<Salaryadjustment>> GetFilterBy(Dictionary<string, object> filters, int pagenum = 1,
+        public static async Task<ListModel<Overtimerate>> GetFilterBy(Dictionary<string, object> filters, int pagenum = 1,
             int pagesize = Pager.DEFAULT_PAGE_SIZE, Sort sort = null)
         {
-            ListModel<Salaryadjustment> l = new ListModel<Salaryadjustment>();
+            ListModel<Overtimerate> l = new ListModel<Overtimerate>();
 
             if (sort == null)
                 sort = new Sort(DEFAULT_SORT_COLUMN, DEFAULT_SORT_DIR);
 
             ISession se = NHibernateHelper.CurrentSession;
-            ICriteria cr = se.CreateCriteria<Salaryadjustment>("saladj");
+            ICriteria cr = se.CreateCriteria<Overtimerate>("ov");
             GetFilterCriteria(cr, filters);
 
-            ICriteria crCount = se.CreateCriteria<Salaryadjustment>("saladj");
+            ICriteria crCount = se.CreateCriteria<Overtimerate>("ov");
             GetFilterCriteria(crCount, filters);
 
             int total = await Task.Run(() => { return crCount.SetProjection(Projections.Count(Projections.Id())).UniqueResult<int>(); });
@@ -82,7 +83,7 @@ namespace Payroll_Mvc.Helpers
             cr.SetFirstResult(pager.LowerBound);
             cr.SetMaxResults(pager.PageSize);
 
-            IList<Salaryadjustment> list = await Task.Run(() => { return cr.List<Salaryadjustment>(); });
+            IList<Overtimerate> list = await Task.Run(() => { return cr.List<Overtimerate>(); });
 
             l.ItemMsg = pager.GetItemMessage();
             l.HasNext = has_next;
@@ -98,26 +99,23 @@ namespace Payroll_Mvc.Helpers
             return l;
         }
 
-        public static Salaryadjustment GetObject(Salaryadjustment o, FormCollection fc)
+        public static Overtimerate GetObject(Overtimerate o, FormCollection fc)
         {
-            string staff_id = fc.Get("staff_id");
-
-            string paramInc = fc.Get("inc");
-            double inc = CommonHelper.GetValue<double>(paramInc);
-
-            string paramMonth = fc.Get("month");
-            int month = CommonHelper.GetValue<int>(paramMonth);
+            string paramDuration = fc.Get("duration");
+            double duration = CommonHelper.GetValue<double>(paramDuration);
 
             string paramYear = fc.Get("year");
             int year = CommonHelper.GetValue<int>(paramYear);
 
-            if (o == null)
-                o = new Salaryadjustment();
+            string paramPayRate = fc.Get("pay_rate");
+            double payRate = CommonHelper.GetValue<double>(paramPayRate);
 
-            o.Staffid = staff_id;
-            o.Inc = inc;
-            o.Month = month;
+            if (o == null)
+                o = new Overtimerate();
+
+            o.Duration = duration;
             o.Year = year;
+            o.Payrate = payRate;
 
             return o;
         }
@@ -131,14 +129,14 @@ namespace Payroll_Mvc.Helpers
 
             if (filters == null)
             {
-                total = await Task.Run(() => { return se.QueryOver<Salaryadjustment>().Future().Count(); });
+                total = await Task.Run(() => { return se.QueryOver<Overtimerate>().Future().Count(); });
                 pager = new Pager(total, pagenum, pagesize);
                 m = pager.GetItemMessage();
             }
 
             else
             {
-                ICriteria cr = se.CreateCriteria<Salaryadjustment>("saladj");
+                ICriteria cr = se.CreateCriteria<Overtimerate>("ov");
                 GetFilterCriteria(cr, filters);
                 total = await Task.Run(() => { return cr.SetProjection(Projections.Count(Projections.Id())).UniqueResult<int>(); });
                 pager = new Pager(total, pagenum, pagesize);
@@ -151,24 +149,16 @@ namespace Payroll_Mvc.Helpers
         private static void GetOrder(Sort sort, ICriteria cr)
         {
             bool sortDir = sort.Direction == "ASC" ? true : false;
-            Order order = new Order(string.Format("saladj.{0}", sort.Column), sortDir);
+            Order order = new Order(string.Format("ov.{0}", sort.Column), sortDir);
             cr.AddOrder(order);
         }
 
         private static void GetFilterCriteria(ICriteria cr, Dictionary<string, object> filters)
         {
-            string staff_id = Convert.ToString(filters["staff_id"]);
-            int month = (int)filters["month"];
             int year = (int)filters["year"];
 
-            if (!string.IsNullOrEmpty(staff_id))
-                cr.Add(Restrictions.InsensitiveLike("saladj.Staffid", staff_id, MatchMode.Anywhere));
-
-            if (month != 0)
-                cr.Add(Restrictions.Eq("saladj.Month", month));
-
             if (year != 0)
-                cr.Add(Restrictions.Eq("saladj.Year", year));
+                cr.Add(Restrictions.Eq("ov.Year", year));
         }
     }
 }

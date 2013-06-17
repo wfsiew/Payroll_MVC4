@@ -28,15 +28,27 @@ namespace Payroll_Mvc.Areas.Admin
             );
 
             context.MapRoute(
-                "Admin_dept",
-                "admin/dept/{action}/{id}",
-                new { controller = "Department", action = "Index", id = UrlParameter.Optional }
+                "Admin_overtimerate",
+                "admin/overtime/rate/{action}",
+                new { controller = "OvertimeRate", action = "Index" }
+            );
+
+            context.MapRoute(
+                "Admin_empstatus",
+                "admin/empstatus/{action}/{id}",
+                new { controller = "EmploymentStatus", action = "Index", id = UrlParameter.Optional }
             );
 
             context.MapRoute(
                 "Admin_jobcat",
                 "admin/jobcat/{action}/{id}",
                 new { controller = "JobCategory", action = "Index", id = UrlParameter.Optional }
+            );
+
+            context.MapRoute(
+                "Admin_dept",
+                "admin/dept/{action}/{id}",
+                new { controller = "Department", action = "Index", id = UrlParameter.Optional }
             );
 
             context.MapRoute(

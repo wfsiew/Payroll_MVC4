@@ -47,6 +47,7 @@ namespace Payroll_Mvc.Controllers
                     {
                         Session["employee_id"] = employee.Id;
                         Session["staff_id"] = employee.Staffid;
+                        FormsAuthentication.SetAuthCookie(username, true);
                         return RedirectToRoute("Admin_index");
                     }
 

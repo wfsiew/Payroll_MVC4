@@ -1,0 +1,23 @@
+﻿@using Domain.Model;
+@using Payroll_Mvc.Models;
+
+@model ListModel<Overtimerate>
+
+@{
+    ViewBag.title = "Employee Overtime Pay Rate";
+    ViewBag.dialog_title = "Employee Overtime Pay Rate";
+    ViewBag.dialog_add_title = "Add New Overtime Pay Rate";
+    ViewBag.dialog_edit_title = "Edit Overtime Pay Rate";
+    ViewBag.totalpage = Model.TotalPage;
+    Layout = "~/Views/Layouts/_List.cshtml";
+}
+
+@section search_form {
+    @{ Html.RenderPartial("_search_form"); }
+}
+@section content_list {
+    @{ Html.RenderPartial("_list"); }
+}
+@section dialog {
+    @{ Html.RenderPartial("_dialog_save"); }
+}

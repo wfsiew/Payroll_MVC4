@@ -1,0 +1,24 @@
+﻿@using Payroll_Mvc.Helpers;
+
+<table>
+    <tr>
+        <td>
+            <label for="id_year" class="label">Year</label>
+        </td>
+        <td class="colspacing">
+            <select id="id_year" class="select">
+                <option value="0">All</option>
+                @for (int i = DateTime.Now.Year; i >= CommonHelper.END_YEAR; i--)
+                {
+                    <option value="@i">@i</option>
+                }
+            </select>
+        </td>
+        <td colspan="2"></td>
+    </tr>
+</table>
+<br />
+@{
+    ViewBag.include_search = true;
+}
+@{ Html.RenderPartial("_panel_button"); }
