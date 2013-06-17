@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Threading.Tasks;
 
+using NHibernate;
 using Domain.Model;
 using Payroll_Mvc.Models;
 
@@ -11,7 +13,7 @@ namespace Payroll_Mvc.Helpers
 {
     public class EmployeejobHelper
     {
-        public static Employeejob GetObject(Employee e, FormCollection fc)
+        public static async Task<Employeejob> GetObject(ISession se, Employee e, FormCollection fc)
         {
             string paramJoindate = GetParam("join_date", fc);
             DateTime joindate = CommonHelper.GetDateTime(paramJoindate);
@@ -32,16 +34,16 @@ namespace Payroll_Mvc.Helpers
             Jobcategory jobcat = string.IsNullOrEmpty(paramJobcategoryid) || paramJobcategoryid == "0" ? null : new Jobcategory();
 
             if (des != null)
-                des.Id = CommonHelper.GetValue<int>(paramDesignationid);
+                des = await Task.Run(() => { return se.Get<Designation>(CommonHelper.GetValue<int>(paramDesignationid)); });
 
             if (dept != null)
-                dept.Id = CommonHelper.GetValue<int>(paramDepartmentid);
+                dept = await Task.Run(() => { return se.Get<Department>(CommonHelper.GetValue<int>(paramDepartmentid)); });
 
             if (es != null)
-                es.Id = CommonHelper.GetValue<int>(paramEmploymentstatusid);
+                es = await Task.Run(() => { return se.Get<Employmentstatus>(CommonHelper.GetValue<int>(paramEmploymentstatusid)); });
 
             if (jobcat != null)
-                jobcat.Id = CommonHelper.GetValue<int>(paramJobcategoryid);
+                jobcat = await Task.Run(() => { return se.Get<Jobcategory>(CommonHelper.GetValue<int>(paramJobcategoryid)); });
 
             Employeejob o = e.Employeejob;
 

@@ -104,7 +104,7 @@ namespace Payroll_Mvc.Helpers
             return l;
         }
 
-        public static Employee GetObject(Employee o, FormCollection fc)
+        public static async Task<Employee> GetObject(ISession se, Employee o, FormCollection fc)
         {
             string paramDob = GetParam("dob", fc);
             DateTime dob = CommonHelper.GetDateTime(paramDob);
@@ -116,12 +116,10 @@ namespace Payroll_Mvc.Helpers
             User user = string.IsNullOrEmpty(paramUserid) || paramUserid == "0" ? null : new User();
 
             if (user != null)
-                user.Id = new Guid(paramUserid);
+                user = await Task.Run(() => { return se.Get<User>(new Guid(paramUserid)); });
 
             if (o == null)
-            {
                 o = new Employee();
-            }
 
             o.Staffid = GetParam("staff_id", fc);
             o.Firstname = GetParam("first_name", fc);

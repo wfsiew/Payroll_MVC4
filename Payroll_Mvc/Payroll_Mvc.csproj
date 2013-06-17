@@ -124,8 +124,11 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\AttendanceController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DepartmentController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DesignationController.cs" />
     <Compile Include="Areas\Admin\Controllers\EmployeeController.cs" />
     <Compile Include="Areas\Admin\Controllers\HourlyPayrollChartController.cs" />
+    <Compile Include="Areas\Admin\Controllers\JobCategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\OvertimeChartController.cs" />
     <Compile Include="Areas\Admin\Controllers\SalaryAdjustmentController.cs" />
     <Compile Include="Areas\Admin\Controllers\TotalWorkHoursChartController.cs" />
@@ -138,11 +141,14 @@
     </Compile>
     <Compile Include="Helpers\AttendanceHelper.cs" />
     <Compile Include="Helpers\CommonHelper.cs" />
+    <Compile Include="Helpers\DepartmentHelper.cs" />
+    <Compile Include="Helpers\DesignationHelper.cs" />
     <Compile Include="Helpers\EmployeecontactHelper.cs" />
     <Compile Include="Helpers\EmployeeHelper.cs" />
     <Compile Include="Helpers\EmployeejobHelper.cs" />
     <Compile Include="Helpers\EmployeequalificationHelper.cs" />
     <Compile Include="Helpers\EmployeesalaryHelper.cs" />
+    <Compile Include="Helpers\JobcategoryHelper.cs" />
     <Compile Include="Helpers\PayrateHelper.cs" />
     <Compile Include="Helpers\SalaryadjustmentHelper.cs" />
     <Compile Include="Helpers\UserHelper.cs" />
@@ -205,6 +211,7 @@
     <Content Include="Content\css\humanity\images\ui-icons_ffffff_256x240.png" />
     <Content Include="Content\css\humanity\jquery-ui-1.10.2.custom.min.css" />
     <Content Include="Content\css\jquery.themes.css" />
+    <Content Include="Content\css\login.css" />
     <Content Include="Content\css\trontastic\images\animated-overlay.gif" />
     <Content Include="Content\css\trontastic\images\ui-bg_diagonals-small_50_262626_40x40.png" />
     <Content Include="Content\css\trontastic\images\ui-bg_flat_0_303030_40x100.png" />
@@ -357,6 +364,48 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Views\SalaryAdjustment\_list.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Application\Login.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Layouts\_Application.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\Department\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\Department\_list.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\Department\_form.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\Department\_search_form.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\Designation\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\Designation\_search_form.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\Designation\_list.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\Designation\_form.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\JobCategory\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\JobCategory\_search_form.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\JobCategory\_list.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\JobCategory\_form.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

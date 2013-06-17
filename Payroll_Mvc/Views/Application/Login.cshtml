@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.title = "Payroll System: Log In";
+    Layout = "~/Views/Layouts/_Application.cshtml";
+}
+
+<div class="login_box ui-corner-all ui-state-hover">
+    <div class="msg ui-state-highlight ui-corner-all">Please log in to access the application:</div>
+
+    @if (ViewBag.notice != null)
+    {
+        <div class="notice ui-state-hover ui-corner-all">@ViewBag.notice</div>
+    }
+    @if (ViewBag.alert != null)
+    {
+        <div class="errorblock ui-state-error ui-corner-all">@ViewBag.alert</div>
+    }
+    @using (Html.BeginForm("Login", "Application", FormMethod.Post))
+    {
+        <div class="row">
+            <label for="username" class="editor-label">Username</label>
+            <input name="username" type="text" class="text-box" x-webkit-speech="x-webkit-speech" value="admin" />
+        </div>
+        <div class="row">
+            <label for="password" class="editor-label">Password</label>
+            <input name="password" type="password" class="text-box" x-webkit-speech="x-webkit-speech" value="admin123" />
+        </div>
+        
+        <div class="msg ui-corner-all">
+            <input type="submit" class="hover msg login_btn ui-state-hover ui-corner-all" value="Log In" />
+        </div>
+    }
+</div>

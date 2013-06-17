@@ -16,6 +16,8 @@ namespace Domain.Model
     public class User
     {
         public const string UNCHANGED_PASSWORD = "********";
+        public const int ADMIN = 1;
+        public const int NORMAL_USER = 2;
 
         public User()
         {
@@ -64,6 +66,16 @@ namespace Domain.Model
             return true;
         }
 
+        public virtual bool IsAuthenticated(string password)
+        {
+            return Password == GetSHA1HashData(password);
+        }
+
+        public virtual bool IsEnabled()
+        {
+            return Status == true;
+        }
+
         public virtual Dictionary<string, object> IsValid(ISession se)
         {
             Validator.Id = Id;
@@ -72,6 +84,23 @@ namespace Domain.Model
             ValidationResult r = Validator.Validate(this);
 
             return ValidationHelper.GetErrors(r);
+        }
+
+        public static async Task<User> Authenticate(ISession se, string username, string password)
+        {
+            User user = await Task.Run(() =>
+                {
+                    return se.QueryOver<User>()
+                        .Where(x => x.Username == username)
+                        .Skip(0)
+                        .Take(1)
+                        .SingleOrDefault();
+                }
+            );
+            if (user != null && user.IsAuthenticated(password) && user.IsEnabled())
+                return user;
+
+            return null;
         }
 
         private string GetSHA1HashData(string data)

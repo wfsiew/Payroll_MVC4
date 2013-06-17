@@ -5,8 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 using FluentValidation;
-using NHibernate;
-using NHibernate.Criterion;
 using Domain.Model;
 
 namespace Domain.Validator

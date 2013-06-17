@@ -7,6 +7,7 @@ using System.Web.Routing;
 
 namespace Payroll_Mvc.Areas.Admin.Controllers
 {
+    [Authorize]
     public class AdminController : Controller
     {
         //

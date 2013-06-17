@@ -12,6 +12,7 @@ using Payroll_Mvc.Helpers;
 
 namespace Payroll_Mvc.Areas.Admin.Controllers
 {
+    [Authorize]
     public class SalaryAdjustmentController : AsyncController
     {
         //

@@ -70,7 +70,7 @@ var payrate = ( function() {
                 msg : result.errors[e][0]
               };
               var h = new EJS({
-                url : '/assets/tpl/label_error.html',
+                url : '/Js/tpl/label_error.html',
                 ext : '.html'
               }).render(o);
               if (e == 'month' || e == 'year')
@@ -123,7 +123,7 @@ var payrate = ( function() {
                 msg : result.errors[e][0]
               };
               var h = new EJS({
-                url : '/assets/tpl/label_error.html',
+                url : '/Js/tpl/label_error.html',
                 ext : '.html'
               }).render(o);
               if (e == 'month' || e == 'year')

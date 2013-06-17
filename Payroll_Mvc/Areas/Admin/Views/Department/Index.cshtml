@@ -1,0 +1,23 @@
+﻿@using Domain.Model;
+@using Payroll_Mvc.Models;
+
+@model ListModel<Department>
+
+@{
+    ViewBag.title = "Department";
+    ViewBag.dialog_title = "Department";
+    ViewBag.dialog_add_title = "Add New Department";
+    ViewBag.dialog_edit_title = "Edit Department";
+    ViewBag.totalpage = Model.TotalPage;
+    Layout = "~/Views/Layouts/_List.cshtml";
+}
+
+@section search_form {
+    @{ Html.RenderPartial("_search_form"); }
+}
+@section content_list {
+    @{ Html.RenderPartial("_list"); }
+}
+@section dialog {
+    @{ Html.RenderPartial("_dialog_save"); }
+}

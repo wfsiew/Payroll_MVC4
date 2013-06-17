@@ -16,6 +16,7 @@ using Payroll_Mvc.Areas.Admin.Models;
 
 namespace Payroll_Mvc.Areas.Admin.Controllers
 {
+    [Authorize]
     public class TotalWorkHoursChartController : AsyncController
     {
         //

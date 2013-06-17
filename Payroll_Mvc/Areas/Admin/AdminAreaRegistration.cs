@@ -16,9 +16,27 @@ namespace Payroll_Mvc.Areas.Admin
         public override void RegisterArea(AreaRegistrationContext context)
         {
             context.MapRoute(
+                "Admin_index",
+                "admin",
+                new { controller = "Admin", action = "Index" }
+            );
+
+            context.MapRoute(
                 "Admin_attendance",
                 "admin/att/{action}",
                 new { controller = "Attendance", action = "Index" }
+            );
+
+            context.MapRoute(
+                "Admin_dept",
+                "admin/dept/{action}/{id}",
+                new { controller = "Department", action = "Index", id = UrlParameter.Optional }
+            );
+
+            context.MapRoute(
+                "Admin_jobcat",
+                "admin/jobcat/{action}/{id}",
+                new { controller = "JobCategory", action = "Index", id = UrlParameter.Optional }
             );
 
             context.MapRoute(

@@ -1,0 +1,93 @@
+﻿body {
+  font: 11pt Trebuchet MS, Tahoma, Verdana, Arial, sans-serif;
+  border: none !important;
+}
+
+form {
+  margin-bottom: 0px;
+}
+
+.top_right {
+  float: right;
+  clear: all;
+  margin-right: 10px;
+  margin-top: 10px;
+  display: inline-block;
+}
+
+.login_box {
+  width: 500px;
+  margin: 0 auto;
+  padding: 10px;
+  margin-top: 12%;
+  background-image: none !important;
+}
+
+.login_box .msg {
+  text-align: center;
+  padding: 8px;
+  margin: 8px;
+}
+
+.editor-label:after {
+  content: ":";
+}
+
+.text-box {
+  width: 25em;
+}
+
+.login_btn {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  width: 150px;
+  font: 12pt Trebuchet MS, Tahoma, Verdana, Arial, sans-serif bolder !important;
+}
+
+.login_btn:HOVER {
+  border: 1px groove #ccc;
+}
+
+div.row {
+  clear: both;
+  padding-top: 5px;
+  margin-left: 5px;
+}
+
+div.row label {
+  float: left;
+  text-align: right;
+  margin-top: 5px;
+  margin-right: 5px;
+  width: 100px;
+}
+
+.hover {
+  cursor: pointer;
+}
+
+.notice {
+  border: 3px solid #000000;
+  padding: 8px;
+  margin: 16px;
+  text-align: center;
+}
+
+.errorblock {
+  border: 3px solid #ff0000;
+  padding: 8px;
+  margin: 16px;
+  text-align: center;
+}
+
+input[type='text'], input[type='password'], textarea {
+  border: 1px solid #ccc;
+}
+
+input[type='text']:HOVER, input[type='password']:HOVER, textarea:HOVER {
+  border: 1px solid #000;
+}
+
+input[type='text']:FOCUS, input[type='password']:FOCUS, textarea:FOCUS {
+  background-color: #ffc;
+}

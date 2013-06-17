@@ -13,6 +13,7 @@ using Payroll_Mvc.Areas.Admin.Models;
 
 namespace Payroll_Mvc.Areas.Admin.Controllers
 {
+    [Authorize]
     public class EmployeeController : AsyncController
     {
         //
@@ -99,21 +100,21 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
         [HttpPost]
         public async Task<JsonResult> Create(FormCollection fc)
         {
-            Employee o = EmployeeHelper.GetObject(null, fc);
+            ISession se = NHibernateHelper.CurrentSession;
+
+            Employee o = await EmployeeHelper.GetObject(se, null, fc);
 
             bool b1 = EmployeecontactHelper.IsEmptyParams(fc);
             Employeecontact oc = EmployeecontactHelper.GetObject(o, fc);
 
             bool b2 = EmployeejobHelper.IsEmptyParams(fc);
-            Employeejob oej = EmployeejobHelper.GetObject(o, fc);
+            Employeejob oej = await EmployeejobHelper.GetObject(se, o, fc);
 
             bool b3 = EmployeesalaryHelper.IsEmptyParams(fc);
             Employeesalary osa = EmployeesalaryHelper.GetObject(o, fc);
 
             bool b4 = EmployeequalificationHelper.IsEmptyParams(fc);
             Employeequalification oq = EmployeequalificationHelper.GetObject(o, fc);
-
-            ISession se = NHibernateHelper.CurrentSession;
 
             Dictionary<string, object> employeeErrors = o.IsValid(se);
             Dictionary<string, object> employeeContactErrors = null;
@@ -214,9 +215,9 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
             ISession se = NHibernateHelper.CurrentSession;
 
             Employee o = await Task.Run(() => { return se.Get<Employee>(id); });
-            o = EmployeeHelper.GetObject(o, fc);
+            o = await EmployeeHelper.GetObject(se, o, fc);
             Employeecontact oc = EmployeecontactHelper.GetObject(o, fc);
-            Employeejob oej = EmployeejobHelper.GetObject(o, fc); ;
+            Employeejob oej = await EmployeejobHelper.GetObject(se, o, fc); ;
             Employeesalary osa = EmployeesalaryHelper.GetObject(o, fc);
             Employeequalification oq = EmployeequalificationHelper.GetObject(o, fc);
 

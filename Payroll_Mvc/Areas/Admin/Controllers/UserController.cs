@@ -12,6 +12,7 @@ using Payroll_Mvc.Helpers;
 
 namespace Payroll_Mvc.Areas.Admin.Controllers
 {
+    [Authorize]
     public class UserController : AsyncController
     {
         //
@@ -173,6 +174,10 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
 
             string itemscount = null;
 
+            ISession se = NHibernateHelper.CurrentSession;
+
+            await DeleteReferences(se, idlist);
+
             Dictionary<string, object> filters = new Dictionary<string, object>
             {
                 { "username", username },
@@ -180,8 +185,6 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
                 { "employee", employee },
                 { "status", status }
             };
-
-            ISession se = NHibernateHelper.CurrentSession;
 
             await Task.Run(() =>
                 {
@@ -207,6 +210,30 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
                 { "message", string.Format("{0} user(s) was successfully deleted.", idlist.Length) }
             },
             JsonRequestBehavior.AllowGet);
+        }
+
+        private async Task DeleteReferences(ISession se, string[] idlist)
+        {
+            foreach (string id in idlist)
+            {
+                Guid uid = new Guid(id);
+                Domain.Model.User o = se.Get<User>(uid);
+                Employee e = o.Employee;
+
+                if (e != null)
+                {
+                    e.User = null;
+
+                    await Task.Run(() =>
+                        {
+                            using (ITransaction tx = se.BeginTransaction())
+                            {
+                                se.SaveOrUpdate(e);
+                                tx.Commit();
+                            }
+                        });
+                }
+            }
         }
     }
 }

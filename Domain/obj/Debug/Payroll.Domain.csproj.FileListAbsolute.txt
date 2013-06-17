@@ -36,4 +36,3 @@ E:\vs_Projects\Payroll_Mvc\Domain\bin\Debug\pt\FluentValidation.resources.dll
 E:\vs_Projects\Payroll_Mvc\Domain\bin\Debug\ru\FluentValidation.resources.dll
 E:\vs_Projects\Payroll_Mvc\Domain\bin\Debug\sv\FluentValidation.resources.dll
 E:\vs_Projects\Payroll_Mvc\Domain\bin\Debug\tr\FluentValidation.resources.dll
-E:\vs_Projects\Payroll_Mvc\Domain\obj\Debug\Payroll.Domain.csprojResolveAssemblyReference.cache

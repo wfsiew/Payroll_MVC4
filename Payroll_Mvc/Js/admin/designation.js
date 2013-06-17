@@ -70,7 +70,7 @@
                 msg : result.errors[e][0]
               };
               var h = new EJS({
-                url : '/assets/tpl/label_error.html',
+                url : '/Js/tpl/label_error.html',
                 ext : '.html'
               }).render(o);
               $("#add-form input[name='" + e + "']").after(h);
@@ -120,7 +120,7 @@
                 msg : result.errors[e][0]
               };
               var h = new EJS({
-                url : '/assets/tpl/label_error.html',
+                url : '/Js/tpl/label_error.html',
                 ext : '.html'
               }).render(o);
               $("#edit-form input[name='" + e + "']").after(h);
@@ -234,6 +234,7 @@
       nav_list.config.list_url = url.list;
       nav_list.config.list_func = init_list;
       nav_list.config.del_func = func_delete;
+      nav_list.config.search_param_func = null;
       nav_list.init();
     }
 
