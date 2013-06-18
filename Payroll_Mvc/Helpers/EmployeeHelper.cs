@@ -121,7 +121,10 @@ namespace Payroll_Mvc.Helpers
             if (o == null)
                 o = new Employee();
 
-            o.Staffid = GetParam("staff_id", fc);
+            string staff_id = GetParam("staff_id", fc);
+            if (!string.IsNullOrEmpty(staff_id))
+                o.Staffid = staff_id;
+
             o.Firstname = GetParam("first_name", fc);
             o.Middlename = GetParam("middle_name", fc);
             o.Lastname = GetParam("last_name", fc);
@@ -136,7 +139,9 @@ namespace Payroll_Mvc.Helpers
             o.Race = GetParam("race", fc);
             o.Religion = GetParam("religion", fc);
             o.Isbumi = isbumi;
-            o.User = user;
+
+            if (!string.IsNullOrEmpty(paramUserid))
+                o.User = user;
 
             return o;
         }

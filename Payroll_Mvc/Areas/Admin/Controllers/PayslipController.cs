@@ -13,6 +13,7 @@ using Payroll_Mvc.Areas.Admin.Models;
 
 namespace Payroll_Mvc.Areas.Admin.Controllers
 {
+    [Authorize]
     public class PayslipController : AsyncController
     {
         //
@@ -77,7 +78,7 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
             Employeesalary employee_salary = employee.Employeesalary;
 
             PayslipModel o = new PayslipModel();
-            o.Period = string.Format("{0}-{1}", month, year);
+            o.Period = string.Format("{0}-{1}", CommonHelper.GetMonthName(month), year);
             o.Employee = employee;
             o.EmployeeSalary = employee_salary;
 

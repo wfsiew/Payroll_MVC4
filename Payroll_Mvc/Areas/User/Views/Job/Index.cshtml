@@ -1,0 +1,67 @@
+﻿@using Domain.Model;
+@using Payroll_Mvc.Helpers;
+
+@{
+    ViewBag.dialog_title = "Job Details";
+}
+
+@model Employeejob
+
+<div class="page_title ui-widget-header ui-widget">Job Details</div>
+<div class="ui-widget-content ui-widget">
+    <table>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="designation_id" class="label">Job Title</label>
+            </td>
+            <td>
+                <span>@if (Model.Designation != null)
+                      { @Model.Designation.Title }</span>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="employment_status_id" class="label">Employment Status</label>
+            </td>
+            <td>
+                <span>@if (Model.Employmentstatus != null)
+                      { @Model.Employmentstatus.Name }</span>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="job_category_id" class="label">Job Category</label>
+            </td>
+            <td>
+                <span>@if (Model.Jobcategory != null)
+                      { @Model.Jobcategory.Name }</span>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="join_date" class="label">Join Date</label>
+            </td>
+            <td>
+                <span>@CommonHelper.FormatDate(Model.Joindate)</span>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="confirm_date" class="label">Confirm Date</label>
+            </td>
+            <td>
+                <span>@CommonHelper.FormatDate(Model.Confirmdate)</span>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="department_id" class="label">Department</label>
+            </td>
+            <td>
+                <span>@if (Model.Department != null)
+                      { @Model.Department.Name }</span>
+            </td>
+        </tr>
+    </table>
+</div>
+@{ Html.RenderPartial("_alert_panel"); }

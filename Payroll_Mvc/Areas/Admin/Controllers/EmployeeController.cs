@@ -83,7 +83,7 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
                 Employeequalification = new Employeequalification()
             };
             ViewBag.form_id = "add-form";
-            ViewBag.users = se.QueryOver<User>()
+            ViewBag.users = se.QueryOver<Domain.Model.User>()
                 .OrderBy(x => x.Username).Asc.List();
             ViewBag.designations = se.QueryOver<Designation>()
                 .OrderBy(x => x.Title).Asc.List();
@@ -195,7 +195,7 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
             };
 
             ViewBag.form_id = "edit-form";
-            ViewBag.users = se.QueryOver<User>()
+            ViewBag.users = se.QueryOver<Domain.Model.User>()
                 .OrderBy(x => x.Username).Asc.List();
             ViewBag.designations = se.QueryOver<Designation>()
                 .OrderBy(x => x.Title).Asc.List();

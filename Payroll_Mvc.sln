@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Payroll_Mvc", "Payroll_Mvc\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Payroll.Domain", "Domain\Payroll.Domain.csproj", "{43664DE0-0E47-4182-94B5-7E81A93B7498}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Payroll_Seed", "Payroll_Seed\Payroll_Seed.csproj", "{23338912-4F68-47FF-9CF6-854216DC4BE0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{43664DE0-0E47-4182-94B5-7E81A93B7498}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43664DE0-0E47-4182-94B5-7E81A93B7498}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43664DE0-0E47-4182-94B5-7E81A93B7498}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23338912-4F68-47FF-9CF6-854216DC4BE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23338912-4F68-47FF-9CF6-854216DC4BE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23338912-4F68-47FF-9CF6-854216DC4BE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23338912-4F68-47FF-9CF6-854216DC4BE0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

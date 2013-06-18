@@ -41,6 +41,17 @@ namespace Domain.Model
 
         public virtual EmployeesalaryValidator Validator { get; set; }
 
+        public virtual string GetPayTypeDisplay()
+        {
+            if (Paytype == 1)
+                return "Monthly";
+
+            else if (Paytype == 2)
+                return "Hourly";
+
+            return "";
+        }
+
         public virtual Dictionary<string, object> IsValid()
         {
             ValidationResult r = Validator.Validate(this);

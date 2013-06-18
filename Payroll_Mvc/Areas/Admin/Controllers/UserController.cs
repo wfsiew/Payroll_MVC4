@@ -20,7 +20,7 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
 
         public async Task<ActionResult> Index()
         {
-            ListModel<User> l = null;
+            ListModel<Domain.Model.User> l = null;
 
             l = await UserHelper.GetAll();
 
@@ -48,7 +48,7 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
                 { "status", status }
             };
 
-            ListModel<User> l = null;
+            ListModel<Domain.Model.User> l = null;
 
             if (string.IsNullOrEmpty(username) && role == 0 && string.IsNullOrEmpty(employee) && status == 0)
                 l = await UserHelper.GetAll(pgnum, pgsize, sort);
@@ -62,13 +62,13 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
         public ActionResult New()
         {
             ViewBag.form_id = "add-form";
-            return View("_form", new User());
+            return View("_form", new Domain.Model.User());
         }
 
         [HttpPost]
         public async Task<JsonResult> Create(FormCollection fc)
         {
-            User o = UserHelper.GetObject(fc);
+            Domain.Model.User o = UserHelper.GetObject(fc);
 
             Dictionary<string, object> err = null;
 
@@ -106,7 +106,7 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
             ViewBag.form_id = "edit-form";
 
             ISession se = NHibernateHelper.CurrentSession;
-            User o = await Task.Run(() => { return se.Get<User>(id); });
+            Domain.Model.User o = await Task.Run(() => { return se.Get<Domain.Model.User>(id); });
 
             return View("_form", o);
         }
@@ -115,12 +115,12 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
         public async Task<JsonResult> Update(Guid id, FormCollection fc)
         {
             Dictionary<string, object> err = null;
-            User o = null;
-            User x = UserHelper.GetObject(fc);
+            Domain.Model.User o = null;
+            Domain.Model.User x = UserHelper.GetObject(fc);
 
             ISession se = NHibernateHelper.CurrentSession;
 
-            o = await Task.Run(() => { return se.Get<User>(id); });
+            o = await Task.Run(() => { return se.Get<Domain.Model.User>(id); });
             x.Id = id;
 
             err = x.IsValid(se);
@@ -217,7 +217,7 @@ namespace Payroll_Mvc.Areas.Admin.Controllers
             foreach (string id in idlist)
             {
                 Guid uid = new Guid(id);
-                Domain.Model.User o = se.Get<User>(uid);
+                Domain.Model.User o = se.Get<Domain.Model.User>(uid);
                 Employee e = o.Employee;
 
                 if (e != null)

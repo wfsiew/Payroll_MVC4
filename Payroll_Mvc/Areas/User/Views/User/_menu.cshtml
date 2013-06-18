@@ -1,0 +1,23 @@
+﻿<div id="menu">
+    <h3><a href="#">Personal</a></h3>
+    <div>
+        <div><a id="menu_info" href="#" onclick="return info.load()">Personal Details</a></div>
+        <div><a href="#" onclick="return contact.load()">Contact Details</a></div>
+        <div><a href="#" onclick="return job.load()">Job</a></div>
+        <div><a href="#" onclick="return salary.load()">Salary</a></div>
+        <div><a href="#" onclick="return qualification.load()">Qualification</a></div>
+    </div>
+    <h3><a href="#" onclick="">Payroll</a></h3>
+    <div>
+        <div><a href="#" onclick="return wkcht.load()">Total Hours Worked Chart</a></div>
+        @if (ViewBag.pay_type == 1)
+        {
+            <div><a href="#" onclick="return otcht.load()">Overtime Chart</a></div>
+        }
+        else
+        {
+            <div><a href="#" onclick="return hpcht.load()">Hourly Payroll Chart</a></div>
+        }
+        <div><a href="#" onclick="return payslip.load()">Payslip</a></div>
+    </div>
+</div>

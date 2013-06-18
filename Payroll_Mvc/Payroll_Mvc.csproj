@@ -138,6 +138,13 @@
     <Compile Include="Areas\Admin\Controllers\TotalWorkHoursChartController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Areas\Admin\Models\EmployeeView.cs" />
+    <Compile Include="Areas\User\Controllers\ContactController.cs" />
+    <Compile Include="Areas\User\Controllers\InfoController.cs" />
+    <Compile Include="Areas\User\Controllers\JobController.cs" />
+    <Compile Include="Areas\User\Controllers\SalaryController.cs" />
+    <Compile Include="Areas\User\Controllers\UserController.cs" />
+    <Compile Include="Areas\User\Models\SalaryView.cs" />
+    <Compile Include="Areas\User\UserAreaRegistration.cs" />
     <Compile Include="Controllers\ApplicationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -276,6 +283,16 @@
     <Content Include="Js\tpl\label_error.htm" />
     <Content Include="Js\tpl\label_error.html" />
     <Content Include="Js\tpl\label_error_inline.html" />
+    <Content Include="Js\user\base.js" />
+    <Content Include="Js\user\contact.js" />
+    <Content Include="Js\user\hpcht.js" />
+    <Content Include="Js\user\info.js" />
+    <Content Include="Js\user\job.js" />
+    <Content Include="Js\user\otcht.js" />
+    <Content Include="Js\user\payslip.js" />
+    <Content Include="Js\user\qualification.js" />
+    <Content Include="Js\user\salary.js" />
+    <Content Include="Js\user\wkcht.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -288,6 +305,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
+    <Folder Include="Areas\User\Views\Shared\" />
     <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
   <ItemGroup>
@@ -459,6 +477,42 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Views\Payslip\_list.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\Payslip\payslip_monthly.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\Payslip\payslip_hourly.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\User\Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Layouts\_User.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\User\Views\User\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\User\Views\User\_menu.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\User\Views\Info\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\User\Views\Info\_form.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\User\Views\Contact\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\User\Views\Contact\_form.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\User\Views\Job\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\User\Views\Salary\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

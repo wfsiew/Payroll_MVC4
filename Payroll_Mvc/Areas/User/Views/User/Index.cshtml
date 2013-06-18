@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "";
+    Layout = "~/Views/Layouts/_User.cshtml";
+}
+
+<div id="maincontainer">
+    <div id="topsection" class="ui-state-default">
+        <div class="innertube">
+            @{ Html.RenderPartial("_status_panel"); }
+            @{ Html.RenderPartial("_logout"); }
+            @{ Html.RenderPartial("_theme_select"); }
+        </div>
+    </div>
+    <div id="contentwrapper">
+        <div id="contentcolumn">
+            <div class="innertube"></div>
+        </div>
+    </div>
+    <div id="leftcolumn">
+        <div class="innertube">
+            @{ Html.RenderPartial("_menu"); }
+        </div>
+    </div>
+</div>
+<div id="error-dialog" title="Internal Server Error">
+    <div id="error_dialog"></div>
+</div>
+<div id="progress_status">
+    @{ Html.RenderPartial("_progress_panel"); }
+</div>

@@ -155,9 +155,7 @@ namespace Payroll_Mvc.Helpers
             ICriteria cr = se.CreateCriteria<Salaryadjustment>();
 
             cr.Add(Restrictions.Eq("Staffid", filters["staff_id"]));
-
-            IProjection yearProjection = Projections.SqlFunction("year", NHibernateUtil.Int32, Projections.Property("Workdate"));
-            cr.Add(Restrictions.Eq(yearProjection, filters["year"]));
+            cr.Add(Restrictions.Eq("Year", filters["year"]));
 
             cr.SetProjection(Projections.Sum("Inc"));
 

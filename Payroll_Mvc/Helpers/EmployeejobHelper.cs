@@ -74,6 +74,20 @@ namespace Payroll_Mvc.Helpers
             return false;
         }
 
+        public static Employeejob Find(object id)
+        {
+            Employeejob o = null;
+
+            ISession se = NHibernateHelper.CurrentSession;
+
+            o = se.Get<Employeejob>(id);
+
+            if (o == null)
+                o = new Employeejob();
+
+            return o;
+        }
+
         private static string GetParam(string key, FormCollection fc)
         {
             return fc.Get(string.Format("employee_job[{0}]", key));

@@ -1,0 +1,119 @@
+﻿@using Payroll_Mvc.Helpers;
+@using Payroll_Mvc.Areas.User.Models;
+
+@{
+    ViewBag.dialog_title = "Salary Details";
+}
+
+@model SalaryView
+
+<div class="page_title ui-widget-header ui-widget">Salary Details</div>
+<div class="ui-widget-content ui-widget">
+    <table>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="salary" class="label">Salary</label>
+            </td>
+            <td>
+                <span>@CommonHelper.FormatNumber(Model.BasicPay)</span>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="allowance" class="label">Allowance</label>
+            </td>
+            <td>
+                <span>@CommonHelper.FormatNumber(Model.Employeesalary.Allowance)</span>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="epf" class="label">EPF Deduction</label>
+            </td>
+            <td>
+                <span>@CommonHelper.FormatNumber(Model.Employeesalary.Epf)</span>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="socso" class="label">SOCSO Deduction</label>
+            </td>
+            <td>
+                <span>@CommonHelper.FormatNumber(Model.Employeesalary.Socso)</span>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="income_tax" class="label">Income Tax Deduction</label>
+            </td>
+            <td>
+                <span>@CommonHelper.FormatNumber(Model.Employeesalary.Incometax)</span>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="bank_name" class="label">Bank Name</label>
+            </td>
+            <td>
+                <span>@Model.Employeesalary.Bankname</span>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="bank_acc_no" class="label">Bank Account No.</label>
+            </td>
+            <td>
+                <span>@Model.Employeesalary.Bankaccno</span>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="bank_acc_type" class="label">Bank Account Type</label>
+            </td>
+            <td>
+                <span>@Model.Employeesalary.Bankacctype</span>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="bank_address" class="label">Bank Address</label>
+            </td>
+            <td>
+                <span>@Model.Employeesalary.Bankaddress</span>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="epf_no" class="label">EPF no.</label>
+            </td>
+            <td>
+                <span>@Model.Employeesalary.Epfno</span>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="socso_no" class="label">SOCSO no.</label>
+            </td>
+            <td>
+                <span>@Model.Employeesalary.Socsono</span>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="income_tax_no" class="label">Income Tax no.</label>
+            </td>
+            <td>
+                <span>@Model.Employeesalary.Incometaxno</span>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" class="lbl">
+                <label for="pay_type" class="label">Pay Type</label>
+            </td>
+            <td>
+                <span>@Model.Employeesalary.GetPayTypeDisplay()</span>
+            </td>
+        </tr>
+    </table>
+</div>
+@{ Html.RenderPartial("_alert_panel"); }

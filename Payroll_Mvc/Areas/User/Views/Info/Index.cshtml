@@ -1,0 +1,10 @@
+﻿@{
+    ViewBag.dialog_title = "Personal Details";
+}
+
+<div class="page_title ui-widget-header ui-widget">Personal Details</div>
+@{ Html.RenderPartial("_form"); }
+<div style="margin-top: 10px">
+    @{ Html.RenderPartial("_save_button"); }
+</div>
+@{ Html.RenderPartial("_alert_panel"); }

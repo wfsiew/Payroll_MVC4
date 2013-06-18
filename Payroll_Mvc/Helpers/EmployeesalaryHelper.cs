@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+using NHibernate;
 using Domain.Model;
 using Payroll_Mvc.Models;
 
@@ -74,6 +75,20 @@ namespace Payroll_Mvc.Helpers
                 return true;
 
             return false;
+        }
+
+        public static Employeesalary Find(object id)
+        {
+            Employeesalary o = null;
+
+            ISession se = NHibernateHelper.CurrentSession;
+
+            o = se.Get<Employeesalary>(id);
+
+            if (o == null)
+                o = new Employeesalary();
+
+            return o;
         }
 
         private static string GetParam(string key, FormCollection fc)
