@@ -19,8 +19,11 @@ namespace Payroll_Mvc.Controllers
 
         public ActionResult Login()
         {
-            Session.Clear();
-            FormsAuthentication.SignOut();
+            if (Request.IsAuthenticated)
+            {
+                Session.Clear();
+                FormsAuthentication.SignOut();
+            }
 
             return View();
         }
