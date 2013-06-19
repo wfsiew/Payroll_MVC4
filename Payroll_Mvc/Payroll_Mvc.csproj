@@ -150,6 +150,7 @@
     <Compile Include="Areas\User\Controllers\UserController.cs" />
     <Compile Include="Areas\User\Models\SalaryView.cs" />
     <Compile Include="Areas\User\UserAreaRegistration.cs" />
+    <Compile Include="Attributes\AuthAdminAttribute.cs" />
     <Compile Include="Attributes\AuthUserAttribute.cs" />
     <Compile Include="Controllers\ApplicationController.cs" />
     <Compile Include="Global.asax.cs">

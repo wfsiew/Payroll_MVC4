@@ -9,11 +9,13 @@ using Domain.Model;
 using NHibernate;
 using Payroll_Mvc.Models;
 using Payroll_Mvc.Helpers;
+using Payroll_Mvc.Attributes;
 using Payroll_Mvc.Areas.Admin.Models;
 
 namespace Payroll_Mvc.Areas.Admin.Controllers
 {
     [Authorize]
+    [AuthAdmin]
     public class PayslipController : AsyncController
     {
         //

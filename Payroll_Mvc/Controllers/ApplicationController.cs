@@ -36,6 +36,7 @@ namespace Payroll_Mvc.Controllers
                 Session["user_id"] = user.Id;
                 if (user.Role == Domain.Model.User.ADMIN)
                 {
+                    Session["admin_id"] = user.Id;
                     FormsAuthentication.SetAuthCookie(username, true);
                     return RedirectToRoute("Admin_index");
                 }

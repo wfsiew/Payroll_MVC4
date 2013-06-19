@@ -11,10 +11,12 @@ using NHibernate.Criterion;
 using Domain.Model;
 using Payroll_Mvc.Models;
 using Payroll_Mvc.Helpers;
+using Payroll_Mvc.Attributes;
 
 namespace Payroll_Mvc.Areas.Admin.Controllers
 {
     [Authorize]
+    [AuthAdmin]
     public class OvertimeChartController : AsyncController
     {
         //
