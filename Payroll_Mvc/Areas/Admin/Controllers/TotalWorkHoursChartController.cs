@@ -12,7 +12,6 @@ using NHibernate.Transform;
 using Domain.Model;
 using Payroll_Mvc.Models;
 using Payroll_Mvc.Helpers;
-using Payroll_Mvc.Areas.Admin.Models;
 
 namespace Payroll_Mvc.Areas.Admin.Controllers
 {

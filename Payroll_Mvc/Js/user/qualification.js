@@ -20,7 +20,7 @@ var qualification = ( function() {
                 msg : result.errors[e][0]
               };
               var h = new EJS({
-                url : '/assets/tpl/label_error_inline.html',
+                url : '/Js/tpl/label_error_inline.html',
                 ext : '.html'
               }).render(o);
               $("#save-form input[name='" + e + "']").after(h);

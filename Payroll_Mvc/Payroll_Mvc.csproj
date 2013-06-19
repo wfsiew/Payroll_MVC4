@@ -139,14 +139,19 @@
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Areas\Admin\Models\EmployeeView.cs" />
     <Compile Include="Areas\User\Controllers\ContactController.cs" />
+    <Compile Include="Areas\User\Controllers\HourlyPayrollChartController.cs" />
     <Compile Include="Areas\User\Controllers\InfoController.cs" />
     <Compile Include="Areas\User\Controllers\JobController.cs" />
+    <Compile Include="Areas\User\Controllers\OvertimeChartController.cs" />
+    <Compile Include="Areas\User\Controllers\PayslipController.cs" />
+    <Compile Include="Areas\User\Controllers\QualificationController.cs" />
     <Compile Include="Areas\User\Controllers\SalaryController.cs" />
+    <Compile Include="Areas\User\Controllers\TotalWorkHoursChartController.cs" />
     <Compile Include="Areas\User\Controllers\UserController.cs" />
     <Compile Include="Areas\User\Models\SalaryView.cs" />
     <Compile Include="Areas\User\UserAreaRegistration.cs" />
+    <Compile Include="Attributes\AuthUserAttribute.cs" />
     <Compile Include="Controllers\ApplicationController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -513,6 +518,51 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\User\Views\Salary\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\User\Views\Qualification\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\User\Views\Qualification\_form.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\User\Views\TotalWorkHoursChart\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\User\Views\TotalWorkHoursChart\_search_form.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\User\Views\TotalWorkHoursChart\_chart.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\User\Views\HourlyPayrollChart\_chart.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\User\Views\HourlyPayrollChart\_search_form.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\User\Views\HourlyPayrollChart\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\User\Views\OvertimeChart\_chart.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\User\Views\OvertimeChart\_search_form.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\User\Views\OvertimeChart\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\User\Views\Payslip\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\User\Views\Payslip\_search_form.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\payslip_hourly.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\payslip_monthly.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

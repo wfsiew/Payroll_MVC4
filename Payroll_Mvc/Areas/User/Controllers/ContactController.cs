@@ -8,9 +8,12 @@ using System.Threading.Tasks;
 using NHibernate;
 using Domain.Model;
 using Payroll_Mvc.Helpers;
+using Payroll_Mvc.Attributes;
 
 namespace Payroll_Mvc.Areas.User.Controllers
 {
+    [Authorize]
+    [AuthUser]
     public class ContactController : AsyncController
     {
         //

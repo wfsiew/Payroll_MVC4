@@ -1,0 +1,105 @@
+﻿@using Domain.Model;
+@using Payroll_Mvc.Models;
+@using Payroll_Mvc.Helpers;
+
+@model PayslipModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Monthly Payslip</title>
+    <link href="@Url.Content("~/Content/images/favicon.ico")" rel="shortcut icon" type="image/vnd.microsoft.icon" />
+    <link href="@Url.Content("~/Content/images/favicon.ico")" rel="icon" type="image/x-icon" />
+    <link href="@Url.Content("~/Content/css/jquery.themes.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/css/base.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Js/jquery-1.8.3.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Js/jquery.themes.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Js/app/utils.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Js/admin/wpayslip.js")" type="text/javascript"></script>
+</head>
+<body class="ui-widget-content">
+    <table class="heading">
+        <tr>
+            <td valign="top"><span class="boldtext">NAME</span> : @Model.Employee.Firstname @Model.Employee.Middlename @Model.Employee.Lastname</td>
+            <td align="right">
+                <table>
+                    <tr>
+                        <td align="left"><span class="boldtext">PERIOD</span></td>
+                        <td>: @Model.Period</td>
+                    </tr>
+                    <tr>
+                        <td align="left"><span class="boldtext">EMPLOYEE ID</span></td>
+                        <td>: @Model.Employee.Staffid</td>
+                    </tr>
+                    <tr>
+                        <td align="left"><span class="boldtext">IC NO.</span></td>
+                        <td>: @Model.Employee.Newic</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <table class="data_table">
+        <thead>
+            <tr>
+                <th>--- EARNINGS ---</th>
+                <th class="amt"><span>--- RM ---</span></th>
+                <th>--- DEDUCTIONS ---</th>
+                <th class="amt"><span>--- RM ---</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><span class="det boldtext">BASIC PAY</span></td>
+                <td class="amt"><span>@CommonHelper.FormatNumber(Model.BasicPay)</span></td>
+                <td><span class="det boldtext">EMPLOYEE EPF</span></td>
+                <td class="amt"><span>@CommonHelper.FormatNumber(Model.EmployeeSalary.Epf)</span></td>
+            </tr>
+            <tr>
+                <td><span class="det boldtext">ALLOWANCE</span></td>
+                <td class="amt"><span>@CommonHelper.FormatNumber(Model.EmployeeSalary.Allowance)</span></td>
+                <td><span class="det boldtext">EMPLOYEE SOCSO</span></td>
+                <td class="amt"><span>@CommonHelper.FormatNumber(Model.EmployeeSalary.Socso)</span></td>
+            </tr>
+            <tr>
+                <td><span class="det boldtext">TOTAL OVERTIME</span></td>
+                <td class="amt"><span>@CommonHelper.FormatNumber(Model.TotalOvertime)</span></td>
+                <td><span class="det boldtext">INCOME TAX</span></td>
+                <td class="amt"><span>@CommonHelper.FormatNumber(Model.EmployeeSalary.Incometax)</span></td>
+            </tr>
+            <tr>
+                <td><span class="det boldtext">TOTAL OVERTIME EARNINGS</span></td>
+                <td class="amt"><span>@CommonHelper.FormatNumber(Model.TotalOvertimeEarnings)</span></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="sum amt boldtext"><span>TOTAL : </span></td>
+                <td class="sum amt"><span>@CommonHelper.FormatNumber(Model.TotalEarnings)</span></td>
+                <td class="sum amt boldtext"><span>TOTAL : </span></td>
+                <td class="sum amt"><span>@CommonHelper.FormatNumber(Model.TotalDeduct)</span></td>
+            </tr>
+            <tr>
+                <td colspan="2"></td>
+                <td class="amt boldtext"><span>NETT PAY : </span></td>
+                <td class="amt"><span>@CommonHelper.FormatNumber(Model.NettSalary)</span></td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="subdet">
+        <tr>
+            <td><span class="boldtext">EPF</span></td>
+            <td>: @Model.EmployeeSalary.Epfno</td>
+        </tr>
+        <tr>
+            <td><span class="boldtext">SOCSO</span></td>
+            <td>: @Model.EmployeeSalary.Socsono</td>
+        </tr>
+    </table>
+    <div class="print_container">
+        <div class="print_button hover ui-state-default ui-corner-all">
+            <span class="icons printicon paddicon">Print</span>
+        </div>
+    </div>
+</body>
+</html>

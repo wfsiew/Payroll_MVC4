@@ -5,9 +5,12 @@ using System.Web;
 using System.Web.Mvc;
 
 using Payroll_Mvc.Helpers;
+using Payroll_Mvc.Attributes;
 
 namespace Payroll_Mvc.Areas.User.Controllers
 {
+    [Authorize]
+    [AuthUser]
     public class UserController : Controller
     {
         //
