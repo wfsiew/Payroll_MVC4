@@ -1,1 +1,1 @@
-# payroll.apphb.com
+http://payroll.apphb.com
