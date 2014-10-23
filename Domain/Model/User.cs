@@ -86,17 +86,16 @@ namespace Domain.Model
             return ValidationHelper.GetErrors(r);
         }
 
-        public static async Task<User> Authenticate(ISession se, string username, string password)
+        public static User Authenticate(ISession se, string username, string password)
         {
-            User user = await Task.Run(() =>
-                {
-                    return se.QueryOver<User>()
-                        .Where(x => x.Username == username)
-                        .Skip(0)
-                        .Take(1)
-                        .SingleOrDefault();
-                }
-            );
+            User user = se.QueryOver<User>()
+                .Where(x => x.Username == username)
+                .Skip(0)
+                .Take(1)
+                .SingleOrDefault();
+
+            if (user != null)
+                return user;
             if (user != null && user.IsAuthenticated(password) && user.IsEnabled())
                 return user;
 

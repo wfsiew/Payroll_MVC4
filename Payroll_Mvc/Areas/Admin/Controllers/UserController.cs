@@ -13,8 +13,8 @@ using Payroll_Mvc.Attributes;
 
 namespace Payroll_Mvc.Areas.Admin.Controllers
 {
-    [Authorize]
-    [AuthAdmin]
+    //[Authorize]
+    //[AuthAdmin]
     public class UserController : AsyncController
     {
         //

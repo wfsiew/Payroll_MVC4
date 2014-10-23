@@ -35,7 +35,7 @@ namespace Payroll_Mvc.Controllers
             string password = fc.Get("password");
 
             ISession se = NHibernateHelper.CurrentSession;
-            User user = await Task.Run(() => { return Domain.Model.User.Authenticate(se, username, password); });
+            User user = Domain.Model.User.Authenticate(se, username, password);
 
             if (user != null)
             {
