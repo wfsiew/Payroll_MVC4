@@ -29,7 +29,7 @@ namespace Payroll_Mvc.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Login(FormCollection fc)
+        public ActionResult Login(FormCollection fc)
         {
             string username = fc.Get("username");
             string password = fc.Get("password");
