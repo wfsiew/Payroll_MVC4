@@ -94,8 +94,6 @@ namespace Domain.Model
                 .Take(1)
                 .SingleOrDefault();
 
-            if (user != null)
-                return user;
             if (user != null && user.IsAuthenticated(password) && user.IsEnabled())
                 return user;
 
